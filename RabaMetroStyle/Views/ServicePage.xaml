@@ -47,9 +47,8 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label>Status</Label>
-                    <Label Grid.Row="1" Grid.Column="0">Machine Name</Label>
-                    <Label Grid.Row="1" Grid.Column="1" Content="{Binding MachineName}"></Label>
+                    <Label Grid.Row="0" Grid.Column="0">Machine Name</Label>
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding MachineName}"></Label>
                 </Grid>
             </GroupItem>
             <GroupBox Grid.Row="2" Grid.ColumnSpan="2" Grid.Column="0"

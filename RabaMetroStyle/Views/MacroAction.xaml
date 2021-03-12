@@ -73,15 +73,15 @@
                 <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0">And</Label>
                 <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo"></Control:DateTimePicker>
                 <Label Grid.Row="5" Grid.Column="1">Relative Age Younger Than</Label>
-                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan" Click="chkRelativeAge_Checked"></CheckBox>
                 <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeYouger"></Control:NumericUpDown>
                 <Label Grid.Row="5" Grid.Column="2" Margin="110,0,10,0">Days Old</Label>
                 <Label Grid.Row="5" Grid.Column="3" Margin="30,0,0,0">Relative Age Older Than</Label>
-                <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan"></CheckBox>
+                <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan" Click="chkRelativeAge_Checked"></CheckBox>
                 <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeOlder"></Control:NumericUpDown>
                 <Label Grid.Row="5" Grid.Column="4" Margin="110,0,10,0">Days Old</Label>
                 <Label Grid.Row="6" Grid.Column="1">Only Count Weekdays</Label>
-                <CheckBox Grid.Row="6" Grid.Column="2" Name="chlOnlyCountWeekdays"></CheckBox>
+                <CheckBox Grid.Row="6" Grid.Column="2" Name="chkOnlyCountWeekdays"></CheckBox>
                 <Label Grid.Row="7" Grid.Column="1">Size (KB)</Label>
                 <TextBox Grid.Row="7" Grid.Column="2" Name="txtSizeFrom" Margin="0,5,0,5"></TextBox>
                 <Label Grid.Row="7" Grid.Column="3" Margin="30,0,0,0">And</Label>

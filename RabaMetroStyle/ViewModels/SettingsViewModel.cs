@@ -167,7 +167,7 @@ namespace RabaMetroStyle.ViewModels
 
         private DelegateCommand PurgeMacroDelegateCommand { get; set; }
 
-        public void HandleSelectedMacroFile()
+        private void HandleSelectedMacroFile()
         {
             var macroFileName = this.settingsFolderService + "\\" + this.selectedMacroFile;
 
@@ -275,26 +275,12 @@ namespace RabaMetroStyle.ViewModels
             this.activeMacroFiles.Add(addMacroForm.MacroFileName + ".RABA");
         }
 
-        private ObservableCollection<Setting> ConvertDataTableToObservableCollection(DataSet settingTable)
-        {
-            var currentSetting = new ObservableCollection<Setting>();
-
-            if (settingTable.Tables.Count > 0)
-            {
-                if (settingTable.Tables["tblTaskInfo"].Rows.Count > 0)
-                {
-                    currentSetting = new ObservableCollection<Setting>((from dRow in settingTable.Tables["tblTaskInfo"].AsEnumerable()
-                                                                        select (this.GetMacroActionDataTableRow(dRow))));
-                }
-            }
-
-            return currentSetting;
-        }
-
         private void CopyMacroAction()
         {
             if (this.selectedItem == null)
             {
+                MessageBox.Show("Please select macro action", "Copy Macro Action", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
                 return;
             }
 
@@ -340,54 +326,11 @@ namespace RabaMetroStyle.ViewModels
             this.CurrentSettingsTable = null;
         }
 
-        private DataTable DsFunctionCreateDataTableTasks()
-        {
-            DataTable oDtReturn = new DataTable("tblTaskInfo");
-
-            try
-            {
-                oDtReturn.Columns.Add("ScanLocation");
-                oDtReturn.Columns.Add("IncludeSubFolders");
-                oDtReturn.Columns.Add("ScanFileExtension");
-                oDtReturn.Columns.Add("ScanFilePrefix");
-                oDtReturn.Columns.Add("ScanFileDateLessThan");
-                oDtReturn.Columns.Add("ScanFileDateGreaterThan");
-                oDtReturn.Columns.Add("ScanFileUseRelativeAgeYounger");
-                oDtReturn.Columns.Add("ScanFileAgeYounger");
-                oDtReturn.Columns.Add("ScanFileUseRelativeAgeOlder");
-                oDtReturn.Columns.Add("OnlyCountWeekDays");
-                oDtReturn.Columns.Add("ScanFileAgeOlder");
-                oDtReturn.Columns.Add("ScanFileSizeLessThan");
-                oDtReturn.Columns.Add("ScanFileSizeGreaterThan");
-                oDtReturn.Columns.Add("Action");
-                oDtReturn.Columns.Add("ActionCompleteRename");
-                oDtReturn.Columns.Add("ActionCompleteTimeStamp");
-                oDtReturn.Columns.Add("ActionCompleteDelete");
-                oDtReturn.Columns.Add("TargetLocation");
-                oDtReturn.Columns.Add("MaintainSubFolders");
-                oDtReturn.Columns.Add("Command");
-                oDtReturn.Columns.Add("IntegratedSecurity");
-                oDtReturn.Columns.Add("UserID");
-                oDtReturn.Columns.Add("Password");
-                oDtReturn.Columns.Add("DatabaseName");
-                oDtReturn.Columns.Add("DatabaseServer");
-                oDtReturn.Columns.Add("TaskOrder");
-                oDtReturn.Columns.Add("RunSQLScript");
-                oDtReturn.Columns.Add("RunSQLScriptFilePath");
-                oDtReturn.Columns.Add("RestoreDatabaseFileGroups");
-            }
-            catch (Exception ex)
-            {
-                // ignored
-            }
-
-            return oDtReturn;
-        }
-
         private void EditMacroAction()
         {
             if (selectedItem == null)
             {
+                MessageBox.Show("Please select macro action", "Edit Macro Action", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             var addMacroActionForm = new MacroAction(this.selectedItem);
@@ -582,6 +525,64 @@ namespace RabaMetroStyle.ViewModels
             }
 
             return tempSettingTable;
+        }
+        private ObservableCollection<Setting> ConvertDataTableToObservableCollection(DataSet settingTable)
+        {
+            var currentSetting = new ObservableCollection<Setting>();
+
+            if (settingTable.Tables.Count > 0)
+            {
+                if (settingTable.Tables["tblTaskInfo"].Rows.Count > 0)
+                {
+                    currentSetting = new ObservableCollection<Setting>((from dRow in settingTable.Tables["tblTaskInfo"].AsEnumerable()
+                                                                        select (this.GetMacroActionDataTableRow(dRow))));
+                }
+            }
+
+            return currentSetting;
+        }
+        private DataTable DsFunctionCreateDataTableTasks()
+        {
+            DataTable oDtReturn = new DataTable("tblTaskInfo");
+
+            try
+            {
+                oDtReturn.Columns.Add("ScanLocation");
+                oDtReturn.Columns.Add("IncludeSubFolders");
+                oDtReturn.Columns.Add("ScanFileExtension");
+                oDtReturn.Columns.Add("ScanFilePrefix");
+                oDtReturn.Columns.Add("ScanFileDateLessThan");
+                oDtReturn.Columns.Add("ScanFileDateGreaterThan");
+                oDtReturn.Columns.Add("ScanFileUseRelativeAgeYounger");
+                oDtReturn.Columns.Add("ScanFileAgeYounger");
+                oDtReturn.Columns.Add("ScanFileUseRelativeAgeOlder");
+                oDtReturn.Columns.Add("OnlyCountWeekDays");
+                oDtReturn.Columns.Add("ScanFileAgeOlder");
+                oDtReturn.Columns.Add("ScanFileSizeLessThan");
+                oDtReturn.Columns.Add("ScanFileSizeGreaterThan");
+                oDtReturn.Columns.Add("Action");
+                oDtReturn.Columns.Add("ActionCompleteRename");
+                oDtReturn.Columns.Add("ActionCompleteTimeStamp");
+                oDtReturn.Columns.Add("ActionCompleteDelete");
+                oDtReturn.Columns.Add("TargetLocation");
+                oDtReturn.Columns.Add("MaintainSubFolders");
+                oDtReturn.Columns.Add("Command");
+                oDtReturn.Columns.Add("IntegratedSecurity");
+                oDtReturn.Columns.Add("UserID");
+                oDtReturn.Columns.Add("Password");
+                oDtReturn.Columns.Add("DatabaseName");
+                oDtReturn.Columns.Add("DatabaseServer");
+                oDtReturn.Columns.Add("TaskOrder");
+                oDtReturn.Columns.Add("RunSQLScript");
+                oDtReturn.Columns.Add("RunSQLScriptFilePath");
+                oDtReturn.Columns.Add("RestoreDatabaseFileGroups");
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+
+            return oDtReturn;
         }
     }
 }

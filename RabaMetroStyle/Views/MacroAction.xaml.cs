@@ -74,7 +74,7 @@ namespace RabaMetroStyle.Views
                 this.chkRelativeAgeOlderThan.IsChecked = true;
             }
 
-            this.chlOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays == "True" ? true : false;
+            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays == "True" ? true : false;
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
             this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan;
@@ -152,7 +152,7 @@ namespace RabaMetroStyle.Views
                     this.SavedActionDetails.ScanFileAgeOlder = "-1";
                 }
 
-                this.SavedActionDetails.OnlyCountWeekDays = this.chlOnlyCountWeekdays.IsChecked.Value.ToString();
+                this.SavedActionDetails.OnlyCountWeekDays = this.chkOnlyCountWeekdays.IsChecked.Value.ToString();
                 this.SavedActionDetails.ScanFileExtension = this.txtScanExtension.Text;
                 this.SavedActionDetails.ScanFilePrefix = this.txtScanPrefix.Text;
                 if (this.txtSizeFrom.Text.Trim().Length == 0)
@@ -179,14 +179,7 @@ namespace RabaMetroStyle.Views
                 this.SavedActionDetails.TaskOrder = this.txtTaskOrder.Text;
                 this.SavedActionDetails.UserID = this.txtUserID.Text;
 
-                if (this.txtRestoreFileTemplate.Text.Trim().Length == 0)
-                {
-                    this.SavedActionDetails.RestoreDatabaseFileGroups = "";
-                }
-                else
-                {
-                    this.SavedActionDetails.RestoreDatabaseFileGroups = this.txtRestoreFileTemplate.Text;
-                }
+                this.SavedActionDetails.RestoreDatabaseFileGroups = this.txtRestoreFileTemplate.Text.Trim().Length == 0 ? "" : this.txtRestoreFileTemplate.Text;
 
                 this.SavedActionDetails.IncludeSubFolders = this.chkIncludeSubFolders.IsChecked.Value.ToString();
 
@@ -490,6 +483,29 @@ namespace RabaMetroStyle.Views
                     this.grbSecurityAndDatabase.Visibility = Visibility.Visible;
 
                     break;
+            }
+        }
+
+        private void chkRelativeAge_Checked(object sender, EventArgs e)
+        {
+            if (this.chkRelativeAgeYougerThan.IsChecked == true || this.chkRelativeAgeOlderThan.IsChecked == true)
+            {
+                this.dtDateFrom.IsEnabled = false;
+                this.dtDateTo.IsEnabled = false;
+
+                this.nmrDaysOldAgeYouger.IsEnabled = true;
+                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                this.chkOnlyCountWeekdays.IsEnabled = true;
+
+            }
+            else
+            {
+                this.dtDateFrom.IsEnabled = true;
+                this.dtDateTo.IsEnabled = true;
+
+                this.nmrDaysOldAgeYouger.IsEnabled = false;
+                this.nmrDaysOldAgeOlder.IsEnabled = false;
+                this.chkOnlyCountWeekdays.IsEnabled = false;
             }
         }
 

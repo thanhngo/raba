@@ -50,7 +50,7 @@
                 <Label Grid.Row="1" Grid.Column="2" Content="{Binding MachineName}"></Label>
                 <Label Grid.Row="2">Executable Path:</Label>
                 <Label Grid.Row="2" Grid.Column="2" Content="{Binding ExecutablePath}"></Label>
-                <Label Grid.Row="3">Settings Folder:</Label>
+                <Label Grid.Row="3" Grid.Column="0">Settings Folder:</Label>
                 <Label Grid.Row="3" Grid.Column="2" Content="{Binding SettingsFolderService}"></Label>
             </Grid>
             <Grid Grid.Row="2" Margin="0,10,0,0">
@@ -75,13 +75,13 @@
                 <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="100,0,0,0" Width="100" Command="{Binding AddMacroCommand}">Add</Button>
                 <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="205,0,0,0" Width="100" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">Disable</Button>
                 <Label Grid.Row="1" Grid.Column="4">Disabled Macros</Label>
-                <Button Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" Margin="100,0,0,0" Width="100" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">Enable</Button>
-                <Button Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" Margin="205,0,0,0" Width="100" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">Purge</Button>
+                <Button Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" Margin="50,0,0,0" Width="100" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">Enable</Button>
+                <Button Grid.Row="1" Grid.Column="5" HorizontalAlignment="Left" Margin="155,0,0,0" Width="100" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">Purge</Button>
                 <ListView Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2" Height="100" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}">
                     <ListView.ContextMenu>
                         <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
-                            <MenuItem Header="Disable" Name="EnabledList_Disable" Command="{Binding DisableMacroCommand}"/>
-                            <!--<MenuItem Header="Remove" Name="EnabledList_Remove" Command="{Binding PurgeMacroCommand}"/>-->
+                            <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
+                            <MenuItem Header="Disable" Name="EnabledListDisable" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
@@ -102,8 +102,8 @@
                 <ListView Grid.Row="3" Grid.RowSpan="4" Grid.Column="4" Grid.ColumnSpan="2" Height="100" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}">
                     <ListView.ContextMenu>
                         <ContextMenu Name="DisabledList" StaysOpen="true" Background="WhiteSmoke">
-                            <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}"/>
-                            <MenuItem Header="Remove" Name="DisabledListRemove" Command="{Binding PurgeMacroCommand}"/>
+                            <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
+                            <MenuItem Header="Remove" Name="DisabledListRemove" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
                         </ContextMenu>
                     </ListView.ContextMenu>
                 </ListView>
@@ -140,8 +140,8 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="1">Actions</Label>
                 <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="50,0,0,0" Width="100" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}">Add</Button>
-                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="155,0,0,0" Width="100" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroFile}">Edit</Button>
-                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="260,0,0,0" Width="100" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroFile}">Delete</Button>
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="155,0,0,0" Width="100" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">Edit</Button>
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="260,0,0,0" Width="100" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">Delete</Button>
                 <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SettingsDataGrid"
                               Margin="2"
                               AutoGenerateColumns="False"
@@ -192,10 +192,10 @@
                 </DataGrid>
                 <Grid.ContextMenu>
                     <ContextMenu Name="MacroActionGrid" StaysOpen="true" Background="WhiteSmoke">
-                        <MenuItem Header="Add" Name="MacroActionGrid_Add" Command="{Binding AddActionCommand}"/>
-                        <MenuItem Header="Edit" Name="MacroActionGrid_Edit" Command="{Binding EditActionCommand}"/>
-                        <MenuItem Header="Copy And Paste" Name="MacroActionGrid_Copy" Command="{Binding CopyActionCommand}"/>
-                        <MenuItem Header="Delete" Name="MacroActionGrid_Delete" Command="{Binding DeleteActionCommand}"/>
+                        <MenuItem Header="Add" Name="MacroActionGridAdd" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
+                        <MenuItem Header="Edit" Name="MacroActionGridEdit" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
+                        <MenuItem Header="Copy And Paste" Name="MacroActionGridCopy" Command="{Binding CopyActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
+                        <MenuItem Header="Delete" Name="MacroActionGridDelete" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
                     </ContextMenu>                    
                 </Grid.ContextMenu>
                     
