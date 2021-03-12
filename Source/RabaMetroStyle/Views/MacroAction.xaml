@@ -1,0 +1,186 @@
+﻿<Control:MetroWindow
+        xmlns:Control="http://metro.mahapps.com/winfx/xaml/controls" 
+        x:Class="RabaMetroStyle.Views.MacroAction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RabaMetroStyle.Views"
+    xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    WindowStartupLocation="CenterScreen"
+        ShowMaxRestoreButton="False"
+        ShowMinButton="False"
+        ResizeMode="NoResize"
+        mc:Ignorable="d"
+        Title="MacroAction" Height="Auto" Width="831.833"
+        SizeToContent="WidthAndHeight">    
+
+    <Grid Margin="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="1" Header="Search Criteria">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" MinWidth="156"/>
+                    <ColumnDefinition Width="auto" MinWidth="180"/>
+                    <ColumnDefinition Width="auto" MinWidth="200"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="35"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Grid.Column="1">Scan Location</Label>
+                <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Name="txtScanLocation"></TextBox>
+                <Button Grid.Row="1" Grid.Column="5" Name ="btnScanFolder"  BorderThickness="0" BorderBrush="Transparent" Width="25" Click="BtnScanFolder_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}">
+                    <iconPacks:PackIconFontAwesome Width="25"
+                                       Height="25"                                                          
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"                                         
+                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                </Button>
+                <Label Grid.Row="2" Grid.Column="1">Inlude Sub Folders</Label>
+                <CheckBox Grid.Row="2" Grid.Column="2" Name="chkIncludeSubFolders"></CheckBox>
+                <Label Grid.Row="3" Grid.Column="1">Scan Prefix</Label>
+                <TextBox Grid.Row="3" Grid.Column="2" Name="txtScanPrefix"></TextBox>
+                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0">Scan Extension</Label>
+                <TextBox Grid.Row="3" Grid.Column="4" Name="txtScanExtension"></TextBox>
+                <Label Grid.Row="4" Grid.Column="1">Date Between</Label>
+                <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom"></Control:DateTimePicker>
+                <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0">And</Label>
+                <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo"></Control:DateTimePicker>
+                <Label Grid.Row="5" Grid.Column="1">Relative Age Younger Than</Label>
+                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan"></CheckBox>
+                <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeYouger"></Control:NumericUpDown>
+                <Label Grid.Row="5" Grid.Column="2" Margin="110,0,10,0">Days Old</Label>
+                <Label Grid.Row="5" Grid.Column="3" Margin="30,0,0,0">Relative Age Older Than</Label>
+                <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan"></CheckBox>
+                <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeOlder"></Control:NumericUpDown>
+                <Label Grid.Row="5" Grid.Column="4" Margin="110,0,10,0">Days Old</Label>
+                <Label Grid.Row="6" Grid.Column="1">Only Count Weekdays</Label>
+                <CheckBox Grid.Row="6" Grid.Column="2" Name="chlOnlyCountWeekdays"></CheckBox>
+                <Label Grid.Row="7" Grid.Column="1">Size (KB)</Label>
+                <TextBox Grid.Row="7" Grid.Column="2" Name="txtSizeFrom" Margin="0,5,0,5"></TextBox>
+                <Label Grid.Row="7" Grid.Column="3" Margin="30,0,0,0">And</Label>
+                <TextBox Grid.Row="7" Grid.Column="4" Name="txtSizeTo"></TextBox>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="2" Header="Action Detail" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" MinWidth="156"/>
+                    <ColumnDefinition Width="auto" MinWidth="180"/>
+                    <ColumnDefinition Width="auto" MinWidth="200"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="35"/>                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed">Task Order</Label>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed"></TextBox>
+                <Label Grid.Row="2" Grid.Column="1">Action</Label>
+                <ComboBox Grid.Row="2" Grid.Column="2" Name="ddlAction" SelectionChanged="DdlAction_SelectionChanged"></ComboBox>
+                <Label Grid.Row="3" Grid.Column="1" Name="lblAfterActionDelete">After Action Delete</Label>
+                <CheckBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Width="22" Name="chkAfterActionDelete"></CheckBox>
+                <Label Grid.Row="3" Grid.Column="2" Margin="60,0,0,0" Name="lblAfterActionRename">After Action Rename</Label>
+                <CheckBox Grid.Row="3" Grid.Column="3" Margin="10,0,0,0" Name="chkAfterActionRename"></CheckBox>
+                <Label Grid.Row="3" Grid.Column="3" Margin="50,0,0,0" Name="lblAfterActionTimeStamp">After Action Time Stamp</Label>
+                <CheckBox Grid.Row="3" Grid.Column="4" Name="chkAfterActionTimeStamp"></CheckBox>
+                <Label Grid.Row="4" Grid.Column="1" Name="lblTargetLocation">Target Location</Label>
+                <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Name="txtTargetLocation"></TextBox>
+                <Button Grid.Row="4" Grid.Column="5" Name="btnTargetLocation" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
+                    <iconPacks:PackIconFontAwesome Width="25"
+                                       Height="25"                                                          
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"                                         
+                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                </Button>
+                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkMaintainSubFolderStructure" Margin="0,5,0,5">Maintain Sub Folder Structure</CheckBox>
+                <Label Grid.Row="6" Grid.Column="1" Name="lblBatchFile">BatchFile</Label>
+                <TextBox Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3" Name="txtBatchFile"></TextBox>
+                <Button Grid.Row="6" Grid.Column="5" Name="btnBatchFile" Click="BtnBatchFile_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
+                    <iconPacks:PackIconFontAwesome Width="25"
+                                       Height="25"                                                          
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"                                         
+                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                </Button>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="3" Header="Security and Database Infomation" Name="grbSecurityAndDatabase" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" MinWidth="156"/>
+                    <ColumnDefinition Width="auto" MinWidth="180"/>
+                    <ColumnDefinition Width="auto" MinWidth="200"/>
+                    <ColumnDefinition Width="180"/>
+                    <ColumnDefinition Width="35"/>                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity">Integrated Security</Label>
+                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed">User ID</Label>
+                <TextBox Grid.Row="2" Grid.Column="2" Name="txtUserID" Visibility="Collapsed"></TextBox>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed">Password</Label>
+                <TextBox Grid.Row="2" Grid.Column="4" Name="txtPassword" Visibility="Collapsed"></TextBox>
+                <Label Grid.Row="3" Grid.Column="1" Name="lblRestoreDatabase">Database</Label>
+                <TextBox Grid.Row="3" Grid.Column="2" Name="txtRestoreDatabase"></TextBox>
+                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" Name="lblRestoreServer">Server</Label>
+                <TextBox Grid.Row="3" Grid.Column="4" Name="txtRestoreServer"></TextBox>
+                <Label Grid.Row="4" Grid.Column="1" Name="lblRestoreFileTemplate">Restore File</Label>
+                <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Name="txtRestoreFileTemplate" Margin="0,5,0,5"></TextBox>
+                <Button Grid.Row="4" Grid.Column="5" Name="btnRestoreFile" Click="BtnRestoreFile_Click"  Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
+                    <iconPacks:PackIconFontAwesome Width="25"
+                                       Height="25"                                                          
+                                       HorizontalAlignment="Right"
+                                       VerticalAlignment="Top"                                         
+                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                </Button>
+                <Button Grid.Row="5" Grid.Column="2" Visibility="Collapsed">New</Button>
+                <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed">Use Existing</Button>
+            </Grid>
+        </GroupBox>
+        <Button Grid.Row="4" Margin="312,10,391,-10" Click="btnCancle_Click" RenderTransformOrigin="-1.54,0.778">Cancel</Button>
+        <Button Grid.Row="4" Margin="392,10,311,-10" Click="btnSave_Click">Save</Button>
+    </Grid>
+</Control:MetroWindow>
