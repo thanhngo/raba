@@ -265,6 +265,9 @@
             <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967215D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA97" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_C4040E57_E559_446E_97B5_9236894F4C31" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Design.dll" Source="c:\\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Design.dll" KeyPath="yes" />
             </Component>
+            <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967216D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA98" Permanent="no" SharedDllRefCount="no" Transitive="no">
+              <File Id="_C4040E57_E559_446E_97B5_9236894F4C32" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="ICSharpCode.SharpZipLib.dll" Source="..\\RabaService\\\bin\\\Release\\ICSharpCode.SharpZipLib.dll" KeyPath="yes" />
+            </Component>
         </ComponentGroup>
     </Fragment>
     <Fragment>

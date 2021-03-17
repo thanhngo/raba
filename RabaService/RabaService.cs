@@ -5,7 +5,7 @@ using System.IO;
 using System.ServiceProcess;
 using System.Configuration;
 using System.Collections;
-using System.IO.Compression;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace RabaService
 {
@@ -364,7 +364,7 @@ namespace RabaService
 
             try
             {
-                string szPathMapJob = string.Empty;
+                string szPathMapJob;
                 string szSettingExtension = "RABA";
                 if (this.mbLog)
                 {
@@ -613,7 +613,7 @@ namespace RabaService
 
                 case "ZIP":
                     string szRootName = Path.GetFileName(szFileName);
-                    string szTargetFile = TargetLocation + "\\" + szRootName + ".ZIP";
+                    string szTargetFile = TargetLocation + "\\" + szRootName + ".zip";
 
                     this.ZipUpFile(szFileName, ScanLocation, szTargetFile, MaintainSubFolders);
                     if (ActionCompleteRename)
@@ -925,19 +925,8 @@ namespace RabaService
             bool bReturn;
             try
             {
-                using (FileStream inFile = File.OpenRead(ZipFileName))
-                {
-                    string curFile = Path.GetFileName(ZipFileName);
-                    var fileExtension = Path.GetExtension(ZipFileName);
-                    string origName = DestinationFolder + "\\" + curFile.Remove(curFile.Length - fileExtension.Length);
-                    using (FileStream outFile = File.Create(origName))
-                    {
-                        using (GZipStream Decompress = new GZipStream(inFile, CompressionMode.Decompress))
-                        {
-                            Decompress.CopyTo(outFile);
-                        }
-                    }
-                }
+                FastZip fz = new FastZip();
+                fz.ExtractZip(DestinationFolder, ZipFileName, null);
 
                 // All is well 
                 bReturn = true;
@@ -1004,12 +993,26 @@ namespace RabaService
 
             try
             {
-                using (FileStream sourceFile = File.OpenRead(FileName))
-                    using (FileStream destinationFile = File.Create(zipFileTo))
-                        using (GZipStream output = new GZipStream(destinationFile, CompressionMode.Compress))
+                using (ZipOutputStream s = new ZipOutputStream(File.Create(zipFileTo)))
+                {
+                    s.SetLevel(9); // 0-9, 9 being the highest compression
+                    var buffer = new byte[4096];
+
+                    var entry = new ZipEntry(Path.GetFileName(FileName)) { DateTime = DateTime.Now };
+                    s.PutNextEntry(entry);
+                    using (FileStream fs = File.OpenRead(FileName))
+                    {
+                        int sourceBytes;
+                        do
                         {
-                            sourceFile.CopyTo(output);
-                        }
+                            sourceBytes = fs.Read(buffer, 0, buffer.Length);
+                            s.Write(buffer, 0, sourceBytes);
+
+                        } while (sourceBytes > 0);
+                    }
+                    s.Finish();
+                    s.Close();
+                }
 
                 bReturn = true;
             }
