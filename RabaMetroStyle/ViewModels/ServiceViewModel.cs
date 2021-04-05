@@ -1,20 +1,22 @@
-﻿using RabaMetroStyle.Mvvm;
+﻿#region
+
 using System;
+using System.IO;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
+using RabaMetroStyle.Mvvm;
+
+#endregion
 
 namespace RabaMetroStyle.ViewModels
 {
     public class ServiceViewModel : BindableBase
     {
-        private bool disableInterval = false;
-        private string executablePath;
-        private string machineName;
-        private bool serviceInstalledOnMachine = false;
-
-        private string serviceState;
-        private string settingsFolderService;
+        private bool disableInterval;
+        private bool serviceInstalledOnMachine;
 
         public ServiceViewModel()
         {
@@ -25,79 +27,51 @@ namespace RabaMetroStyle.ViewModels
 
         public bool DisableInterval
         {
-            get { return this.disableInterval; }
+            get => this.disableInterval;
             set
             {
                 this.disableInterval = value;
-                this.OnPropertyChanged("DisableInterval");
+                this.OnPropertyChanged();
                 this.OnPropertyChanged("DisableStopButton");
             }
         }
 
         public bool DisableStopButton
         {
-            get { return !this.disableInterval; }
-            set { this.disableInterval = value; }
+            get => !this.disableInterval;
+            set => this.disableInterval = value;
         }
 
-        public string ExecutablePath
-        {
-            get { return this.executablePath; }
-            set { this.executablePath = value; }
-        }
+        public string ExecutablePath { get; set; }
 
-        public string MachineName
-        {
-            get { return this.machineName; }
-        }
+        public string MachineName { get; private set; }
 
-        public string ServiceState
-        {
-            get => this.serviceState;
-            set => this.serviceState = value;
-        }
+        public string ServiceState { get; set; }
 
         public string ServiceStateText
         {
-            get { return this.ServiceState; }
+            get => this.ServiceState;
             set
             {
                 this.ServiceState = value;
-                this.OnPropertyChanged("ServiceStateText");
+                this.OnPropertyChanged();
             }
         }
 
-        public string SettingsFolderService
-        {
-            get { return this.settingsFolderService; }
-            set { this.settingsFolderService = value; }
-        }
+        public string SettingsFolderService { get; set; }
 
-        public ICommand StartServiceCommand
-        {
-            get { return this.StartServiceDelegateCommand; }
-        }
+        public ICommand StartServiceCommand => this.StartServiceDelegateCommand;
 
-        public ICommand StopServiceCommand
-        {
-            get { return this.StopServiceDelegateCommand; }
-        }
+        public ICommand StopServiceCommand => this.StopServiceDelegateCommand;
 
-        private DelegateCommand StartServiceDelegateCommand { get; set; }
+        private DelegateCommand StartServiceDelegateCommand { get; }
 
-        private DelegateCommand StopServiceDelegateCommand { get; set; }
-
-        public bool IsCurrentProcessAdmin()
-        {
-            var identity = System.Security.Principal.WindowsIdentity.GetCurrent();
-            var principal = new System.Security.Principal.WindowsPrincipal(identity);
-            return principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
-        }
+        private DelegateCommand StopServiceDelegateCommand { get; }
 
         private ServiceController GetServiceControllerInfo()
         {
-            var oSC = new ServiceController("RabaService", this.machineName);
-            Microsoft.Win32.RegistryKey oKey = Microsoft.Win32.Registry.LocalMachine;
+            var oSC = new ServiceController("RabaService", this.MachineName);
+            var oKey = Registry.LocalMachine;
             var serviceSubKey = oKey.OpenSubKey("SYSTEM")?.OpenSubKey("CurrentControlSet")?.OpenSubKey("Services")?.OpenSubKey("RabaService");
             var szServiceExePath = string.Empty;
 
@@ -106,17 +80,24 @@ namespace RabaMetroStyle.ViewModels
                 szServiceExePath = Convert.ToString(serviceSubKey.GetValue("ImagePath").ToString());
             }
 
-            System.Security.Principal.WindowsPrincipal oWP = new System.Security.Principal.WindowsPrincipal(System.Security.Principal.WindowsIdentity.GetCurrent());
+            var oWP = new WindowsPrincipal(WindowsIdentity.GetCurrent());
             szServiceExePath = szServiceExePath.Replace('\"', ' ');
-            if (System.IO.File.Exists(szServiceExePath))
+            if (File.Exists(szServiceExePath))
             {
-                var oFileInfo = new System.IO.FileInfo(szServiceExePath);
-                this.settingsFolderService = oFileInfo.DirectoryName + "\\Settings";
+                var oFileInfo = new FileInfo(szServiceExePath);
+                this.SettingsFolderService = oFileInfo.DirectoryName + "\\Settings";
             }
 
-            this.executablePath = szServiceExePath;
+            this.ExecutablePath = szServiceExePath;
 
             return oSC;
+        }
+
+        private bool IsCurrentProcessAdmin()
+        {
+            var identity = WindowsIdentity.GetCurrent();
+            var principal = new WindowsPrincipal(identity);
+            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         private bool PopulateServiceInfo()
@@ -124,10 +105,10 @@ namespace RabaMetroStyle.ViewModels
             bool bReturn;
             try
             {
-                this.machineName = Environment.MachineName.ToString();
+                this.MachineName = Environment.MachineName;
 
-                var oSC = this.GetServiceControllerInfo();
-                this.ServiceStateText = Convert.ToString(oSC.Status);
+                var oSc = this.GetServiceControllerInfo();
+                this.ServiceStateText = Convert.ToString(oSc.Status);
 
                 switch (this.ServiceStateText.ToUpper())
                 {
@@ -166,11 +147,11 @@ namespace RabaMetroStyle.ViewModels
                     return;
                 }
 
-                var oSC = this.GetServiceControllerInfo();
+                var oSc = this.GetServiceControllerInfo();
 
-                if (oSC.Status == ServiceControllerStatus.Stopped)
+                if (oSc.Status == ServiceControllerStatus.Stopped)
                 {
-                    oSC.Start();
+                    oSc.Start();
                 }
                 else
                 {
@@ -195,12 +176,14 @@ namespace RabaMetroStyle.ViewModels
             }
 
             var oSC = this.GetServiceControllerInfo();
-            if (oSC.Status == ServiceControllerStatus.Running)
+            if (oSC.Status != ServiceControllerStatus.Running)
             {
-                oSC.Stop();
-                this.ServiceStateText = "Stopped";
-                this.DisableInterval = true;
+                return;
             }
+
+            oSC.Stop();
+            this.ServiceStateText = "Stopped";
+            this.DisableInterval = true;
         }
     }
 }

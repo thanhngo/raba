@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+
+#endregion
 
 namespace RabaMetroStyle.Navigation
 {
@@ -22,7 +26,7 @@ namespace RabaMetroStyle.Navigation
             {
                 if (this._frame == null)
                 {
-                    this._frame = new Frame() { NavigationUIVisibility = NavigationUIVisibility.Hidden };
+                    this._frame = new Frame { NavigationUIVisibility = NavigationUIVisibility.Hidden };
                     this.RegisterFrameEvents();
                 }
 
@@ -36,9 +40,15 @@ namespace RabaMetroStyle.Navigation
             }
         }
 
-        public void GoBack() => this.Frame.GoBack();
+        public void GoBack()
+        {
+            this.Frame.GoBack();
+        }
 
-        public void GoForward() => this.Frame.GoForward();
+        public void GoForward()
+        {
+            this.Frame.GoForward();
+        }
 
         public bool Navigate(Uri sourcePageUri, object extraData = null)
         {
@@ -60,9 +70,15 @@ namespace RabaMetroStyle.Navigation
             return false;
         }
 
-        private void Frame_Navigated(object sender, NavigationEventArgs e) => this.Navigated?.Invoke(sender, e);
+        private void Frame_Navigated(object sender, NavigationEventArgs e)
+        {
+            this.Navigated?.Invoke(sender, e);
+        }
 
-        private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e) => this.NavigationFailed?.Invoke(sender, e);
+        private void Frame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            this.NavigationFailed?.Invoke(sender, e);
+        }
 
         private void RegisterFrameEvents()
         {

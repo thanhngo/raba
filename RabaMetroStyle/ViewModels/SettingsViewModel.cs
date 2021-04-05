@@ -1,13 +1,19 @@
-﻿using RabaMetroStyle.Models;
-using RabaMetroStyle.Mvvm;
-using RabaMetroStyle.Views;
+﻿#region
+
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
+using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.Win32;
+using RabaMetroStyle.Models;
+using RabaMetroStyle.Mvvm;
+using RabaMetroStyle.Views;
+
+#endregion
 
 namespace RabaMetroStyle.ViewModels
 {
@@ -15,25 +21,21 @@ namespace RabaMetroStyle.ViewModels
     {
         private ObservableCollection<string> activeMacroFiles;
         private ObservableCollection<Setting> currentSettings;
-        private string executablePath;
         private ObservableCollection<string> inactiveMacroFiles;
-        private string machineName;
 
-        private DataSet oDsSettingsCurrent = new DataSet("Tasks");
         private string selectedDisabledMacroFile;
         private Setting selectedItem;
         private string selectedMacroFile;
-        private string settingsFolderService;
 
         public SettingsViewModel()
         {
             this.activeMacroFiles = new ObservableCollection<string>();
             this.inactiveMacroFiles = new ObservableCollection<string>();
             this.PopulateServiceInfo();
-            if (Directory.Exists(this.settingsFolderService))
+            if (Directory.Exists(this.SettingsFolderService))
             {
-                PopulateSettingsFiles(this.activeMacroFiles, this.settingsFolderService, "RABA");
-                PopulateSettingsFiles(this.inactiveMacroFiles, this.settingsFolderService, "RABA.DISABLED");
+                PopulateSettingsFiles(this.activeMacroFiles, this.SettingsFolderService, "RABA");
+                PopulateSettingsFiles(this.inactiveMacroFiles, this.SettingsFolderService, "RABA.DISABLED");
             }
 
             this.AddMacroDelegateCommand = new DelegateCommand(this.AddMacroFile);
@@ -70,11 +72,7 @@ namespace RabaMetroStyle.ViewModels
 
         public ICommand EnableMacroCommand => this.EnableMacroDelegateCommand;
 
-        public string ExecutablePath
-        {
-            get => this.executablePath;
-            set => this.executablePath = value;
-        }
+        public string ExecutablePath { get; set; }
 
         public bool IsSelectDisabledMacroFile => !string.IsNullOrEmpty(this.selectedDisabledMacroFile);
 
@@ -82,7 +80,7 @@ namespace RabaMetroStyle.ViewModels
 
         public bool IsSelectMacroFile => !string.IsNullOrEmpty(this.selectedMacroFile);
 
-        public string MachineName => this.machineName;
+        public string MachineName { get; private set; }
 
         public ObservableCollection<string> MacroFilesActive
         {
@@ -111,7 +109,7 @@ namespace RabaMetroStyle.ViewModels
             get => this.selectedDisabledMacroFile;
             set
             {
-                this.selectedMacroFile = string.Empty;
+                //this.selectedMacroFile = string.Empty;
                 this.selectedDisabledMacroFile = value;
                 this.OnPropertyChanged($"IsSelectMacroFile");
                 this.OnPropertyChanged($"IsSelectDisabledMacroFile");
@@ -134,7 +132,7 @@ namespace RabaMetroStyle.ViewModels
             get => this.selectedMacroFile;
             set
             {
-                this.selectedDisabledMacroFile = string.Empty;
+                //this.selectedDisabledMacroFile = string.Empty;
                 this.selectedMacroFile = value;
                 this.OnPropertyChanged($"IsSelectMacroFile");
                 this.OnPropertyChanged($"IsSelectDisabledMacroFile");
@@ -145,44 +143,30 @@ namespace RabaMetroStyle.ViewModels
             }
         }
 
-        public string SettingsFolderService
-        {
-            get => this.settingsFolderService;
-            set => this.settingsFolderService = value;
-        }
+        public string SettingsFolderService { get; set; }
 
-        private DelegateCommand AddActionDelegateCommand { get; set; }
+        private DelegateCommand AddActionDelegateCommand { get; }
 
-        private DelegateCommand AddMacroDelegateCommand { get; set; }
+        private DelegateCommand AddMacroDelegateCommand { get; }
 
-        private DelegateCommand CopyActionDelegateCommand { get; set; }
+        private DelegateCommand CopyActionDelegateCommand { get; }
 
-        private DelegateCommand DeleteActionDelegateCommand { get; set; }
+        private DelegateCommand DeleteActionDelegateCommand { get; }
 
-        private DelegateCommand DisableMacroDelegateCommand { get; set; }
+        private DelegateCommand DisableMacroDelegateCommand { get; }
 
-        private DelegateCommand EditActionDelegateCommand { get; set; }
+        private DelegateCommand EditActionDelegateCommand { get; }
 
-        private DelegateCommand EnableMacroDelegateCommand { get; set; }
+        private DelegateCommand EnableMacroDelegateCommand { get; }
 
-        private DelegateCommand PurgeMacroDelegateCommand { get; set; }
-
-        private void HandleSelectedMacroFile()
-        {
-            var macroFileName = this.settingsFolderService + "\\" + this.selectedMacroFile;
-
-            var tempSettingTable = new DataSet();
-            tempSettingTable.ReadXml(macroFileName);
-
-            this.CurrentSettingsTable = this.ConvertDataTableToObservableCollection(tempSettingTable);
-        }
+        private DelegateCommand PurgeMacroDelegateCommand { get; }
 
         private static void PopulateSettingsFiles(ObservableCollection<string> macroFiles, string szFolder, string settingsExtension)
         {
-            string szSettingExtension = settingsExtension;
+            var szSettingExtension = settingsExtension;
             var sfiles = Directory.GetFiles(szFolder);
 
-            foreach (string sFileName in sfiles)
+            foreach (var sFileName in sfiles)
             {
                 if (sFileName.EndsWith(szSettingExtension))
                 {
@@ -204,7 +188,7 @@ namespace RabaMetroStyle.ViewModels
 
             if (addMacroActionForm.SavedAction)
             {
-                var macroFileName = this.settingsFolderService + "\\" + this.selectedMacroFile;
+                var macroFileName = this.SettingsFolderService + "\\" + this.selectedMacroFile;
                 var tempSettingTable = new DataSet();
                 tempSettingTable.ReadXml(macroFileName);
 
@@ -249,7 +233,7 @@ namespace RabaMetroStyle.ViewModels
 
                 this.OnPropertyChanged($"MacroFilesInActive");
 
-                string pathFile = this.settingsFolderService + "\\" + this.selectedMacroFile;
+                var pathFile = this.SettingsFolderService + "\\" + this.selectedMacroFile;
                 SaveSettings(pathFile, tempSettingTable);
                 this.HandleSelectedMacroFile();
             }
@@ -265,7 +249,7 @@ namespace RabaMetroStyle.ViewModels
                 return;
             }
 
-            string szSettingsFileNew = this.settingsFolderService + "\\" + addMacroForm.MacroFileName + ".RABA";
+            var szSettingsFileNew = this.SettingsFolderService + "\\" + addMacroForm.MacroFileName + ".RABA";
 
             var dataSet = new DataSet("Tasks");
             var dataTable = new DataTable("tblTaskInfo");
@@ -273,6 +257,24 @@ namespace RabaMetroStyle.ViewModels
             dataSet.WriteXml(szSettingsFileNew);
 
             this.activeMacroFiles.Add(addMacroForm.MacroFileName + ".RABA");
+        }
+
+        private ObservableCollection<Setting> ConvertDataTableToObservableCollection(DataSet settingTable)
+        {
+            var currentSetting = new ObservableCollection<Setting>();
+
+            if (settingTable.Tables.Count <= 0)
+            {
+                return currentSetting;
+            }
+
+            if (settingTable.Tables["tblTaskInfo"].Rows.Count > 0)
+            {
+                currentSetting = new ObservableCollection<Setting>(from dRow in settingTable.Tables["tblTaskInfo"].AsEnumerable()
+                                                                   select this.GetMacroActionDataTableRow(dRow));
+            }
+
+            return currentSetting;
         }
 
         private void CopyMacroAction()
@@ -291,7 +293,7 @@ namespace RabaMetroStyle.ViewModels
 
             using (var dataset = this.TransformSettingsToDataSet(this.currentSettings))
             {
-                var pathFile = this.settingsFolderService + "\\" + this.selectedMacroFile;
+                var pathFile = this.SettingsFolderService + "\\" + this.selectedMacroFile;
                 SaveSettings(pathFile, dataset);
             }
         }
@@ -307,7 +309,7 @@ namespace RabaMetroStyle.ViewModels
             this.selectedItem = null;
 
             var dataSet = this.TransformSettingsToDataSet(this.currentSettings);
-            var pathFile = this.settingsFolderService + "\\" + this.selectedMacroFile;
+            var pathFile = this.SettingsFolderService + "\\" + this.selectedMacroFile;
             SaveSettings(pathFile, dataSet);
         }
 
@@ -319,20 +321,65 @@ namespace RabaMetroStyle.ViewModels
                 return;
             }
 
-            var szFileName = this.settingsFolderService + "\\" + this.SelectedMacroFile;
+            var szFileName = this.SettingsFolderService + "\\" + this.SelectedMacroFile;
             File.Move(szFileName, szFileName + ".DISABLED");
             this.inactiveMacroFiles.Add(this.SelectedMacroFile + ".DISABLED");
             this.activeMacroFiles.Remove(this.SelectedMacroFile);
             this.CurrentSettingsTable = null;
         }
 
+        private DataTable DsFunctionCreateDataTableTasks()
+        {
+            var oDtReturn = new DataTable("tblTaskInfo");
+
+            try
+            {
+                oDtReturn.Columns.Add("ScanLocation");
+                oDtReturn.Columns.Add("IncludeSubFolders");
+                oDtReturn.Columns.Add("ScanFileExtension");
+                oDtReturn.Columns.Add("ScanFilePrefix");
+                oDtReturn.Columns.Add("ScanFileDateLessThan");
+                oDtReturn.Columns.Add("ScanFileDateGreaterThan");
+                oDtReturn.Columns.Add("ScanFileUseRelativeAgeYounger");
+                oDtReturn.Columns.Add("ScanFileAgeYounger");
+                oDtReturn.Columns.Add("ScanFileUseRelativeAgeOlder");
+                oDtReturn.Columns.Add("OnlyCountWeekDays");
+                oDtReturn.Columns.Add("ScanFileAgeOlder");
+                oDtReturn.Columns.Add("ScanFileSizeLessThan");
+                oDtReturn.Columns.Add("ScanFileSizeGreaterThan");
+                oDtReturn.Columns.Add("Action");
+                oDtReturn.Columns.Add("ActionCompleteRename");
+                oDtReturn.Columns.Add("ActionCompleteTimeStamp");
+                oDtReturn.Columns.Add("ActionCompleteDelete");
+                oDtReturn.Columns.Add("TargetLocation");
+                oDtReturn.Columns.Add("MaintainSubFolders");
+                oDtReturn.Columns.Add("Command");
+                oDtReturn.Columns.Add("IntegratedSecurity");
+                oDtReturn.Columns.Add("UserID");
+                oDtReturn.Columns.Add("Password");
+                oDtReturn.Columns.Add("DatabaseName");
+                oDtReturn.Columns.Add("DatabaseServer");
+                oDtReturn.Columns.Add("TaskOrder");
+                oDtReturn.Columns.Add("RunSQLScript");
+                oDtReturn.Columns.Add("RunSQLScriptFilePath");
+                oDtReturn.Columns.Add("RestoreDatabaseFileGroups");
+            }
+            catch (Exception ex)
+            {
+                // ignored
+            }
+
+            return oDtReturn;
+        }
+
         private void EditMacroAction()
         {
-            if (selectedItem == null)
+            if (this.selectedItem == null)
             {
                 MessageBox.Show("Please select macro action", "Edit Macro Action", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
+
             var addMacroActionForm = new MacroAction(this.selectedItem);
             addMacroActionForm.ShowDialog();
 
@@ -346,7 +393,7 @@ namespace RabaMetroStyle.ViewModels
 
             using (var dataSet = this.TransformSettingsToDataSet(this.currentSettings))
             {
-                var pathFile = this.settingsFolderService + "\\" + this.selectedMacroFile;
+                var pathFile = this.SettingsFolderService + "\\" + this.selectedMacroFile;
                 SaveSettings(pathFile, dataSet);
             }
         }
@@ -360,7 +407,7 @@ namespace RabaMetroStyle.ViewModels
             }
 
             var szFileName = string.Empty;
-            szFileName = this.settingsFolderService + "\\" + this.selectedDisabledMacroFile;
+            szFileName = this.SettingsFolderService + "\\" + this.selectedDisabledMacroFile;
             this.SettingsFileEnable(szFileName);
             this.activeMacroFiles.Add(this.selectedDisabledMacroFile.Substring(0, this.selectedDisabledMacroFile.Length - 9));
             this.inactiveMacroFiles.Remove(this.selectedDisabledMacroFile);
@@ -405,8 +452,8 @@ namespace RabaMetroStyle.ViewModels
 
         private ServiceController GetServiceControllerInfo()
         {
-            var oSc = new ServiceController("RabaService", this.machineName);
-            Microsoft.Win32.RegistryKey oKey = Microsoft.Win32.Registry.LocalMachine;
+            var oSc = new ServiceController("RabaService", this.MachineName);
+            var oKey = Registry.LocalMachine;
             var serviceSubKey = oKey.OpenSubKey("SYSTEM")?.OpenSubKey("CurrentControlSet")?.OpenSubKey("Services")?.OpenSubKey("RabaService");
             var szServiceExePath = string.Empty;
 
@@ -415,19 +462,29 @@ namespace RabaMetroStyle.ViewModels
                 szServiceExePath = Convert.ToString(serviceSubKey.GetValue("ImagePath").ToString());
             }
 
-            System.Security.Principal.WindowsPrincipal oWp = new System.Security.Principal.WindowsPrincipal(System.Security.Principal.WindowsIdentity.GetCurrent());
+            var oWp = new WindowsPrincipal(WindowsIdentity.GetCurrent());
             szServiceExePath = szServiceExePath.Replace('\"', ' ');
             if (File.Exists(szServiceExePath))
             {
                 var oFileInfo = new FileInfo(szServiceExePath);
-                this.settingsFolderService = oFileInfo.DirectoryName + "\\Settings";
+                this.SettingsFolderService = oFileInfo.DirectoryName + "\\Settings";
 
-                Directory.CreateDirectory(this.settingsFolderService);
+                Directory.CreateDirectory(this.SettingsFolderService);
             }
 
-            this.executablePath = szServiceExePath;
+            this.ExecutablePath = szServiceExePath;
 
             return oSc;
+        }
+
+        private void HandleSelectedMacroFile()
+        {
+            var macroFileName = this.SettingsFolderService + "\\" + this.selectedMacroFile;
+
+            var tempSettingTable = new DataSet();
+            tempSettingTable.ReadXml(macroFileName);
+
+            this.CurrentSettingsTable = this.ConvertDataTableToObservableCollection(tempSettingTable);
         }
 
         private bool PopulateServiceInfo()
@@ -435,7 +492,7 @@ namespace RabaMetroStyle.ViewModels
             bool bReturn;
             try
             {
-                this.machineName = Environment.MachineName.ToString();
+                this.MachineName = Environment.MachineName;
 
                 var oSc = this.GetServiceControllerInfo();
                 bReturn = true;
@@ -469,12 +526,14 @@ namespace RabaMetroStyle.ViewModels
             }
 
             var fileToDelete = this.selectedDisabledMacroFile;
-            var filePath = this.settingsFolderService + "\\" + fileToDelete;
-            if (File.Exists(filePath))
+            var filePath = this.SettingsFolderService + "\\" + fileToDelete;
+            if (!File.Exists(filePath))
             {
-                this.MacroFilesInActive.Remove(this.selectedDisabledMacroFile);
-                File.Delete(filePath);
+                return;
             }
+
+            this.MacroFilesInActive.Remove(this.selectedDisabledMacroFile);
+            File.Delete(filePath);
         }
 
         private void SettingsFileEnable(string settingsFile)
@@ -525,64 +584,6 @@ namespace RabaMetroStyle.ViewModels
             }
 
             return tempSettingTable;
-        }
-        private ObservableCollection<Setting> ConvertDataTableToObservableCollection(DataSet settingTable)
-        {
-            var currentSetting = new ObservableCollection<Setting>();
-
-            if (settingTable.Tables.Count > 0)
-            {
-                if (settingTable.Tables["tblTaskInfo"].Rows.Count > 0)
-                {
-                    currentSetting = new ObservableCollection<Setting>((from dRow in settingTable.Tables["tblTaskInfo"].AsEnumerable()
-                                                                        select (this.GetMacroActionDataTableRow(dRow))));
-                }
-            }
-
-            return currentSetting;
-        }
-        private DataTable DsFunctionCreateDataTableTasks()
-        {
-            DataTable oDtReturn = new DataTable("tblTaskInfo");
-
-            try
-            {
-                oDtReturn.Columns.Add("ScanLocation");
-                oDtReturn.Columns.Add("IncludeSubFolders");
-                oDtReturn.Columns.Add("ScanFileExtension");
-                oDtReturn.Columns.Add("ScanFilePrefix");
-                oDtReturn.Columns.Add("ScanFileDateLessThan");
-                oDtReturn.Columns.Add("ScanFileDateGreaterThan");
-                oDtReturn.Columns.Add("ScanFileUseRelativeAgeYounger");
-                oDtReturn.Columns.Add("ScanFileAgeYounger");
-                oDtReturn.Columns.Add("ScanFileUseRelativeAgeOlder");
-                oDtReturn.Columns.Add("OnlyCountWeekDays");
-                oDtReturn.Columns.Add("ScanFileAgeOlder");
-                oDtReturn.Columns.Add("ScanFileSizeLessThan");
-                oDtReturn.Columns.Add("ScanFileSizeGreaterThan");
-                oDtReturn.Columns.Add("Action");
-                oDtReturn.Columns.Add("ActionCompleteRename");
-                oDtReturn.Columns.Add("ActionCompleteTimeStamp");
-                oDtReturn.Columns.Add("ActionCompleteDelete");
-                oDtReturn.Columns.Add("TargetLocation");
-                oDtReturn.Columns.Add("MaintainSubFolders");
-                oDtReturn.Columns.Add("Command");
-                oDtReturn.Columns.Add("IntegratedSecurity");
-                oDtReturn.Columns.Add("UserID");
-                oDtReturn.Columns.Add("Password");
-                oDtReturn.Columns.Add("DatabaseName");
-                oDtReturn.Columns.Add("DatabaseServer");
-                oDtReturn.Columns.Add("TaskOrder");
-                oDtReturn.Columns.Add("RunSQLScript");
-                oDtReturn.Columns.Add("RunSQLScriptFilePath");
-                oDtReturn.Columns.Add("RestoreDatabaseFileGroups");
-            }
-            catch (Exception ex)
-            {
-                // ignored
-            }
-
-            return oDtReturn;
         }
     }
 }

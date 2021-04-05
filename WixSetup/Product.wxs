@@ -6,7 +6,7 @@
 <!-- The manufacturer, for setup package publisher and folder info -->
 <?define Manufacturer = "Raba" ?>
 <!-- The version number of this setup package-->
-<?define Version = "1.0.0" ?>
+<?define Version = "1.1.0" ?>
 <!-- UpgradeCode must be unique and not changed once the first version of the program is installed. -->
 <?define UpgradeCode = "{25DA3824-3F14-4040-826B-F8D1783E1288}" ?>
 <!-- The name of the Cabinet -->
@@ -85,7 +85,44 @@
             <!--<UIRef Id="WixUI_Minimal" />-->
             <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
         </UI>
-        <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch $(var.Name)" />
+      <UI Id="CustomUI_Login">
+        <Dialog Id="LoginDlg" Title="!(loc.InstallDirDlg_Title)" Width="370" Height="270" NoMinimize="no">
+
+          <Control Id="AccountLabel" Type="Text" X="75" Y="113" Width="100" Height="15" TabSkip="no" Text="&amp;Account:" />
+          <Control Id="AccountInput" Type="Edit" X="75" Y="125" Width="220" Height="18" Property="LogonUser" Text="{80}" />
+          <Control Id="PasswordLabel" Type="Text" X="75" Y="150" Width="100" Height="15" TabSkip="no" Text="&amp;Password:" />
+          <Control Id="PasswordEdit" Type="Edit" X="75" Y="162" Width="220" Height="18" Property="PASSWORD" Password="yes" />
+
+          <Control Id="InstallButton" Type="PushButton" Text="Continue" Height="17" Width="56" X="130" Y="190">
+            <Publish Event="NewDialog" Value="ProgressDlg"></Publish>
+          </Control>
+
+          <Control Id="CancelButton" Type="PushButton" X="190" Y="190" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+            <Publish Event="SpawnDialog" Value="CancelDlg" >1</Publish>
+          </Control>
+
+          <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+            <Text>Click Continue to finalise service installation</Text>
+          </Control>
+
+          <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+            <Text>{\WixUI_Font_Title}Account to install service</Text>
+          </Control>
+
+          <Control Id="LoginHeaderText" Type="Text" X="35" Y="65" Width="300" Height="50" NoPrefix="yes">
+            <Text>{\WixUI_Font_Bigger}Please enter your account and password to continue:</Text>
+          </Control>
+
+          <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+          <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+          <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+        </Dialog>
+      </UI>
+
+      <InstallUISequence>
+        <Show After="ProgressDlg" Dialog="LoginDlg">NOT Installed</Show>
+      </InstallUISequence>
+      <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch $(var.Name)" />
         <!--Include the custom action for running application on exit-->
         <Property Id="WixShellExecTarget" Value="[#RabaMetroStyle.exe]" />
         <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
@@ -144,7 +181,7 @@
         <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
             <Component Id="ProductServiceComponent" Guid="">
                 <File Id="WindowsServiceEXE" Name="WindowsService.exe" DiskId="1" Source="..\RabaService\bin\Release\RabaService.exe" Vital="yes" KeyPath="yes" />
-                <ServiceInstall Id="ServiceInstaller" Type="ownProcess" Vital="yes" Name="RabaService" DisplayName="RabaService" Description="Raba Windows Service" Start="demand" Account="LocalSystem" ErrorControl="normal" Interactive="no" />
+                <ServiceInstall Id="ServiceInstaller" Type="ownProcess" Vital="yes" Name="RabaService" DisplayName="RabaService" Description="Raba Windows Service" Start="demand" Account="[AccountInput]" Password="[PasswordEdit]" ErrorControl="normal" Interactive="no" />
                 <ServiceControl Id="StartService" Stop="both" Start="install" Remove="uninstall" Name="RabaService" Wait="no" />
             </Component>
             <!--Main Component with RabaMetroStyle executable path-->

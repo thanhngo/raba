@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
+
+#endregion
 
 namespace RabaMetroStyle.Mvvm
 {
@@ -11,8 +15,8 @@ namespace RabaMetroStyle.Mvvm
         private readonly Action _execute;
 
         /// <summary>
-        /// Initializes a new instance of the RelayCommand class that 
-        /// can always execute.
+        ///     Initializes a new instance of the RelayCommand class that
+        ///     can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <exception cref="ArgumentNullException">If the execute argument is null.</exception>
@@ -22,7 +26,7 @@ namespace RabaMetroStyle.Mvvm
         }
 
         /// <summary>
-        /// Initializes a new instance of the RelayCommand class.
+        ///     Initializes a new instance of the RelayCommand class.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
@@ -39,23 +43,23 @@ namespace RabaMetroStyle.Mvvm
         }
 
         /// <summary>
-        /// Occurs when changes occur that affect whether the command should execute.
+        ///     Occurs when changes occur that affect whether the command should execute.
         /// </summary>
         public event EventHandler CanExecuteChanged;
 
         /// <summary>
-        /// Defines the method that determines whether the command can execute in its current state.
+        ///     Defines the method that determines whether the command can execute in its current state.
         /// </summary>
         /// <param name="parameter">This parameter will always be ignored.</param>
         /// <returns>true if this command can be executed; otherwise, false.</returns>
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return this._canExecute == null || this._canExecute();
+            return (this._canExecute == null) || this._canExecute();
         }
 
         /// <summary>
-        /// Defines the method to be called when the command is invoked. 
+        ///     Defines the method to be called when the command is invoked.
         /// </summary>
         /// <param name="parameter">This parameter will always be ignored.</param>
         public void Execute(object parameter)
@@ -67,7 +71,7 @@ namespace RabaMetroStyle.Mvvm
         }
 
         /// <summary>
-        /// Raises the <see cref="CanExecuteChanged" /> event.
+        ///     Raises the <see cref="CanExecuteChanged" /> event.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1030:UseEventsWhereAppropriate", Justification = "This cannot be an event")]
         public void RaiseCanExecuteChanged()

@@ -13,7 +13,7 @@ namespace RabaService
 
         protected override void OnBeforeInstall(IDictionary savedState)
         {
-            string parameter = "RabaService\" \"RabaLogfile";
+            var parameter = "RabaService\" \"RabaLogfile";
             this.Context.Parameters["assemblypath"] = "\"" + this.Context.Parameters["assemblypath"] + "\" \"" + parameter + "\"";
             base.OnBeforeInstall(savedState);
         }

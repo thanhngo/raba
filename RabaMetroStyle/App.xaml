@@ -7,13 +7,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Steel.xaml" />                
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Steel.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="PageStyle"
                    BasedOn="{StaticResource MahApps.Styles.Page}"
                    TargetType="{x:Type Page}">
-                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="Background"
+                        Value="Transparent" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Page}">

@@ -65,13 +65,13 @@
                 <Label Grid.Row="2" Grid.Column="1">Inlude Sub Folders</Label>
                 <CheckBox Grid.Row="2" Grid.Column="2" Name="chkIncludeSubFolders"></CheckBox>
                 <Label Grid.Row="3" Grid.Column="1">Scan Prefix</Label>
-                <TextBox Grid.Row="3" Grid.Column="2" Name="txtScanPrefix"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="2" Margin="0,5,0,5" Name="txtScanPrefix"></TextBox>
                 <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0">Scan Extension</Label>
-                <TextBox Grid.Row="3" Grid.Column="4" Name="txtScanExtension"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="4" Name="txtScanExtension" Margin="0,5,0,5"></TextBox>
                 <Label Grid.Row="4" Grid.Column="1">Date Between</Label>
-                <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom"></Control:DateTimePicker>
+                <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom" Margin="0,5,0,5"></Control:DateTimePicker>
                 <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0">And</Label>
-                <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo"></Control:DateTimePicker>
+                <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo" Margin="0,5,0,5"></Control:DateTimePicker>
                 <Label Grid.Row="5" Grid.Column="1">Relative Age Younger Than</Label>
                 <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan" Click="chkRelativeAge_Checked"></CheckBox>
                 <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeYouger"></Control:NumericUpDown>
@@ -158,7 +158,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity">Integrated Security</Label>
-                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"></CheckBox>
                 <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed">User ID</Label>
                 <TextBox Grid.Row="2" Grid.Column="2" Name="txtUserID" Visibility="Collapsed"></TextBox>
                 <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed">Password</Label>
@@ -180,7 +180,7 @@
                 <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed">Use Existing</Button>
             </Grid>
         </GroupBox>
-        <Button Grid.Row="4" Margin="312,10,391,-10" Click="btnCancle_Click" RenderTransformOrigin="-1.54,0.778">Cancel</Button>
+        <Button Grid.Row="4" Margin="312,10,391,-10" Click="btnCancel_Click" RenderTransformOrigin="-1.54,0.778">Cancel</Button>
         <Button Grid.Row="4" Margin="392,10,311,-10" Click="btnSave_Click">Save</Button>
     </Grid>
 </Control:MetroWindow>

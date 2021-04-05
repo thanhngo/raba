@@ -33,7 +33,8 @@
 
     <controls:MetroWindow.Resources>
 
-        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type viewModels:MenuItem}">
+        <DataTemplate x:Key="MenuItemTemplate"
+                      DataType="{x:Type viewModels:MenuItem}">
             <Grid Height="48">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:HamburgerMenu}}, Path=CompactPaneLength, Mode=OneWay}" />

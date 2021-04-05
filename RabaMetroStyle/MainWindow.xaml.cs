@@ -1,25 +1,30 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
 using MahApps.Metro.Controls;
-using MenuItem = RabaMetroStyle.ViewModels.MenuItem;
+using RabaMetroStyle.Navigation;
+using RabaMetroStyle.ViewModels;
+
+#endregion
 
 namespace RabaMetroStyle
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    ///     Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly Navigation.NavigationServiceEx navigationServiceEx;
+        private readonly NavigationServiceEx navigationServiceEx;
 
         public MainWindow()
         {
             this.InitializeComponent();
             this.InitializeComponent();
 
-            this.navigationServiceEx = new Navigation.NavigationServiceEx();
+            this.navigationServiceEx = new NavigationServiceEx();
             this.navigationServiceEx.Navigated += this.NavigationServiceEx_OnNavigated;
             this.HamburgerMenuControl.Content = this.navigationServiceEx.Frame;
 

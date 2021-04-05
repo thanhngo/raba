@@ -1,17 +1,24 @@
-﻿using MahApps.Metro.Controls;
-using RabaMetroStyle.Models;
+﻿#region
+
 using System;
+using System.IO;
 using System.Web.UI.WebControls;
 using System.Windows;
+using System.Windows.Controls;
+using MahApps.Metro.Controls;
+using Ookii.Dialogs.Wpf;
+using RabaMetroStyle.Models;
+
+#endregion
 
 namespace RabaMetroStyle.Views
 {
     /// <summary>
-    /// Interaction logic for MacroAction.xaml
+    ///     Interaction logic for MacroAction.xaml
     /// </summary>
     public partial class MacroAction : MetroWindow
     {
-        public bool SavedAction = false;
+        public bool SavedAction;
         public Setting SavedActionDetails;
 
         public MacroAction()
@@ -31,17 +38,17 @@ namespace RabaMetroStyle.Views
             {
                 if (ddlActionItem.ToString() == actionDetail.Action)
                 {
-                    ddlAction.SelectedIndex = this.ddlAction.Items.IndexOf(ddlActionItem);
+                    this.ddlAction.SelectedIndex = this.ddlAction.Items.IndexOf(ddlActionItem);
                     break;
                 }
             }
 
-            this.chkAfterActionDelete.IsChecked = actionDetail.ActionCompleteDelete == "True" ? true : false;
-            this.chkAfterActionRename.IsChecked = actionDetail.ActionCompleteRename == "True" ? true : false;
-            this.chkAfterActionTimeStamp.IsChecked = actionDetail.ActionCompleteTimeStamp == "True" ? true : false;
+            this.chkAfterActionDelete.IsChecked = actionDetail.ActionCompleteDelete == "True";
+            this.chkAfterActionRename.IsChecked = actionDetail.ActionCompleteRename == "True";
+            this.chkAfterActionTimeStamp.IsChecked = actionDetail.ActionCompleteTimeStamp == "True";
             this.txtRestoreDatabase.Text = actionDetail.DatabaseName;
             this.txtRestoreServer.Text = actionDetail.DatabaseServer;
-            this.chkIntegratedSecurity.IsChecked = actionDetail.IntegratedSecurity == "True" ? true : false;
+            this.chkIntegratedSecurity.IsChecked = actionDetail.IntegratedSecurity == "True";
             this.txtPassword.Text = actionDetail.Password;
             this.txtRestoreFileTemplate.Text = actionDetail.RestoreDatabaseFileGroups;
             this.txtBatchFile.Text = actionDetail.RunSQLScriptFilePath;
@@ -56,25 +63,31 @@ namespace RabaMetroStyle.Views
                 this.dtDateTo.SelectedDateTime = DateTime.Parse(actionDetail.ScanFileDateLessThan);
             }
 
-            if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeYounger))
+            if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeYounger) && (actionDetail.ScanFileAgeYounger != "-1"))
             {
-                if (actionDetail.ScanFileAgeYounger != "-1")
-                {
-                    this.nmrDaysOldAgeYouger.Value = Double.Parse(actionDetail.ScanFileAgeYounger);
-                }
+                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                this.nmrDaysOldAgeYouger.Value = double.Parse(actionDetail.ScanFileAgeYounger);
+
                 this.chkRelativeAgeYougerThan.IsChecked = true;
             }
-
-            if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder))
+            else
             {
-                if (actionDetail.ScanFileAgeOlder != "-1")
-                {
-                    this.nmrDaysOldAgeOlder.Value = Double.Parse(actionDetail.ScanFileAgeOlder);
-                }
-                this.chkRelativeAgeOlderThan.IsChecked = true;
+                this.nmrDaysOldAgeYouger.IsEnabled = false;
             }
 
-            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays == "True" ? true : false;
+            if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder) && (actionDetail.ScanFileAgeOlder != "-1"))
+            {
+                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                this.nmrDaysOldAgeOlder.Value = double.Parse(actionDetail.ScanFileAgeOlder);
+
+                this.chkRelativeAgeOlderThan.IsChecked = true;
+            }
+            else
+            {
+                this.nmrDaysOldAgeOlder.IsEnabled = false;
+            }
+
+            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays == "True";
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
             this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan;
@@ -84,31 +97,34 @@ namespace RabaMetroStyle.Views
             this.txtTaskOrder.Text = actionDetail.TaskOrder;
             this.txtUserID.Text = actionDetail.UserID;
             this.txtRestoreFileTemplate.Text = actionDetail.RestoreDatabaseFileGroups;
-            this.chkIncludeSubFolders.IsChecked = actionDetail.IncludeSubFolders == "True" ? true : false;
-            this.chkMaintainSubFolderStructure.IsChecked = actionDetail.MaintainSubFolders == "True" ? true : false;
+            this.chkIncludeSubFolders.IsChecked = actionDetail.IncludeSubFolders == "True";
+            this.chkMaintainSubFolderStructure.IsChecked = actionDetail.MaintainSubFolders == "True";
             this.txtBatchFile.Text = actionDetail.Command;
         }
 
         private void BtnBatchFile_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            var dialog = new VistaOpenFileDialog();
+            dialog.Filter = this.lblBatchFile.Content.ToString().Contains("Batch") ? Properties.Resources.MacroAction_BtnBatchFile_BatchFiles : Properties.Resources.MacroAction_BtnRestoreFile_SQLScript;
+                
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
-                this.txtBatchFile.Text = dialog.SelectedPath;
+                this.txtBatchFile.Text = dialog.FileName;
             }
         }
 
-        private void btnCancle_Click(object sender, RoutedEventArgs e)
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
         private void BtnRestoreFile_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            var dialog = new VistaOpenFileDialog();
+            dialog.Filter = Properties.Resources.MacroAction_BtnRestoreFile_SQLScript;
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
-                this.txtRestoreFileTemplate.Text = dialog.SelectedPath;
+                this.txtRestoreFileTemplate.Text = dialog.FileName;
             }
         }
 
@@ -152,7 +168,8 @@ namespace RabaMetroStyle.Views
                     this.SavedActionDetails.ScanFileAgeOlder = "-1";
                 }
 
-                this.SavedActionDetails.OnlyCountWeekDays = this.chkOnlyCountWeekdays.IsChecked.Value.ToString();
+                var isChecked = this.chkOnlyCountWeekdays.IsChecked;
+                this.SavedActionDetails.OnlyCountWeekDays = ((isChecked != null) && isChecked.Value).ToString();
                 this.SavedActionDetails.ScanFileExtension = this.txtScanExtension.Text;
                 this.SavedActionDetails.ScanFilePrefix = this.txtScanPrefix.Text;
                 if (this.txtSizeFrom.Text.Trim().Length == 0)
@@ -181,7 +198,8 @@ namespace RabaMetroStyle.Views
 
                 this.SavedActionDetails.RestoreDatabaseFileGroups = this.txtRestoreFileTemplate.Text.Trim().Length == 0 ? "" : this.txtRestoreFileTemplate.Text;
 
-                this.SavedActionDetails.IncludeSubFolders = this.chkIncludeSubFolders.IsChecked.Value.ToString();
+                var @checked = this.chkIncludeSubFolders.IsChecked;
+                this.SavedActionDetails.IncludeSubFolders = ((@checked != null) && @checked.Value).ToString();
 
                 this.SavedActionDetails.MaintainSubFolders = this.chkMaintainSubFolderStructure.IsChecked.Value.ToString();
 
@@ -195,13 +213,13 @@ namespace RabaMetroStyle.Views
             {
                 // Notify User....
                 MessageBox.Show("Cannot save action, please check the entered information.",
-                                "RABA 2:Information Center:Add Action");
+                                "RABA: Information Center:Add Action");
             }
         }
 
         private void BtnScanFolder_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            var dialog = new VistaFolderBrowserDialog();
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
                 this.txtScanLocation.Text = dialog.SelectedPath;
@@ -210,14 +228,36 @@ namespace RabaMetroStyle.Views
 
         private void BtnTargetLocation_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Ookii.Dialogs.Wpf.VistaFolderBrowserDialog();
+            var dialog = new VistaFolderBrowserDialog();
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
                 this.txtTargetLocation.Text = dialog.SelectedPath;
             }
         }
 
-        private void DdlAction_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void chkRelativeAge_Checked(object sender, EventArgs e)
+        {
+            if ((this.chkRelativeAgeYougerThan.IsChecked == true) || (this.chkRelativeAgeOlderThan.IsChecked == true))
+            {
+                this.dtDateFrom.IsEnabled = false;
+                this.dtDateTo.IsEnabled = false;
+
+                this.nmrDaysOldAgeYouger.IsEnabled = true;
+                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                this.chkOnlyCountWeekdays.IsEnabled = true;
+            }
+            else
+            {
+                this.dtDateFrom.IsEnabled = true;
+                this.dtDateTo.IsEnabled = true;
+
+                this.nmrDaysOldAgeYouger.IsEnabled = false;
+                this.nmrDaysOldAgeOlder.IsEnabled = false;
+                this.chkOnlyCountWeekdays.IsEnabled = false;
+            }
+        }
+
+        private void DdlAction_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             switch (this.ddlAction.SelectedValue.ToString().ToUpper())
             {
@@ -486,32 +526,9 @@ namespace RabaMetroStyle.Views
             }
         }
 
-        private void chkRelativeAge_Checked(object sender, EventArgs e)
+        private bool EnteredInformationValid()
         {
-            if (this.chkRelativeAgeYougerThan.IsChecked == true || this.chkRelativeAgeOlderThan.IsChecked == true)
-            {
-                this.dtDateFrom.IsEnabled = false;
-                this.dtDateTo.IsEnabled = false;
-
-                this.nmrDaysOldAgeYouger.IsEnabled = true;
-                this.nmrDaysOldAgeOlder.IsEnabled = true;
-                this.chkOnlyCountWeekdays.IsEnabled = true;
-
-            }
-            else
-            {
-                this.dtDateFrom.IsEnabled = true;
-                this.dtDateTo.IsEnabled = true;
-
-                this.nmrDaysOldAgeYouger.IsEnabled = false;
-                this.nmrDaysOldAgeOlder.IsEnabled = false;
-                this.chkOnlyCountWeekdays.IsEnabled = false;
-            }
-        }
-
-        private Boolean EnteredInformationValid()
-        {
-            Boolean bReturn = true;
+            var bReturn = true;
 
             if (this.txtScanLocation.Text.Trim().Length == 0)
             {
@@ -524,7 +541,7 @@ namespace RabaMetroStyle.Views
                 // Now make sure that it's
                 //  a valid folder 
 
-                if (System.IO.Directory.Exists(this.txtScanLocation.Text.Trim()))
+                if (Directory.Exists(this.txtScanLocation.Text.Trim()))
                 {
                     //epFileName.SetError(txtScanLocation, "");
                 }
@@ -535,7 +552,7 @@ namespace RabaMetroStyle.Views
                 }
             }
 
-            if (this.txtSizeFrom.Text.Trim().Length == 0 || this.txtSizeTo.Text.Trim().Length == 0)
+            if ((this.txtSizeFrom.Text.Trim().Length == 0) || (this.txtSizeTo.Text.Trim().Length == 0))
             {
                 //epFileName.SetError(txtSizeFrom, "");
                 //epFileName.SetError(txtSizeTo, "");
@@ -548,11 +565,6 @@ namespace RabaMetroStyle.Views
                     //epFileName.SetError(txtSizeTo, "To Size Cannot Be Smaller Than The From Size!");
                     bReturn = false;
                 }
-                else
-                {
-                    //epFileName.SetError(txtSizeFrom, "");
-                    //epFileName.SetError(txtSizeTo, "");
-                }
             }
 
             if (this.ddlAction.SelectedValue.ToString().ToUpper() == "RESTORE")
@@ -563,20 +575,12 @@ namespace RabaMetroStyle.Views
                     //epFileName.SetError(txtRestoreDatabase, "Enter A Database Name!");
                     bReturn = false;
                 }
-                else
-                {
-                    //epFileName.SetError(txtRestoreDatabase, "");
-                }
 
                 if (this.txtRestoreServer.Text.Trim().Length == 0)
                 {
                     // No Database Name 
                     //epFileName.SetError(txtRestoreServer, "Enter A Server Name!");
                     bReturn = false;
-                }
-                else
-                {
-                    //epFileName.SetError(txtRestoreServer, "");
                 }
             }
 

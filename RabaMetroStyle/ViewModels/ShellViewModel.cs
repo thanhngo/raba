@@ -1,8 +1,12 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.ObjectModel;
 using MahApps.Metro.IconPacks;
 using RabaMetroStyle.Mvvm;
 using RabaMetroStyle.Views;
+
+#endregion
 
 namespace RabaMetroStyle.ViewModels
 {
@@ -14,24 +18,24 @@ namespace RabaMetroStyle.ViewModels
         public ShellViewModel()
         {
             // Build the menus            
-            this.Menu.Add(new MenuItem()
+            this.Menu.Add(new MenuItem
                           {
-                              Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.CogsSolid },
+                              Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.CogsSolid },
                               Label = "Service",
                               NavigationType = typeof(SettingsPage),
                               NavigationDestination = new Uri("Views/ServicePage.xaml", UriKind.RelativeOrAbsolute)
                           });
 
-            this.Menu.Add(new MenuItem()
+            this.Menu.Add(new MenuItem
                           {
-                              Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.CogSolid },
+                              Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.CogSolid },
                               Label = "Settings",
                               NavigationType = typeof(SettingsPage),
                               NavigationDestination = new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute)
                           });
-            this.OptionsMenu.Add(new MenuItem()
+            this.OptionsMenu.Add(new MenuItem
                                  {
-                                     Icon = new PackIconFontAwesome() { Kind = PackIconFontAwesomeKind.InfoCircleSolid },
+                                     Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.InfoCircleSolid },
                                      Label = "About",
                                      NavigationType = typeof(AboutPage),
                                      NavigationDestination = new Uri("Views/AboutPage.xaml", UriKind.RelativeOrAbsolute)

@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Windows;
 using MahApps.Metro.Controls;
+
+#endregion
 
 namespace RabaMetroStyle.ViewModels
 {

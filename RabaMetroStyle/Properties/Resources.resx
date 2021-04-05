@@ -114,4 +114,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MacroAction_BtnRestoreFile_SQLScript" xml:space="preserve">
+    <value>SQL Files (*.SQL)|*.SQL|All files (*.*)|*.*</value>
+  </data>
+  <data name="MacroAction_BtnBatchFile_BatchFiles" xml:space="preserve">
+    <value>Batch Files (*.BAT)|*.BAT|All files (*.*)|*.*</value>
+  </data>
 </root>

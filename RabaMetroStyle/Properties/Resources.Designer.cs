@@ -59,5 +59,23 @@ namespace RabaMetroStyle.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch Files (*.BAT)|*.BAT|All files (*.*)|*.*.
+        /// </summary>
+        internal static string MacroAction_BtnBatchFile_BatchFiles {
+            get {
+                return ResourceManager.GetString("MacroAction_BtnBatchFile_BatchFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQL Files (*.SQL)|*.SQL|All files (*.*)|*.*.
+        /// </summary>
+        internal static string MacroAction_BtnRestoreFile_SQLScript {
+            get {
+                return ResourceManager.GetString("MacroAction_BtnRestoreFile_SQLScript", resourceCulture);
+            }
+        }
     }
 }

@@ -1,34 +1,61 @@
-﻿<Control:MetroWindow
-        xmlns:Control="http://metro.mahapps.com/winfx/xaml/controls" 
-        x:Class="RabaMetroStyle.Views.JobFileName"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RabaMetroStyle.Views"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        ShowMaxRestoreButton="False"
-        ShowMinButton="False"
-        Title="Macro" Height="181.06" Width="624.061">
+﻿<Control:MetroWindow xmlns:Control="http://metro.mahapps.com/winfx/xaml/controls"
+                     x:Class="RabaMetroStyle.Views.JobFileName"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     mc:Ignorable="d"
+                     WindowStartupLocation="CenterScreen"
+                     ShowMaxRestoreButton="False"
+                     ShowMinButton="False"
+                     Title="Macro"
+                     Height="181.06"
+                     Width="624.061">
     <Grid Margin="30">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Label Grid.Row="1" Grid.Column="1">Macro Name</Label>
-        <TextBox Grid.Row="1" Grid.Column="2" Name="txtFileName"></TextBox>
-        <CheckBox Grid.Row="2" Grid.Column="2" Name="chkLogActions" Margin="0,5,0,5">Log Actions</CheckBox>
-        <CheckBox Grid.Row="2" Grid.Column="2" Name="chkRunSerials" Margin="100,0,0,0">Run Serials</CheckBox>
-        <Button Grid.Row="3" Grid.Column="2" Width="100" Click="CmdCancel_Click" Margin="0,5,0,5">Cancel</Button>
-        <Button Grid.Row="3" Grid.Column="2" Width="100" Margin="250,5,0,5" Click="CmdSave_Click">Save</Button>
+        <Label Grid.Row="1"
+               Grid.Column="1">
+            Macro Name
+        </Label>
+        <TextBox Grid.Row="1"
+                 Grid.Column="2"
+                 Name="txtFileName" />
+        <CheckBox Grid.Row="2"
+                  Grid.Column="2"
+                  Name="chkLogActions"
+                  Margin="0,5,0,5">
+            Log Actions
+        </CheckBox>
+        <CheckBox Grid.Row="2"
+                  Grid.Column="2"
+                  Name="chkRunSerials"
+                  Margin="100,0,0,0">
+            Run Serials
+        </CheckBox>
+        <Button Grid.Row="3"
+                Grid.Column="2"
+                Width="100"
+                Click="CmdCancel_Click"
+                Margin="0,5,0,5">
+            Cancel
+        </Button>
+        <Button Grid.Row="3"
+                Grid.Column="2"
+                Width="100"
+                Margin="250,5,0,5"
+                Click="CmdSave_Click">
+            Save
+        </Button>
     </Grid>
 </Control:MetroWindow>

@@ -1,7 +1,12 @@
-﻿using System.Windows;
+﻿#region
+
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using MahApps.Metro.Controls;
+
+#endregion
 
 namespace RabaMetroStyle.Navigation
 {
@@ -16,7 +21,7 @@ namespace RabaMetroStyle.Navigation
 
         private static void FrameNavigationStoryboardPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if (d is Frame frame && e.OldValue != e.NewValue)
+            if (d is Frame frame && (e.OldValue != e.NewValue))
             {
                 frame.Navigating -= Frame_Navigating;
                 if (e.NewValue is Storyboard)
@@ -36,7 +41,7 @@ namespace RabaMetroStyle.Navigation
             control.SetValue(FrameNavigationStoryboardProperty, storyboard);
         }
 
-        private static void Frame_Navigating(object sender, System.Windows.Navigation.NavigatingCancelEventArgs e)
+        private static void Frame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
             if (sender is Frame frame)
             {
