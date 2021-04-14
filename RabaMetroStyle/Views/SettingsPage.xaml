@@ -158,6 +158,9 @@
                               SelectionUnit="FullRow"
                               SelectedIndex="0"
                               TextOptions.TextFormattingMode="Display">
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
+                    </DataGrid.InputBindings>
                     <DataGrid.Columns>                        
                         <DataGridTextColumn Binding="{Binding ScanLocation}" Header="Scan Location" />
                         <DataGridTextColumn Binding="{Binding IncludeSubFolders}" Header="Include Sub Folder" />

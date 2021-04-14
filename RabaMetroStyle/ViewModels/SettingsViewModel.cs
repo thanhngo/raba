@@ -46,6 +46,7 @@ namespace RabaMetroStyle.ViewModels
             this.EditActionDelegateCommand = new DelegateCommand(this.EditMacroAction);
             this.PurgeMacroDelegateCommand = new DelegateCommand(this.PurgeMacroAction);
             this.CopyActionDelegateCommand = new DelegateCommand(this.CopyMacroAction);
+            this.DoubleClickDelegateCommand = new DelegateCommand(this.EditMacroAction);
         }
 
         public ICommand AddActionCommand => this.AddActionDelegateCommand;
@@ -53,6 +54,7 @@ namespace RabaMetroStyle.ViewModels
         public ICommand AddMacroCommand => this.AddMacroDelegateCommand;
 
         public ICommand CopyActionCommand => this.CopyActionDelegateCommand;
+        public ICommand DoubleClickCommand => this.DoubleClickDelegateCommand;
 
         public ObservableCollection<Setting> CurrentSettingsTable
         {
@@ -160,6 +162,7 @@ namespace RabaMetroStyle.ViewModels
         private DelegateCommand EnableMacroDelegateCommand { get; }
 
         private DelegateCommand PurgeMacroDelegateCommand { get; }
+        private DelegateCommand DoubleClickDelegateCommand { get; }
 
         private static void PopulateSettingsFiles(ObservableCollection<string> macroFiles, string szFolder, string settingsExtension)
         {

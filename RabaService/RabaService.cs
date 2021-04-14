@@ -43,28 +43,28 @@ namespace RabaService
 
             if (this.mbLog)
             {
-                this.WriteToLog("In Process, Log Enabled.", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog("In Process, Log Enabled.", "Application", "RabaService", EventLogEntryType.Information);
             }
 
             try
             {
                 if (this.mbLog)
                 {
-                    this.WriteToLog("In Process, Settings File Array Initialized.", "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("In Process, Settings File Array Initialized.", "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 var arrSettingsFiles = this.GetSettingsFiles();
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog("In Process, Settings File Array Retrieved.", "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("In Process, Settings File Array Retrieved.", "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 foreach (string sFileName in arrSettingsFiles)
                 {
                     if (this.mbLog)
                     {
-                        this.WriteToLog("In Process Looping through Settings Files, Currently Reading :" + sFileName, "Application", "Raba", EventLogEntryType.Error);
+                        this.WriteToLog("In Process Looping through Settings Files, Currently Reading :" + sFileName, "Application", "RabaService", EventLogEntryType.Error);
                     }
 
                     this.ProcessSettingsFile(sFileName);
@@ -265,7 +265,7 @@ namespace RabaService
 
             try
             {
-                this.WriteToLog("In RestoreDatabase :" + sMessage, "Application", "RABA", EventLogEntryType.Information);
+                this.WriteToLog("In RestoreDatabase :" + sMessage, "Application", "RabaService", EventLogEntryType.Information);
 
                 var oDsRestoreFile = new DataSet();
 
@@ -434,11 +434,11 @@ namespace RabaService
         protected override void OnStart(string[] args)
         {
             this.InitializeVariables();
-            this.WriteToLog("On Start After Initialize Variables", "Application", "Raba", EventLogEntryType.Information);
+            this.WriteToLog("On Start After Initialize Variables", "Application", "RabaService", EventLogEntryType.Information);
             this.mtimer = new Timer(this.miTimerInterval);
-            this.WriteToLog("On Start Timer Enabled", "Application", "Raba", EventLogEntryType.Information);
+            this.WriteToLog("On Start Timer Enabled", "Application", "RabaService", EventLogEntryType.Information);
             this.mtimer.Elapsed += this.ServiceTimer_Tick;
-            this.WriteToLog("On Start Timer Tick Handler Enabled", "Application", "Raba", EventLogEntryType.Information);
+            this.WriteToLog("On Start Timer Tick Handler Enabled", "Application", "RabaService", EventLogEntryType.Information);
             this.mtimer.Enabled = true;
         }
 
@@ -477,7 +477,7 @@ namespace RabaService
                                                                                + "\r \n  ScanFileSizeLessThan                :  " + Convert.ToString(ScanFileSizeLessThan)
                                                                                + "\r \n  ScanFileSizeGreaterThan             :  " + Convert.ToString(ScanFileSizeGreaterThan);
 
-                    this.WriteToLog(szMessage, "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog(szMessage, "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 var fileSize = new FileInfo(FileName).Length / 1024;
@@ -485,7 +485,7 @@ namespace RabaService
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog("In FileMeetsConditions Checking File Name Starts With  \r \n File Name : " + FileName, "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("In FileMeetsConditions Checking File Name Starts With  \r \n File Name : " + FileName, "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 if (Path.GetFileName(FileName).ToUpper().StartsWith(ScanFilePrefix.ToUpper()))
@@ -493,7 +493,7 @@ namespace RabaService
                     //MGM 
                     if (this.mbLog)
                     {
-                        this.WriteToLog("In FileMeetsConditions File Meets Starts With  \r \n File Name : " + FileName, "Application", "Raba", EventLogEntryType.Information);
+                        this.WriteToLog("In FileMeetsConditions File Meets Starts With  \r \n File Name : " + FileName, "Application", "RabaService", EventLogEntryType.Information);
                     }
 
                     // Now We need to check out the 
@@ -503,7 +503,7 @@ namespace RabaService
                         //MGM 
                         if (this.mbLog)
                         {
-                            this.WriteToLog("In FileMeetsConditions File Meets Ends With  \r \n File Name : " + FileName, "Application", "Raba", EventLogEntryType.Information);
+                            this.WriteToLog("In FileMeetsConditions File Meets Ends With  \r \n File Name : " + FileName, "Application", "RabaService", EventLogEntryType.Information);
                         }
 
                         // Now Check Size
@@ -511,17 +511,17 @@ namespace RabaService
                         if ((ScanFileSizeGreaterThan == 0) && (ScanFileSizeLessThan == 0)) // No Criteria /// Go Through all files 
                         {
                             //MGM 
-                            // WriteToLog("In Process 84:" , "Application", "Raba", EventLogEntryType.Error);
+                            // WriteToLog("In Process 84:" , "Application", "RabaService", EventLogEntryType.Error);
                             if (this.mbLog)
                             {
-                                this.WriteToLog("In FileMeetsConditions File Meets Size Criteria  \r \n File Name : " + FileName, "Application", "Raba", EventLogEntryType.Information);
+                                this.WriteToLog("In FileMeetsConditions File Meets Size Criteria  \r \n File Name : " + FileName, "Application", "RabaService", EventLogEntryType.Information);
                             }
 
                             if (ScanFileUseRelativeAgeYounger || ScanFileUseRelativeAgeOlder)
                             {
                                 if (this.mbLog)
                                 {
-                                    this.WriteToLog("In FileMeetsConditions Use Relative Age  Younger \r \n File Name : " + FileName, "Application", "Raba", EventLogEntryType.Information);
+                                    this.WriteToLog("In FileMeetsConditions Use Relative Age  Younger \r \n File Name : " + FileName, "Application", "RabaService", EventLogEntryType.Information);
                                 }
 
                                 // Use The Relative Age of the File... 
@@ -536,7 +536,7 @@ namespace RabaService
                                 {
                                     if (this.mbLog)
                                     {
-                                        this.WriteToLog("In FileMeetsConditions File Meets Relative Age Younger Criteria  \r \n File Name : " + FileName, "Application", "Raba", EventLogEntryType.Information);
+                                        this.WriteToLog("In FileMeetsConditions File Meets Relative Age Younger Criteria  \r \n File Name : " + FileName, "Application", "RabaService", EventLogEntryType.Information);
                                     }
 
                                     if (OnlyCountWeekDays)
@@ -619,7 +619,7 @@ namespace RabaService
             catch (Exception ex)
             {
                 //MGM 
-                this.WriteToLog("In Process 888 Exception:" + ex, "Application", "Raba", EventLogEntryType.Error);
+                this.WriteToLog("In Process 888 Exception:" + ex, "Application", "RabaService", EventLogEntryType.Error);
 
                 bReturn = false;
             }
@@ -652,16 +652,16 @@ namespace RabaService
 
             if (this.mbLog)
             {
-                this.WriteToLog("Get Settings Files, Started.", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog("Get Settings Files, Started.", "Application", "RabaService", EventLogEntryType.Information);
             }
 
             try
             {
                 string szPathMapJob;
-                var szSettingExtension = "RABA";
+                var szSettingExtension = "RabaService";
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Get Settings Files, Reading Path Info.", "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Get Settings Files, Reading Path Info.", "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["MapJob"]))
@@ -675,7 +675,7 @@ namespace RabaService
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Get Settings Files, Read Path Info: " + szPathMapJob, "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Get Settings Files, Read Path Info: " + szPathMapJob, "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["MapJobExtenstion"]))
@@ -685,7 +685,7 @@ namespace RabaService
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Get Settings Files, Read Job Extension: " + szSettingExtension, "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Get Settings Files, Read Job Extension: " + szSettingExtension, "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 var szSettingExtensionSearch = "*." + szSettingExtension;
@@ -694,7 +694,7 @@ namespace RabaService
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Get Settings Files, Compiled Setings Files: " + szSettingExtension, "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Get Settings Files, Compiled Setings Files: " + szSettingExtension, "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 foreach (var sFileName in settingFiles)
@@ -704,7 +704,7 @@ namespace RabaService
             }
             catch (Exception ex)
             {
-                this.WriteToLog("Exception Encountered In GetSettingsFiles" + ex, "Application", "Raba", EventLogEntryType.Error);
+                this.WriteToLog("Exception Encountered In GetSettingsFiles" + ex, "Application", "RabaService", EventLogEntryType.Error);
             }
 
             return arrReturn;
@@ -740,14 +740,14 @@ namespace RabaService
 
             try
             {
-                this.WriteToLog("InitializeVariables Read Timer Interval", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog("InitializeVariables Read Timer Interval", "Application", "RabaService", EventLogEntryType.Information);
 
                 if (Convert.ToInt32(ConfigurationManager.AppSettings["TimerInterval"]) != 0)
                 {
                     this.miTimerInterval = Convert.ToInt32(ConfigurationManager.AppSettings["TimerInterval"]);
                 }
 
-                this.WriteToLog("InitializeVariables Read Timer Interval Completed", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog("InitializeVariables Read Timer Interval Completed", "Application", "RabaService", EventLogEntryType.Information);
 
                 this.mbLog = Convert.ToBoolean(ConfigurationManager.AppSettings["TraceLog"]);
 
@@ -761,14 +761,14 @@ namespace RabaService
                                     EventLogEntryType.Information);
                 }
 
-                this.WriteToLog("InitializeVariables Completed", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog("InitializeVariables Completed", "Application", "RabaService", EventLogEntryType.Information);
                 bReturn = true;
             }
             catch (Exception ex)
             {
                 this.WriteToLog("Issue in Initializing Variables:InitializeVariables:" + ex,
                                 "Application",
-                                "Raba",
+                                "RabaService",
                                 EventLogEntryType.Error);
             }
 
@@ -783,15 +783,21 @@ namespace RabaService
 
             if (this.mbLog)
             {
-                this.WriteToLog("In Process Settings File, Currently Processing :" + settingsFile, "Application", "Raba", EventLogEntryType.Error);
+                this.WriteToLog("In Process Settings File, Currently Processing :" + settingsFile, "Application", "RabaService", EventLogEntryType.Information);
             }
 
             this.oDs.ReadXml(settingsFile);
 
+            if(this.oDs.Tables.Count == 0)
+            {
+                this.WriteToLog("File " + settingsFile + " does not in correct format ", "Application", "RabaService", EventLogEntryType.Information);
+                return false;
+            }
+
             if (this.mbLog)
             {
                 this.WriteToLog("In Process Settings File, Completed Reading :" + settingsFile +
-                                "\r \n Number of Rows In Settings File : " + this.oDs.Tables[0].Rows.Count, "Application", "Raba", EventLogEntryType.Error);
+                                "\r \n Number of Rows In Settings File : " + this.oDs.Tables[0].Rows.Count, "Application", "RabaService", EventLogEntryType.Information);
             }
 
             var currentRow = 0;
@@ -802,7 +808,7 @@ namespace RabaService
                 {
                     currentRow += 1;
                     this.WriteToLog("In Process Settings File, Currently Reading Settings File :" + settingsFile +
-                                    "\r \n Currently Processing Row Number : " + Convert.ToString(currentRow), "Application", "Raba", EventLogEntryType.Error);
+                                    "\r \n Currently Processing Row Number : " + Convert.ToString(currentRow), "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 var dateLesThan = DateTime.Parse(oRow["ScanFileDateLessThan"].ToString());
@@ -1082,7 +1088,7 @@ namespace RabaService
             {
                 var szMessage = $"Entered ProcessTaskHandler : \r \n TASK :                  {Task}\r \n ScanLocation :          {ScanLocation}\r \n ScanFileExtension :     {ScanFileExtension}\r \n ScanFilePrefix :        {ScanFilePrefix}\r \n ScanFileDateLessThan :  {Convert.ToString(ScanFileDateLessThan)}\r \n ScanFileDateGreaterThan:{Convert.ToString(ScanFileDateGreaterThan)}\r \n ScanFileUseRelativeAgeYounger: {Convert.ToString(ScanFileUseRelativeAgeYounger)}\r \n ScanFileRelativeAgeYounger:    {Convert.ToString(ScanFileRelativeAgeYounger)}\r \n ScanFileUseRelativeAgeOlder: {Convert.ToString(ScanFileUseRelativeAgeOlder)}\r \n ScanFileRelativeAgeOlder:    {Convert.ToString(ScanFileRelativeAgeOlder)}\r \n OnlyCountWeekDays:           {Convert.ToString(OnlyCountWeekDays)}\r \n ScanFileSizeLessThan:   {Convert.ToString(ScanFileSizeLessThan)}\r \n ScanFileSizeGreaterThan:{Convert.ToString(ScanFileSizeGreaterThan)}\r \n TargetLocation:         {TargetLocation}\r \n MaintainSubFolders:     {Convert.ToString(MaintainSubFolders)}\r \n MaintainSubFolders:     {Convert.ToString(Command)}\r \n ActionCompleteRename:   {Convert.ToString(ActionCompleteRename)}\r \n ActionCompleteTimeStamp:{Convert.ToString(ActionCompleteTimeStamp)}\r \n ActionCompleteDelete:   {Convert.ToString(ActionCompleteDelete)}\r \n IntegratedSecurity:     {Convert.ToString(IntegratedSecurity)}\r \n UserID:                 {userId}\r \n Password:               {Password}\r \n DatabaseName:           {DatabaseName}\r \n DatabaseServer:         {DatabaseServer}\r \n RunSQLScript:           {Convert.ToString(runSqlScript)}\r \n RunSQLScriptFilePath:   {runSqlScriptFilePath}\r \n RestoreDatabaseFileGroups:{RestoreDatabaseFileGroups}\r \n IncludeSubfolders:      {Convert.ToString(IncludeSubfolders)}\r \n ";
 
-                this.WriteToLog(szMessage, "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog(szMessage, "Application", "RabaService", EventLogEntryType.Information);
             }
 
             if (!Directory.Exists(ScanLocation))
@@ -1092,14 +1098,14 @@ namespace RabaService
 
             if (this.mbLog)
             {
-                this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}", "Application", "RabaService", EventLogEntryType.Information);
             }
 
             var sfiles = IncludeSubfolders ? Directory.GetFiles(ScanLocation, "*.*", SearchOption.AllDirectories) : Directory.GetFiles(ScanLocation);
 
             if (this.mbLog)
             {
-                this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}", "Application", "RabaService", EventLogEntryType.Information);
             }
 
             foreach (var sFileName in sfiles)
@@ -1107,7 +1113,7 @@ namespace RabaService
                 if (this.mbLog)
                 {
                     this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}\r \n  Currently Testing File : {sFileName}",
-                                    "Application", "Raba", EventLogEntryType.Information);
+                                    "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 if (!this.FileMeetsConditions(sFileName,
@@ -1129,7 +1135,7 @@ namespace RabaService
                 if (this.mbLog)
                 {
                     this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}\r \n  File : {sFileName}     Meets Conditions",
-                                    "Application", "Raba", EventLogEntryType.Information);
+                                    "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 if (!this.ProcessTask(sFileName,
@@ -1181,7 +1187,7 @@ namespace RabaService
             {
                 this.WriteToLog("Issue in Transferring File :ProcessRRDataTransfer:" + ex,
                                 "Application",
-                                "Raba",
+                                "RabaService",
                                 EventLogEntryType.Error);
 
                 bReturn = false;
@@ -1194,21 +1200,21 @@ namespace RabaService
         {
             if (this.mbLog)
             {
-                this.WriteToLog("Timer hit, Checking to See if the Service is in process", "Application", "Raba", EventLogEntryType.Information);
+                this.WriteToLog("Timer hit, Checking to See if the Service is in process", "Application", "RabaService", EventLogEntryType.Information);
             }
 
             if (!this.bInProcess)
             {
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Timer hit, Service Not In Process. Creating A New Process ", "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Timer hit, Service Not In Process. Creating A New Process ", "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 this.bInProcess = true;
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Timer hit, About to enter process, a marker has been assinged. Creating A New Process ", "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Timer hit, About to enter process, a marker has been assinged. Creating A New Process ", "Application", "RabaService", EventLogEntryType.Information);
                 }
 
                 this.bInProcess = this.ProcessRaba();
@@ -1217,7 +1223,7 @@ namespace RabaService
             {
                 if (this.mbLog)
                 {
-                    this.WriteToLog("Timer hit, Service Still Running Process. Did not enter process.", "Application", "Raba", EventLogEntryType.Information);
+                    this.WriteToLog("Timer hit, Service Still Running Process. Did not enter process.", "Application", "RabaService", EventLogEntryType.Information);
                 }
             }
         }
