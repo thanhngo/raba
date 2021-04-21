@@ -231,6 +231,7 @@ namespace RabaMetroStyle.ViewModels
                 row["TargetLocation"] = addMacroActionForm.SavedActionDetails.TargetLocation;
                 row["TaskOrder"] = tempSettingTable.Tables["tblTaskInfo"].Rows.Count + 1;
                 row["UserID"] = addMacroActionForm.SavedActionDetails.UserID;
+                row["Dependent"] = addMacroActionForm.SavedActionDetails.Dependent;
 
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
 
@@ -366,6 +367,7 @@ namespace RabaMetroStyle.ViewModels
                 oDtReturn.Columns.Add("RunSQLScript");
                 oDtReturn.Columns.Add("RunSQLScriptFilePath");
                 oDtReturn.Columns.Add("RestoreDatabaseFileGroups");
+                oDtReturn.Columns.Add("Dependent");
             }
             catch (Exception ex)
             {
@@ -447,8 +449,9 @@ namespace RabaMetroStyle.ViewModels
                                MaintainSubFolders = row["MaintainSubFolders"] == DBNull.Value ? string.Empty : (string)row["MaintainSubFolders"],
                                Command = row["Command"] == DBNull.Value ? string.Empty : (string)row["Command"],
                                TargetLocation = row["TargetLocation"] == DBNull.Value ? string.Empty : (string)row["TargetLocation"],
-                               UserID = row["UserID"] == DBNull.Value ? string.Empty : (string)row["UserID"]
-                           };
+                               UserID = row["UserID"] == DBNull.Value ? string.Empty : (string)row["UserID"],
+                               Dependent = row["Dependent"] == DBNull.Value ? string.Empty : (string)row["Dependent"]
+            };
             //settings.TaskOrder = row["TaskOrder"] == DBNull.Value ? string.Empty : (string)row["TaskOrder"];
             return settings;
         }

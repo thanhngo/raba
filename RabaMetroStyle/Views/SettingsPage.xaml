@@ -176,6 +176,7 @@
                         <DataGridTextColumn Binding="{Binding ScanFileSizeGreaterThan}" Header="Size Greater Than" />
                         <DataGridTextColumn Binding="{Binding ScanFileSizeLessThan}" Header="Size Less Than" />
                         <DataGridTextColumn Binding="{Binding Action}" Header="Action" />
+                        <DataGridTextColumn Binding="{Binding Dependent}" Header="Dependent" />
                         <DataGridTextColumn Binding="{Binding ActionCompleteRename}" Header="On Completion Rename" />
                         <DataGridTextColumn Binding="{Binding ActionCompleteTimeStamp}" Header="On Completion Time Stamp" />
                         <DataGridTextColumn Binding="{Binding ActionCompleteDelete}" Header="On Completion Time Delete" />

@@ -100,6 +100,7 @@ namespace RabaMetroStyle.Views
             this.chkIncludeSubFolders.IsChecked = actionDetail.IncludeSubFolders == "True";
             this.chkMaintainSubFolderStructure.IsChecked = actionDetail.MaintainSubFolders == "True";
             this.txtBatchFile.Text = actionDetail.Command;
+            this.chkEmbedded.IsChecked = actionDetail.Dependent.Equals("D");
         }
 
         private void BtnBatchFile_Click(object sender, RoutedEventArgs e)
@@ -205,6 +206,15 @@ namespace RabaMetroStyle.Views
 
                 this.SavedActionDetails.Command = this.txtBatchFile.Text;
 
+                if(this.chkEmbedded.IsChecked == true)
+                {
+                    this.SavedActionDetails.Dependent = "D";
+                }
+                else
+                {
+                    this.SavedActionDetails.Dependent = "C";
+                }
+                
                 this.SavedAction = true;
 
                 this.Close();
@@ -596,6 +606,7 @@ namespace RabaMetroStyle.Views
             this.ddlAction.Items.Add(new ListItem("UNZIP", "4"));
             this.ddlAction.Items.Add(new ListItem("BATCH", "5"));
             this.ddlAction.Items.Add(new ListItem("SQLSCRIPT", "6"));
+            this.ddlAction.Items.Add(new ListItem("RUN", "7"));
             this.ddlAction.SelectedIndex = 0;
         }
     }

@@ -92,5 +92,6 @@ namespace RabaMetroStyle.Models
         public string TaskOrder { get; set; }
 
         public string UserID { get; set; }
+        public string Dependent { get; set; }
     }
 }
