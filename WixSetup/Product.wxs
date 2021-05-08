@@ -6,7 +6,7 @@
 <!-- The manufacturer, for setup package publisher and folder info -->
 <?define Manufacturer = "Raba" ?>
 <!-- The version number of this setup package-->
-<?define Version = "1.1.0" ?>
+<?define Version = "1.2.2" ?>
 <!-- UpgradeCode must be unique and not changed once the first version of the program is installed. -->
 <?define UpgradeCode = "{25DA3824-3F14-4040-826B-F8D1783E1288}" ?>
 <!-- The name of the Cabinet -->
@@ -85,51 +85,44 @@
             <!--<UIRef Id="WixUI_Minimal" />-->
             <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">WIXUI_EXITDIALOGOPTIONALCHECKBOX = 1 and NOT Installed</Publish>
         </UI>
-      <UI Id="CustomUI_Login">
-        <Dialog Id="LoginDlg" Title="!(loc.InstallDirDlg_Title)" Width="370" Height="270" NoMinimize="no">
-
-          <Control Id="AccountLabel" Type="Text" X="75" Y="113" Width="100" Height="15" TabSkip="no" Text="&amp;Account:" />
-          <Control Id="AccountInput" Type="Edit" X="75" Y="125" Width="220" Height="18" Property="LogonUser" Text="{80}" />
-          <Control Id="PasswordLabel" Type="Text" X="75" Y="150" Width="100" Height="15" TabSkip="no" Text="&amp;Password:" />
-          <Control Id="PasswordEdit" Type="Edit" X="75" Y="162" Width="220" Height="18" Property="PASSWORD" Password="yes" />
-
-          <Control Id="InstallButton" Type="PushButton" Text="Continue" Height="17" Width="56" X="130" Y="190">
-            <Publish Event="NewDialog" Value="ProgressDlg"></Publish>
-          </Control>
-
-          <Control Id="CancelButton" Type="PushButton" X="190" Y="190" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
-            <Publish Event="SpawnDialog" Value="CancelDlg" >1</Publish>
-          </Control>
-
-          <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
-            <Text>Click Continue to finalise service installation</Text>
-          </Control>
-
-          <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
-            <Text>{\WixUI_Font_Title}Account to install service</Text>
-          </Control>
-
-          <Control Id="LoginHeaderText" Type="Text" X="35" Y="65" Width="300" Height="50" NoPrefix="yes">
-            <Text>{\WixUI_Font_Bigger}Please enter your account and password to continue:</Text>
-          </Control>
-
-          <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
-          <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
-          <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
-        </Dialog>
-      </UI>
-
-      <InstallUISequence>
-        <Show After="ProgressDlg" Dialog="LoginDlg">NOT Installed</Show>
-      </InstallUISequence>
-      <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch $(var.Name)" />
+        <UI Id="CustomUI_Login">
+            <Dialog Id="LoginDlg" Title="!(loc.InstallDirDlg_Title)" Width="370" Height="270" NoMinimize="no">
+                <Control Id="AccountLabel" Type="Text" X="75" Y="113" Width="100" Height="15" TabSkip="no" Text="&amp;Account:" />
+                <Control Id="AccountInput" Type="Edit" X="75" Y="125" Width="220" Height="18" Property="LogonUser" Text="{80}" />
+                <Control Id="PasswordLabel" Type="Text" X="75" Y="150" Width="100" Height="15" TabSkip="no" Text="&amp;Password:" />
+                <Control Id="PasswordEdit" Type="Edit" X="75" Y="162" Width="220" Height="18" Property="PASSWORD" Password="yes" />
+                <Control Id="InstallButton" Type="PushButton" Text="Continue" Height="17" Width="56" X="130" Y="190">
+                    <Publish Event="NewDialog" Value="ProgressDlg">
+                    </Publish>
+                </Control>
+                <Control Id="CancelButton" Type="PushButton" X="190" Y="190" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)">
+                    <Publish Event="SpawnDialog" Value="CancelDlg">1</Publish>
+                </Control>
+                <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes">
+                    <Text>Click Continue to finalise service installation</Text>
+                </Control>
+                <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes">
+                    <Text>{\WixUI_Font_Title}Account to install service</Text>
+                </Control>
+                <Control Id="LoginHeaderText" Type="Text" X="35" Y="65" Width="300" Height="50" NoPrefix="yes">
+                    <Text>{\WixUI_Font_Bigger}Please enter your account and password to continue:</Text>
+                </Control>
+                <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+                <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+                <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+            </Dialog>
+        </UI>
+        <InstallUISequence>
+            <Show After="ProgressDlg" Dialog="LoginDlg">NOT Installed</Show>
+        </InstallUISequence>
+        <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOXTEXT" Value="Launch $(var.Name)" />
         <!--Include the custom action for running application on exit-->
         <Property Id="WixShellExecTarget" Value="[#RabaMetroStyle.exe]" />
         <Property Id="WIXUI_EXITDIALOGOPTIONALCHECKBOX" Value="1" />
         <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
         <!--Custom UI for installer-->
         <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
-        <UIRef Id="WixUI_InstallDir" />        
+        <UIRef Id="WixUI_InstallDir" />
         <!--EndUser License aggrement-->
         <WixVariable Id="WixUILicenseRtf" Overridable="yes" Value="Resources\eula.rtf" />
         <!--Top Banner UI Logo-->
@@ -140,7 +133,7 @@
     <!--Fragment with details of installation directory-->
     <Fragment>
         <Directory Id="TARGETDIR" Name="SourceDir">
-            <Component Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" Guid="3D1CA6F4-4A7C-4ACD-B573-432C7BB5BF86" Permanent="no" SharedDllRefCount="no" Transitive="no">
+          <Component Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" Guid="3D1CA6F4-4A7C-4ACD-B573-432C7BB5BF86" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_F82FFF27_9F19_41BE_AEE8_19AD8723113C" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
             </Component>
             <Component Id="comp_88E55624_FCDE_4D1F_B885_2662C854FAD2" Guid="8E40FD9E-EBFA-4563-ADF9-6E048B5AE74A" Permanent="no" SharedDllRefCount="no" Transitive="no">
@@ -151,7 +144,7 @@
             </Component>
             <Directory Id="ProgramFilesFolder">
                 <!-- Create a folder inside program files with Company Name-->
-                <Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
+              <Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
                     <File Id="_66328E0E_84C0_4ACA_85F3_7783E842AD4B" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
                 </Component>
                 <Component Id="comp_E85A8565_E419_4D6F_93D0_36E77AEDDFEF" Guid="916FAEC6-4E3D-4F78-B616-324DEE6598AE" Permanent="no" SharedDllRefCount="no" Transitive="no">
@@ -303,7 +296,7 @@
                 <File Id="_C4040E57_E559_446E_97B5_9236894F4C31" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Design.dll" Source="c:\\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.6.1\System.Design.dll" KeyPath="yes" />
             </Component>
             <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967216D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA98" Permanent="no" SharedDllRefCount="no" Transitive="no">
-              <File Id="_C4040E57_E559_446E_97B5_9236894F4C32" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="ICSharpCode.SharpZipLib.dll" Source="..\\RabaService\\\bin\\\Release\\ICSharpCode.SharpZipLib.dll" KeyPath="yes" />
+                <File Id="_C4040E57_E559_446E_97B5_9236894F4C32" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="ICSharpCode.SharpZipLib.dll" Source="..\\RabaService\\\bin\\\Release\\ICSharpCode.SharpZipLib.dll" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>

@@ -100,7 +100,7 @@ namespace RabaMetroStyle.Views
             this.chkIncludeSubFolders.IsChecked = actionDetail.IncludeSubFolders == "True";
             this.chkMaintainSubFolderStructure.IsChecked = actionDetail.MaintainSubFolders == "True";
             this.txtBatchFile.Text = actionDetail.Command;
-            this.chkEmbedded.IsChecked = actionDetail.Dependent.Equals("D");
+            this.chkEmbedded.IsChecked = !string.IsNullOrEmpty(actionDetail.Dependent) && actionDetail.Dependent.Equals("D");
         }
 
         private void BtnBatchFile_Click(object sender, RoutedEventArgs e)

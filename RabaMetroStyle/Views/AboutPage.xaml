@@ -19,6 +19,18 @@
                                        VerticalAlignment="Top"
                                        Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
                                        Kind="InfoCircleSolid" />
+        <TextBlock Margin="24, 80,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   Text="Raba" />
+        <TextBlock Margin="24, 120,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   Text="Version 1.2.2" />
+        <TextBlock Margin="24, 160,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   Text="Copyright 2021" />
 
     </Grid>
 </Page>

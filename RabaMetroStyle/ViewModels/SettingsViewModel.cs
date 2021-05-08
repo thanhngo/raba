@@ -448,9 +448,12 @@ namespace RabaMetroStyle.ViewModels
                                MaintainSubFolders = row["MaintainSubFolders"] == DBNull.Value ? string.Empty : (string)row["MaintainSubFolders"],
                                Command = row["Command"] == DBNull.Value ? string.Empty : (string)row["Command"],
                                TargetLocation = row["TargetLocation"] == DBNull.Value ? string.Empty : (string)row["TargetLocation"],
-                               UserID = row["UserID"] == DBNull.Value ? string.Empty : (string)row["UserID"],
-                               Dependent = row["Dependent"] == DBNull.Value ? string.Empty : (string)row["Dependent"]
+                               UserID = row["UserID"] == DBNull.Value ? string.Empty : (string)row["UserID"]
             };
+            if(row.Table.Columns.Contains("Dependent"))
+            {
+                settings.Dependent = row["Dependent"] == DBNull.Value ? string.Empty : (string)row["Dependent"];
+            }
             //settings.TaskOrder = row["TaskOrder"] == DBNull.Value ? string.Empty : (string)row["TaskOrder"];
             return settings;
         }

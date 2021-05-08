@@ -26,3 +26,7 @@ Release Note version 1.2.1 - Apr 27, 2021
 - Update main window
 	+ Make enable macro panel bigger
 	+ Make disable macro panel smaller
+
+Release Note version 1.2.2 - May 08, 2021
+- Add Appname, Version and Copyright to About page
+- Fix issue: Raba crashed when adding the same Run Action into a macro
