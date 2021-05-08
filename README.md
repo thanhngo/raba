@@ -17,11 +17,11 @@ Release Note version 1.1.0
 - RABA Service handle for COPY, DELETE, MOVE, BATCH, SQL SCRIPT command
 - Add Credential to installation package
 
-Release Note version 1.2.0
+Release Note version 1.2.0 - Apr 22, 2021
 - Add RUN action to RABA control
 - Add "RUN" to RABA file
 
-Release Note version 1.2.1
+Release Note version 1.2.1 - Apr 27, 2021
 - Change default size to 1366x730
 - Update main window
 	+ Make enable macro panel bigger
