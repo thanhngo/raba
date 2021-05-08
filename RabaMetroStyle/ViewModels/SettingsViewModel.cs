@@ -287,7 +287,6 @@ namespace RabaMetroStyle.ViewModels
             {
                 MessageBox.Show("Please select macro action", "Copy Macro Action", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
-                return;
             }
 
             var newMacroAction = this.selectedItem;
@@ -586,6 +585,7 @@ namespace RabaMetroStyle.ViewModels
                 row["TargetLocation"] = setting.TargetLocation;
                 row["TaskOrder"] = tempSettingTable.Tables["tblTaskInfo"].Rows.Count + 1;
                 row["UserID"] = setting.UserID;
+                row["Dependent"] = setting.Dependent;
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
             }
 
