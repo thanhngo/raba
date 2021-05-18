@@ -1,12 +1,12 @@
 ﻿#region
 
+using MahApps.Metro.Controls;
+using RabaMetroStyle.Navigation;
+using RabaMetroStyle.ViewModels;
 using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
-using MahApps.Metro.Controls;
-using RabaMetroStyle.Navigation;
-using RabaMetroStyle.ViewModels;
 
 #endregion
 

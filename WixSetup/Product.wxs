@@ -187,6 +187,9 @@
             <Component Id="App.config" Guid="*">
                 <File Id="App.config" Name="App.config" Source="..\RabaService\bin\Release\App.config" />
             </Component>
+            <Component Id="RabaService.exe.config" Guid="*">
+              <File Id="RabaService.exe.config" Name="RabaService.exe.config" Source="..\RabaService\bin\Release\RabaService.exe.config" />
+            </Component>
             <Component Id="comp_7C00FD8B_D5D8_44FA_82DA_31A6DD463E38" Guid="8264B2C2-2E84-4D93-9F81-C6231E3E504F" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_DD2403E3_9A57_4A5C_9042_A6A9B03FB33D" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="ControlzEx.dll" Source="..\packages\ControlzEx.4.4.0\lib\net45\ControlzEx.dll" KeyPath="yes" />
             </Component>
@@ -297,6 +300,9 @@
             </Component>
             <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967216D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA98" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_C4040E57_E559_446E_97B5_9236894F4C32" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="ICSharpCode.SharpZipLib.dll" Source="..\\RabaService\\\bin\\\Release\\ICSharpCode.SharpZipLib.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967217D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA99" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                <File Id="_C4040E57_E559_446E_97B5_9236894F4C33" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="log4net.dll" Source="..\\RabaService\\\bin\\\Release\\log4net.dll" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>

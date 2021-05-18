@@ -6,7 +6,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RabaMetroStyle.Views"
-    xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" d:DataContext="{d:DesignInstance Type=viewModels:ServiceViewModel}"
     WindowStartupLocation="CenterScreen"
         ShowMaxRestoreButton="False"
         ShowMinButton="False"
@@ -54,7 +54,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="1">Scan Location</Label>
-                <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Name="txtScanLocation"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Name="txtScanLocation" ></TextBox>
                 <Button Grid.Row="1" Grid.Column="5" Name ="btnScanFolder"  BorderThickness="0" BorderBrush="Transparent" Width="25" Click="BtnScanFolder_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}">
                     <iconPacks:PackIconFontAwesome Width="25"
                                        Height="25"                                                          
@@ -106,33 +106,38 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed">Task Order</Label>
                 <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed"></TextBox>
                 <Label Grid.Row="2" Grid.Column="1">Action</Label>
                 <ComboBox Grid.Row="2" Grid.Column="2" Name="ddlAction" SelectionChanged="DdlAction_SelectionChanged"></ComboBox>
-                <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkEmbedded"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="3" Margin="50,0,0,0" Name="lblembedded">Conditional Run Child</Label>
-                <Label Grid.Row="3" Grid.Column="1" Name="lblAfterActionDelete">After Action Delete</Label>
-                <CheckBox Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left" Width="22" Name="chkAfterActionDelete"></CheckBox>
-                <Label Grid.Row="3" Grid.Column="2" Margin="60,0,0,0" Name="lblAfterActionRename">After Action Rename</Label>
-                <CheckBox Grid.Row="3" Grid.Column="3" Margin="10,0,0,0" Name="chkAfterActionRename"></CheckBox>
-                <Label Grid.Row="3" Grid.Column="3" Margin="50,0,0,0" Name="lblAfterActionTimeStamp">After Action Time Stamp</Label>
-                <CheckBox Grid.Row="3" Grid.Column="4" Name="chkAfterActionTimeStamp"></CheckBox>
-                <Label Grid.Row="4" Grid.Column="1" Name="lblTargetLocation">Target Location</Label>
-                <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Name="txtTargetLocation"></TextBox>
-                <Button Grid.Row="4" Grid.Column="5" Name="btnTargetLocation" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
+                <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkConditionalRun"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun">Conditional Run</Label>
+                <CheckBox Grid.Row="2" Grid.Column="4" Margin="0,0,0,0" Name="chkDependent"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent">Dependent</Label>
+                <CheckBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="chkConditonalDelete" Checked="chkConditonalDelete_Checked" Unchecked="chkConditonalDelete_UnChecked"></CheckBox>
+                <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete">Conditional Delete</Label>                
+                <Label Grid.Row="4" Grid.Column="1" Name="lblAfterActionDelete">After Action Delete</Label>
+                <CheckBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Width="22" Name="chkAfterActionDelete"></CheckBox>
+                <Label Grid.Row="4" Grid.Column="2" Margin="60,0,0,0" Name="lblAfterActionRename">After Action Rename</Label>
+                <CheckBox Grid.Row="4" Grid.Column="3" Margin="10,0,0,0" Name="chkAfterActionRename"></CheckBox>
+                <Label Grid.Row="4" Grid.Column="3" Margin="50,0,0,0" Name="lblAfterActionTimeStamp">After Action Time Stamp</Label>
+                <CheckBox Grid.Row="4" Grid.Column="4" Name="chkAfterActionTimeStamp"></CheckBox>
+                <Label Grid.Row="5" Grid.Column="1" Name="lblTargetLocation">Target Location</Label>
+                <TextBox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" Name="txtTargetLocation"></TextBox>
+                <Button Grid.Row="5" Grid.Column="5" Name="btnTargetLocation" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                     <iconPacks:PackIconFontAwesome Width="25"
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"                                         
                                        Kind="FolderSolid" Foreground="#FFD8CF03" />
                 </Button>
-                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkMaintainSubFolderStructure" Margin="0,5,0,5">Maintain Sub Folder Structure</CheckBox>
+                <CheckBox Grid.Row="6" Grid.Column="2" Name="chkMaintainSubFolderStructure" Margin="0,5,0,5">Maintain Sub Folder Structure</CheckBox>
                 <Label Grid.Row="6" Grid.Column="1" Name="lblBatchFile">BatchFile</Label>
-                <TextBox Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="3" Name="txtBatchFile"></TextBox>
-                <Button Grid.Row="6" Grid.Column="5" Name="btnBatchFile" Click="BtnBatchFile_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
+                <TextBox Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3" Name="txtBatchFile"></TextBox>
+                <Button Grid.Row="7" Grid.Column="5" Name="btnBatchFile" Click="BtnBatchFile_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                     <iconPacks:PackIconFontAwesome Width="25"
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"
@@ -160,7 +165,7 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity">Integrated Security</Label>
-                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"></CheckBox>
+                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"/>
                 <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed">User ID</Label>
                 <TextBox Grid.Row="2" Grid.Column="2" Name="txtUserID" Visibility="Collapsed"></TextBox>
                 <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed">Password</Label>

@@ -1,10 +1,10 @@
 ﻿#region
 
+using MahApps.Metro.Controls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
-using MahApps.Metro.Controls;
 
 #endregion
 

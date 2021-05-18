@@ -1,14 +1,16 @@
 ﻿#region
 
+using ICSharpCode.SharpZipLib.Zip;
+using log4net.Config;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.ServiceProcess;
 using System.Timers;
-using ICSharpCode.SharpZipLib.Zip;
 
 #endregion
 
@@ -31,6 +33,8 @@ namespace RabaService
         private Timer mtimer;
         private DataSet oDs = new DataSet();
         private string szCurrentFile = string.Empty;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private ActionResult PreviousRun;
 
         public RabaService()
         {
@@ -189,19 +193,50 @@ namespace RabaService
             return bReturn;
         }
 
-        public bool ProcessTaskDelete(string SourceFileName)
+        public bool ProcessTaskDelete(string SourceFileName, string ScanLocation, string TargetFolder, bool ConditonalDelete = false)
         {
             bool bReturn = false;
             try
             {
-                File.Delete(SourceFileName);
+                if (string.IsNullOrEmpty(TargetFolder))
+                {
+                    File.Delete(SourceFileName);
+                }
+                else
+                {
+                    var szRootName = Path.GetFileName(SourceFileName);
+
+                    var szSubFolderName = Path.GetDirectoryName(SourceFileName)?.Replace(ScanLocation, "");
+
+                    if (!string.IsNullOrEmpty(szSubFolderName))
+                    {
+                        var sTemp = TargetFolder + szSubFolderName;
+                        if (!Directory.Exists(sTemp))
+                        {
+                            Directory.CreateDirectory(sTemp);
+                        }
+
+                        szSubFolderName += "\\";
+                    }
+                    else
+                    {
+                        szSubFolderName = "\\";
+                    }
+
+                    var szTargetFile = TargetFolder + szSubFolderName + szRootName;
+
+                    if (File.Exists(szTargetFile))
+                    {
+                        File.Delete(szTargetFile);
+                    }
+                }
                 bReturn = true;
             }
             catch (Exception ex)
             {
                 bReturn = false;
             }
-            
+
             return bReturn;
         }
 
@@ -788,7 +823,7 @@ namespace RabaService
 
             this.oDs.ReadXml(settingsFile);
 
-            if(this.oDs.Tables.Count == 0)
+            if (this.oDs.Tables.Count == 0)
             {
                 this.WriteToLog("File " + settingsFile + " does not in correct format ", "Application", "RabaService", EventLogEntryType.Information);
                 return false;
@@ -801,6 +836,10 @@ namespace RabaService
             }
 
             var currentRow = 0;
+
+            var hasDependentColumn = this.oDs.Tables[0].Columns.Contains("Dependent");
+            var hasConditionalRunColumn = this.oDs.Tables[0].Columns.Contains("ConditionalRun");
+            var hasConditionalDeleteColumn = this.oDs.Tables[0].Columns.Contains("ConditionalDelete");
 
             foreach (DataRow oRow in this.oDs.Tables[0].Rows)
             {
@@ -820,6 +859,9 @@ namespace RabaService
                 var scanFileUseRelativeAgeOlder = Convert.ToBoolean(oRow["ScanFileUseRelativeAgeOlder"]);
                 var scanFileAgeYounger = Convert.ToInt32(oRow["ScanFileAgeYounger"]);
                 var scanFileAgeOlder = Convert.ToInt32(oRow["ScanFileAgeOlder"]);
+                var dependent = hasDependentColumn ? Convert.ToString(oRow["Dependent"]) : string.Empty;
+                var conditionalRun = hasConditionalRunColumn ? Convert.ToString(oRow["ConditionalRun"]) : string.Empty;
+                var conditonalDelete = hasConditionalDeleteColumn ? Convert.ToBoolean(oRow["ConditionalDelete"]) : false;
 
                 this.ProcessTaskHandler(
                     Convert.ToString(oRow["Action"]),
@@ -849,7 +891,10 @@ namespace RabaService
                     Convert.ToBoolean(oRow["RunSQLScript"]),
                     Convert.ToString(oRow["RunSQLScriptFilePath"]),
                     Convert.ToString(oRow["RestoreDatabaseFileGroups"]),
-                    includeSubFolders);
+                    includeSubFolders,
+                    dependent,
+                    conditionalRun,
+                    conditonalDelete);
             }
             bReturn = true;
 
@@ -872,7 +917,8 @@ namespace RabaService
                                  string FileGroup,
                                  bool ActionCompleteRename,
                                  bool ActionCompleteTimeStamp,
-                                 bool ActionCompleteDelete)
+                                 bool ActionCompleteDelete,
+                                 bool ConditonalDelete)
         {
             var bReturn = false;
 
@@ -909,7 +955,7 @@ namespace RabaService
                     break;
 
                 case "DELETE":
-                    this.ProcessTaskDelete(szFileName);
+                    this.ProcessTaskDelete(szFileName, ScanLocation, TargetLocation, ConditonalDelete);
                     bReturn = true;
                     break;
 
@@ -1080,10 +1126,14 @@ namespace RabaService
                                         bool runSqlScript,
                                         string runSqlScriptFilePath,
                                         string RestoreDatabaseFileGroups,
-                                        bool IncludeSubfolders
+                                        bool IncludeSubfolders,
+                                        string Dependent,
+                                        string ConditionalRun,
+                                        bool ConditonalDelete
         )
         {
             var bReturn = false;
+            var useCurrentTaskCondition = false;
             if (this.mbLog)
             {
                 var szMessage = $"Entered ProcessTaskHandler : \r \n TASK :                  {Task}\r \n ScanLocation :          {ScanLocation}\r \n ScanFileExtension :     {ScanFileExtension}\r \n ScanFilePrefix :        {ScanFilePrefix}\r \n ScanFileDateLessThan :  {Convert.ToString(ScanFileDateLessThan)}\r \n ScanFileDateGreaterThan:{Convert.ToString(ScanFileDateGreaterThan)}\r \n ScanFileUseRelativeAgeYounger: {Convert.ToString(ScanFileUseRelativeAgeYounger)}\r \n ScanFileRelativeAgeYounger:    {Convert.ToString(ScanFileRelativeAgeYounger)}\r \n ScanFileUseRelativeAgeOlder: {Convert.ToString(ScanFileUseRelativeAgeOlder)}\r \n ScanFileRelativeAgeOlder:    {Convert.ToString(ScanFileRelativeAgeOlder)}\r \n OnlyCountWeekDays:           {Convert.ToString(OnlyCountWeekDays)}\r \n ScanFileSizeLessThan:   {Convert.ToString(ScanFileSizeLessThan)}\r \n ScanFileSizeGreaterThan:{Convert.ToString(ScanFileSizeGreaterThan)}\r \n TargetLocation:         {TargetLocation}\r \n MaintainSubFolders:     {Convert.ToString(MaintainSubFolders)}\r \n MaintainSubFolders:     {Convert.ToString(Command)}\r \n ActionCompleteRename:   {Convert.ToString(ActionCompleteRename)}\r \n ActionCompleteTimeStamp:{Convert.ToString(ActionCompleteTimeStamp)}\r \n ActionCompleteDelete:   {Convert.ToString(ActionCompleteDelete)}\r \n IntegratedSecurity:     {Convert.ToString(IntegratedSecurity)}\r \n UserID:                 {userId}\r \n Password:               {Password}\r \n DatabaseName:           {DatabaseName}\r \n DatabaseServer:         {DatabaseServer}\r \n RunSQLScript:           {Convert.ToString(runSqlScript)}\r \n RunSQLScriptFilePath:   {runSqlScriptFilePath}\r \n RestoreDatabaseFileGroups:{RestoreDatabaseFileGroups}\r \n IncludeSubfolders:      {Convert.ToString(IncludeSubfolders)}\r \n ";
@@ -1101,22 +1151,114 @@ namespace RabaService
                 this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}", "Application", "RabaService", EventLogEntryType.Information);
             }
 
-            var sfiles = IncludeSubfolders ? Directory.GetFiles(ScanLocation, "*.*", SearchOption.AllDirectories) : Directory.GetFiles(ScanLocation);
+            var fileInScanLocation = new List<string>();
+
+            if(ConditionalRun.Equals("R"))
+            {
+                if(PreviousRun != null)
+                {
+                    if(Dependent.Equals("D"))
+                    { 
+                        if(PreviousRun.FileMeetConditions.Count == 0)
+                        {
+                            PreviousRun.IsSussess = false;
+                            return false;
+                        }
+                        else
+                        {
+                            fileInScanLocation = PreviousRun.FileMeetConditions;
+                            ScanLocation = PreviousRun.ScanLocation;
+                            ScanFileExtension = PreviousRun.ScanFileExtension;
+                            ScanFilePrefix = PreviousRun.ScanFilePrefix;
+                            TargetLocation = PreviousRun.TargetLocation;
+                            MaintainSubFolders = PreviousRun.MaintainSubFolders;
+                            Command = PreviousRun.Command;
+                            IntegratedSecurity = PreviousRun.IntegratedSecurity;
+                            userId = PreviousRun.UserId;
+                            Password = PreviousRun.Password;
+                            DatabaseName = PreviousRun.DatabaseName;
+                            DatabaseServer = PreviousRun.DatabaseServer;
+                            RestoreDatabaseFileGroups = PreviousRun.RestoreDatabaseFileGroups;
+                            ActionCompleteRename = PreviousRun.ActionCompleteRename;
+                            ActionCompleteTimeStamp = PreviousRun.ActionCompleteTimeStamp;
+                            ActionCompleteDelete = PreviousRun.ActionCompleteDelete;
+                        }
+                    }
+                    else
+                    {
+                        if (PreviousRun.FileMeetConditions.Count == 0)
+                        {
+                            useCurrentTaskCondition = true;
+                        }
+                        else
+                        {
+                            fileInScanLocation = PreviousRun.FileMeetConditions;
+                            ScanLocation = PreviousRun.ScanLocation;
+                            ScanFileExtension = PreviousRun.ScanFileExtension;
+                            ScanFilePrefix = PreviousRun.ScanFilePrefix;
+                            TargetLocation = PreviousRun.TargetLocation;
+                            MaintainSubFolders = PreviousRun.MaintainSubFolders;
+                            Command = PreviousRun.Command;
+                            IntegratedSecurity = PreviousRun.IntegratedSecurity;
+                            userId = PreviousRun.UserId;
+                            Password = PreviousRun.Password;
+                            DatabaseName = PreviousRun.DatabaseName;
+                            DatabaseServer = PreviousRun.DatabaseServer;
+                            RestoreDatabaseFileGroups = PreviousRun.RestoreDatabaseFileGroups;
+                            ActionCompleteRename = PreviousRun.ActionCompleteRename;
+                            ActionCompleteTimeStamp = PreviousRun.ActionCompleteTimeStamp;
+                            ActionCompleteDelete = PreviousRun.ActionCompleteDelete;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                var sfiles = IncludeSubfolders ? Directory.GetFiles(ScanLocation, "*.*", SearchOption.AllDirectories) : Directory.GetFiles(ScanLocation);
+                fileInScanLocation = new List<string>(sfiles);
+                useCurrentTaskCondition = true;
+            }            
 
             if (this.mbLog)
             {
-                this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}", "Application", "RabaService", EventLogEntryType.Information);
+                this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(fileInScanLocation.Count)}", "Application", "RabaService", EventLogEntryType.Information);
             }
 
-            foreach (var sFileName in sfiles)
+            if (Task.Equals("RUN"))
+            {
+                PreviousRun = new ActionResult();
+                PreviousRun.IsSussess = true;
+                PreviousRun.ScanFileExtension = ScanFileExtension;
+                PreviousRun.IntegratedSecurity = IntegratedSecurity;
+                PreviousRun.Password = Password;
+                PreviousRun.RestoreDatabaseFileGroup = RestoreDatabaseFileGroups;
+                PreviousRun.ScanFileExtension = ScanFileExtension;
+                PreviousRun.ScanFilePrefix = ScanFilePrefix;
+                PreviousRun.ScanLocation = ScanLocation;
+                PreviousRun.TargetLocation = TargetLocation;
+                PreviousRun.UserId = userId;
+                PreviousRun.Command = Command;
+                PreviousRun.ActionCompleteDelete = ActionCompleteDelete;
+                PreviousRun.ActionCompleteRename = ActionCompleteRename;
+                PreviousRun.ActionCompleteTimeStamp = ActionCompleteTimeStamp;
+                PreviousRun.DatabaseName = DatabaseName;
+                PreviousRun.DatabaseServer = DatabaseServer;
+                PreviousRun.MaintainSubFolders = MaintainSubFolders;
+                PreviousRun.RestoreDatabaseFileGroups = RestoreDatabaseFileGroups;
+                PreviousRun.FileMeetConditions = new List<string>();
+            }
+                
+            foreach (var sFileName in fileInScanLocation)
             {
                 if (this.mbLog)
                 {
-                    this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}\r \n  Currently Testing File : {sFileName}",
+                    this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(fileInScanLocation.Count)}\r \n  Currently Testing File : {sFileName}",
                                     "Application", "RabaService", EventLogEntryType.Information);
                 }
 
-                if (!this.FileMeetsConditions(sFileName,
+                if(!ConditionalRun.Equals("R") || useCurrentTaskCondition)
+                {
+                    if (!this.FileMeetsConditions(sFileName,
                                               ScanFileExtension,
                                               ScanFilePrefix,
                                               ScanFileDateLessThan,
@@ -1128,14 +1270,21 @@ namespace RabaService
                                               OnlyCountWeekDays,
                                               ScanFileSizeLessThan,
                                               ScanFileSizeGreaterThan))
-                {
-                    continue;
+                    {
+                        continue;
+                    }
                 }
 
                 if (this.mbLog)
                 {
-                    this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(sfiles.Length)}\r \n  File : {sFileName}     Meets Conditions",
+                    this.WriteToLog($"In ProcessTaskHandler Reading Scanlocation {ScanLocation}\r \n  Total Number Of Files Returned {Convert.ToString(fileInScanLocation.Count)}\r \n  File : {sFileName}     Meets Conditions",
                                     "Application", "RabaService", EventLogEntryType.Information);
+                }
+
+                if(Task.Equals("RUN"))
+                {
+                    PreviousRun.FileMeetConditions.Add(sFileName);
+                    continue;
                 }
 
                 if (!this.ProcessTask(sFileName,
@@ -1154,7 +1303,8 @@ namespace RabaService
                                       RestoreDatabaseFileGroups,
                                       ActionCompleteRename,
                                       ActionCompleteTimeStamp,
-                                      ActionCompleteDelete))
+                                      ActionCompleteDelete,
+                                      ConditonalDelete))
                 {
                     continue;
                 }
@@ -1166,7 +1316,7 @@ namespace RabaService
 
                 if (ActionCompleteDelete)
                 {
-                    this.ProcessTaskDelete(sFileName);
+                    this.ProcessTaskDelete(sFileName, ScanLocation, TargetLocation);
                 }
             } // end loop of Files In folder
 
@@ -1261,10 +1411,22 @@ namespace RabaService
 
         private void WriteToLog(string logMessage, string logName, string LogSource, EventLogEntryType LogType)
         {
-            var ev = new EventLog(logName, Environment.MachineName, LogSource);
+            //var ev = new EventLog(logName, Environment.MachineName, LogSource);
+            //ev.WriteEntry(logMessage, LogType);
+            //ev.Close();
 
-            ev.WriteEntry(logMessage, LogType);
-            ev.Close();
+            switch (LogType)
+            {
+                case EventLogEntryType.Information:
+                    log.Info(logMessage);
+                    break;
+                case EventLogEntryType.Error:
+                    log.Error(logMessage);
+                    break;
+                case EventLogEntryType.Warning:
+                    log.Warn(logMessage);
+                    break;
+            }                       
         }
     }
 }

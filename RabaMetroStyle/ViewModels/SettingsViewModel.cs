@@ -1,5 +1,9 @@
 ﻿#region
 
+using Microsoft.Win32;
+using RabaMetroStyle.Models;
+using RabaMetroStyle.Mvvm;
+using RabaMetroStyle.Views;
 using System;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -8,10 +12,6 @@ using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.Win32;
-using RabaMetroStyle.Models;
-using RabaMetroStyle.Mvvm;
-using RabaMetroStyle.Views;
 
 #endregion
 
@@ -200,6 +200,21 @@ namespace RabaMetroStyle.ViewModels
                     tempSettingTable.Tables.Add(this.DsFunctionCreateDataTableTasks());
                 }
 
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("Dependent"))
+                {
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("Dependent");
+                }
+
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditionalRun"))
+                {
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditionalRun");
+                }
+
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditonalDelete"))
+                {
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditonalDelete");
+                }
+
                 var row = tempSettingTable.Tables["tblTaskInfo"].NewRow();
 
                 row["Action"] = addMacroActionForm.SavedActionDetails.Action;
@@ -232,6 +247,8 @@ namespace RabaMetroStyle.ViewModels
                 row["TaskOrder"] = tempSettingTable.Tables["tblTaskInfo"].Rows.Count + 1;
                 row["UserID"] = addMacroActionForm.SavedActionDetails.UserID;
                 row["Dependent"] = addMacroActionForm.SavedActionDetails.Dependent;
+                row["ConditionalRun"] = addMacroActionForm.SavedActionDetails.ConditionalRun;
+                row["ConditonalDelete"] = addMacroActionForm.SavedActionDetails.ConditonalDelete;                
 
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
 
@@ -367,6 +384,8 @@ namespace RabaMetroStyle.ViewModels
                 oDtReturn.Columns.Add("RunSQLScriptFilePath");
                 oDtReturn.Columns.Add("RestoreDatabaseFileGroups");
                 oDtReturn.Columns.Add("Dependent");
+                oDtReturn.Columns.Add("ConditionalRun");
+                oDtReturn.Columns.Add("ConditionalDelete");
             }
             catch (Exception ex)
             {
@@ -420,39 +439,47 @@ namespace RabaMetroStyle.ViewModels
         private Setting GetMacroActionDataTableRow(DataRow row)
         {
             var settings = new Setting
-                           {
-                               Action = row["Action"].ToString(),
-                               ActionCompleteDelete = row["ActionCompleteDelete"] == DBNull.Value ? string.Empty : (string)row["ActionCompleteDelete"],
-                               ActionCompleteRename = row["ActionCompleteRename"] == DBNull.Value ? string.Empty : (string)row["ActionCompleteRename"],
-                               ActionCompleteTimeStamp = row["ActionCompleteTimeStamp"] == DBNull.Value ? string.Empty : (string)row["ActionCompleteTimeStamp"],
-                               DatabaseName = row["DatabaseName"] == DBNull.Value ? string.Empty : (string)row["DatabaseName"],
-                               DatabaseServer = row["DatabaseServer"] == DBNull.Value ? string.Empty : (string)row["DatabaseServer"],
-                               IntegratedSecurity = row["IntegratedSecurity"] == DBNull.Value ? string.Empty : (string)row["IntegratedSecurity"],
-                               Password = row["Password"] == DBNull.Value ? string.Empty : (string)row["Password"],
-                               RestoreDatabaseFileGroups = row["RestoreDatabaseFileGroups"] == DBNull.Value ? string.Empty : (string)row["RestoreDatabaseFileGroups"],
-                               RunSQLScript = row["RunSQLScript"] == DBNull.Value ? string.Empty : (string)row["RunSQLScript"],
-                               RunSQLScriptFilePath = row["RunSQLScriptFilePath"] == DBNull.Value ? string.Empty : (string)row["RunSQLScriptFilePath"],
-                               ScanFileDateGreaterThan = row["ScanFileDateGreaterThan"] == DBNull.Value ? "1/1/1970" : (string)row["ScanFileDateGreaterThan"],
-                               ScanFileDateLessThan = row["ScanFileDateLessThan"] == DBNull.Value ? "1/1/2070" : (string)row["ScanFileDateLessThan"],
-                               ScanFileUseRelativeAgeYounger = row["ScanFileUseRelativeAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileUseRelativeAgeYounger"],
-                               ScanFileAgeYounger = row["ScanFileAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeYounger"],
-                               ScanFileUseRelativeAgeOlder = row["ScanFileUseRelativeAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileUseRelativeAgeOlder"],
-                               ScanFileAgeOlder = row["ScanFileAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeOlder"],
-                               OnlyCountWeekDays = row["OnlyCountWeekDays"] == DBNull.Value ? "False" : (string)row["OnlyCountWeekDays"],
-                               ScanFileExtension = row["ScanFileExtension"] == DBNull.Value ? string.Empty : (string)row["ScanFileExtension"],
-                               ScanFilePrefix = row["ScanFilePrefix"] == DBNull.Value ? string.Empty : (string)row["ScanFilePrefix"],
-                               ScanFileSizeGreaterThan = row["ScanFileSizeGreaterThan"] == DBNull.Value ? string.Empty : (string)row["ScanFileSizeGreaterThan"],
-                               ScanFileSizeLessThan = row["ScanFileSizeLessThan"] == DBNull.Value ? string.Empty : (string)row["ScanFileSizeLessThan"],
-                               ScanLocation = row["ScanLocation"] == DBNull.Value ? string.Empty : (string)row["ScanLocation"],
-                               IncludeSubFolders = row["IncludeSubFolders"] == DBNull.Value ? string.Empty : (string)row["IncludeSubFolders"],
-                               MaintainSubFolders = row["MaintainSubFolders"] == DBNull.Value ? string.Empty : (string)row["MaintainSubFolders"],
-                               Command = row["Command"] == DBNull.Value ? string.Empty : (string)row["Command"],
-                               TargetLocation = row["TargetLocation"] == DBNull.Value ? string.Empty : (string)row["TargetLocation"],
-                               UserID = row["UserID"] == DBNull.Value ? string.Empty : (string)row["UserID"]
+            {
+                Action = row["Action"].ToString(),
+                ActionCompleteDelete = row["ActionCompleteDelete"] == DBNull.Value ? string.Empty : (string)row["ActionCompleteDelete"],
+                ActionCompleteRename = row["ActionCompleteRename"] == DBNull.Value ? string.Empty : (string)row["ActionCompleteRename"],
+                ActionCompleteTimeStamp = row["ActionCompleteTimeStamp"] == DBNull.Value ? string.Empty : (string)row["ActionCompleteTimeStamp"],
+                DatabaseName = row["DatabaseName"] == DBNull.Value ? string.Empty : (string)row["DatabaseName"],
+                DatabaseServer = row["DatabaseServer"] == DBNull.Value ? string.Empty : (string)row["DatabaseServer"],
+                IntegratedSecurity = row["IntegratedSecurity"] == DBNull.Value ? string.Empty : (string)row["IntegratedSecurity"],
+                Password = row["Password"] == DBNull.Value ? string.Empty : (string)row["Password"],
+                RestoreDatabaseFileGroups = row["RestoreDatabaseFileGroups"] == DBNull.Value ? string.Empty : (string)row["RestoreDatabaseFileGroups"],
+                RunSQLScript = row["RunSQLScript"] == DBNull.Value ? string.Empty : (string)row["RunSQLScript"],
+                RunSQLScriptFilePath = row["RunSQLScriptFilePath"] == DBNull.Value ? string.Empty : (string)row["RunSQLScriptFilePath"],
+                ScanFileDateGreaterThan = row["ScanFileDateGreaterThan"] == DBNull.Value ? "1/1/1970" : (string)row["ScanFileDateGreaterThan"],
+                ScanFileDateLessThan = row["ScanFileDateLessThan"] == DBNull.Value ? "1/1/2070" : (string)row["ScanFileDateLessThan"],
+                ScanFileUseRelativeAgeYounger = row["ScanFileUseRelativeAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileUseRelativeAgeYounger"],
+                ScanFileAgeYounger = row["ScanFileAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeYounger"],
+                ScanFileUseRelativeAgeOlder = row["ScanFileUseRelativeAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileUseRelativeAgeOlder"],
+                ScanFileAgeOlder = row["ScanFileAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeOlder"],
+                OnlyCountWeekDays = row["OnlyCountWeekDays"] == DBNull.Value ? "False" : (string)row["OnlyCountWeekDays"],
+                ScanFileExtension = row["ScanFileExtension"] == DBNull.Value ? string.Empty : (string)row["ScanFileExtension"],
+                ScanFilePrefix = row["ScanFilePrefix"] == DBNull.Value ? string.Empty : (string)row["ScanFilePrefix"],
+                ScanFileSizeGreaterThan = row["ScanFileSizeGreaterThan"] == DBNull.Value ? string.Empty : (string)row["ScanFileSizeGreaterThan"],
+                ScanFileSizeLessThan = row["ScanFileSizeLessThan"] == DBNull.Value ? string.Empty : (string)row["ScanFileSizeLessThan"],
+                ScanLocation = row["ScanLocation"] == DBNull.Value ? string.Empty : (string)row["ScanLocation"],
+                IncludeSubFolders = row["IncludeSubFolders"] == DBNull.Value ? string.Empty : (string)row["IncludeSubFolders"],
+                MaintainSubFolders = row["MaintainSubFolders"] == DBNull.Value ? string.Empty : (string)row["MaintainSubFolders"],
+                Command = row["Command"] == DBNull.Value ? string.Empty : (string)row["Command"],
+                TargetLocation = row["TargetLocation"] == DBNull.Value ? string.Empty : (string)row["TargetLocation"],
+                UserID = row["UserID"] == DBNull.Value ? string.Empty : (string)row["UserID"]
             };
-            if(row.Table.Columns.Contains("Dependent"))
+            if (row.Table.Columns.Contains("Dependent"))
             {
                 settings.Dependent = row["Dependent"] == DBNull.Value ? string.Empty : (string)row["Dependent"];
+            }
+            if (row.Table.Columns.Contains("ConditionalRun"))
+            {
+                settings.ConditionalRun = row["ConditionalRun"] == DBNull.Value ? string.Empty : (string)row["ConditionalRun"];
+            }
+            if (row.Table.Columns.Contains("ConditonalDelete"))
+            {
+                settings.ConditonalDelete = row["ConditonalDelete"] == DBNull.Value ? string.Empty : (string)row["ConditonalDelete"];
             }
             //settings.TaskOrder = row["TaskOrder"] == DBNull.Value ? string.Empty : (string)row["TaskOrder"];
             return settings;
@@ -559,6 +586,21 @@ namespace RabaMetroStyle.ViewModels
             {
                 var row = tempSettingTable.Tables["tblTaskInfo"].NewRow();
 
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("Dependent"))
+                {
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("Dependent");
+                }
+
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditionalRun"))
+                {
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditionalRun");
+                }
+
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditonalDelete"))
+                {
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditonalDelete");
+                }
+
                 row["Action"] = setting.Action;
                 row["ActionCompleteDelete"] = setting.ActionCompleteDelete;
                 row["ActionCompleteRename"] = setting.ActionCompleteRename;
@@ -589,6 +631,8 @@ namespace RabaMetroStyle.ViewModels
                 row["TaskOrder"] = tempSettingTable.Tables["tblTaskInfo"].Rows.Count + 1;
                 row["UserID"] = setting.UserID;
                 row["Dependent"] = setting.Dependent;
+                row["ConditionalRun"] = setting.ConditionalRun;
+                row["ConditonalDelete"] = setting.ConditonalDelete;
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
             }
 

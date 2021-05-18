@@ -93,5 +93,7 @@ namespace RabaMetroStyle.Models
 
         public string UserID { get; set; }
         public string Dependent { get; set; }
+        public string ConditionalRun { get; set; }
+        public string ConditonalDelete { get; set; }
     }
 }

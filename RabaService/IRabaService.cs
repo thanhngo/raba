@@ -19,7 +19,7 @@
                                      string userId,
                                      string Password);
 
-        bool ProcessTaskDelete(string SourceFileName);
+        bool ProcessTaskDelete(string SourceFileName, string ScanLocation, string TargetFolder, bool ConditonalDelete = false);
 
         bool ProcessTaskCopy(string SourceFileName,
                              string ScanLocation,

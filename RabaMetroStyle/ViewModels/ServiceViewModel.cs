@@ -1,13 +1,13 @@
 ﻿#region
 
+using Microsoft.Win32;
+using RabaMetroStyle.Mvvm;
 using System;
 using System.IO;
 using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows;
 using System.Windows.Input;
-using Microsoft.Win32;
-using RabaMetroStyle.Mvvm;
 
 #endregion
 
@@ -185,5 +185,9 @@ namespace RabaMetroStyle.ViewModels
             this.ServiceStateText = "Stopped";
             this.DisableInterval = true;
         }
+
+        private string scanLocation;
+
+        public string ScanLocation { get => scanLocation; set => SetProperty(ref scanLocation, value); }
     }
 }

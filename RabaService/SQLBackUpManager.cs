@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Smo;
+using System;
 using System.Collections;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
-using Microsoft.SqlServer.Management.Common;
-using Microsoft.SqlServer.Management.Smo;
 
 namespace RabaService
 {
@@ -23,10 +23,10 @@ namespace RabaService
                 var sqlServer = new Server(new ServerConnection(Server, userId, Password));
                 ////create a backup class instance               
                 var backup = new Backup
-                             {
-                                 Action = BackupActionType.Database,
-                                 Database = "your database name that needs to be backed up "
-                             };
+                {
+                    Action = BackupActionType.Database,
+                    Database = "your database name that needs to be backed up "
+                };
                 backup.Devices.AddDevice(FileName, DeviceType.File);
                 backup.SqlBackupAsync(sqlServer);
             }
@@ -145,12 +145,12 @@ namespace RabaService
             {
                 var sqlServer = new Server(new ServerConnection(Server, userId, Password));
                 var restore = new Restore
-                              {
-                                  Database = "Name of Database to be restored",
-                                  Action = RestoreActionType.Database,
-                                  ReplaceDatabase = true,
-                                  NoRecovery = false
-                              };
+                {
+                    Database = "Name of Database to be restored",
+                    Action = RestoreActionType.Database,
+                    ReplaceDatabase = true,
+                    NoRecovery = false
+                };
                 restore.Devices.AddDevice(FileName, DeviceType.File);
                 restore.SqlRestoreAsync(sqlServer);
             }
