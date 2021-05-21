@@ -3,13 +3,11 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      Title="About"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"      
       d:DesignHeight="300"
       d:DesignWidth="300"
       Style="{DynamicResource PageStyle}"
       mc:Ignorable="d">
-
     <Grid>
 
         <iconPacks:PackIconFontAwesome Width="48"
@@ -26,11 +24,10 @@
         <TextBlock Margin="24, 120,0,0"
                    HorizontalAlignment="Center"
                    FontSize="24"
-                   Text="Version 5.0.1" />
+                   Text="Version 5.0.0.1" />
         <TextBlock Margin="24, 160,0,0"
                    HorizontalAlignment="Center"
                    FontSize="24"
-                   Text="Copyright 2021" />
-
+                   Text="Copyright Meeda Inc" />
     </Grid>
 </Page>

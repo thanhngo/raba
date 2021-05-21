@@ -198,7 +198,7 @@ namespace RabaService
             bool bReturn = false;
             try
             {
-                if (string.IsNullOrEmpty(TargetFolder))
+                if (!ConditonalDelete)
                 {
                     File.Delete(SourceFileName);
                 }
