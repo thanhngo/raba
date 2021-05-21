@@ -221,14 +221,21 @@ namespace RabaMetroStyle.Views
 
                 if (this.chkDependent.IsChecked == true)
                 {
-                    this.SavedActionDetails.Dependent = "D";
-                    this.SavedActionDetails.ConditonalDelete = "true";
+                    this.SavedActionDetails.Dependent = "D";                    
                 }
                 else
                 {
-                    this.SavedActionDetails.Dependent = "C";
-                    this.SavedActionDetails.ConditonalDelete = "false";
+                    this.SavedActionDetails.Dependent = "C";                    
                 }
+                if (this.chkConditonalDelete.IsChecked == true)
+                {                    
+                    this.SavedActionDetails.ConditionalDelete = "true";
+                }
+                else
+                {                    
+                    this.SavedActionDetails.ConditionalDelete = "false";
+                }
+
 
                 this.SavedAction = true;
 

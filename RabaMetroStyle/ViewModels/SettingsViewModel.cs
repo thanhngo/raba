@@ -210,9 +210,9 @@ namespace RabaMetroStyle.ViewModels
                     tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditionalRun");
                 }
 
-                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditonalDelete"))
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditionalDelete"))
                 {
-                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditonalDelete");
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditionalDelete");
                 }
 
                 var row = tempSettingTable.Tables["tblTaskInfo"].NewRow();
@@ -248,7 +248,7 @@ namespace RabaMetroStyle.ViewModels
                 row["UserID"] = addMacroActionForm.SavedActionDetails.UserID;
                 row["Dependent"] = addMacroActionForm.SavedActionDetails.Dependent;
                 row["ConditionalRun"] = addMacroActionForm.SavedActionDetails.ConditionalRun;
-                row["ConditonalDelete"] = addMacroActionForm.SavedActionDetails.ConditonalDelete;                
+                row["ConditionalDelete"] = addMacroActionForm.SavedActionDetails.ConditionalDelete;                
 
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
 
@@ -477,9 +477,9 @@ namespace RabaMetroStyle.ViewModels
             {
                 settings.ConditionalRun = row["ConditionalRun"] == DBNull.Value ? string.Empty : (string)row["ConditionalRun"];
             }
-            if (row.Table.Columns.Contains("ConditonalDelete"))
+            if (row.Table.Columns.Contains("ConditionalDelete"))
             {
-                settings.ConditonalDelete = row["ConditonalDelete"] == DBNull.Value ? string.Empty : (string)row["ConditonalDelete"];
+                settings.ConditionalDelete = row["ConditionalDelete"] == DBNull.Value ? string.Empty : (string)row["ConditionalDelete"];
             }
             //settings.TaskOrder = row["TaskOrder"] == DBNull.Value ? string.Empty : (string)row["TaskOrder"];
             return settings;
@@ -596,9 +596,9 @@ namespace RabaMetroStyle.ViewModels
                     tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditionalRun");
                 }
 
-                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditonalDelete"))
+                if (!tempSettingTable.Tables["tblTaskInfo"].Columns.Contains("ConditionalDelete"))
                 {
-                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditonalDelete");
+                    tempSettingTable.Tables["tblTaskInfo"].Columns.Add("ConditionalDelete");
                 }
 
                 row["Action"] = setting.Action;
@@ -632,7 +632,7 @@ namespace RabaMetroStyle.ViewModels
                 row["UserID"] = setting.UserID;
                 row["Dependent"] = setting.Dependent;
                 row["ConditionalRun"] = setting.ConditionalRun;
-                row["ConditonalDelete"] = setting.ConditonalDelete;
+                row["ConditionalDelete"] = setting.ConditionalDelete;
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
             }
 

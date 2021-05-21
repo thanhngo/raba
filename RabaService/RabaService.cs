@@ -861,7 +861,7 @@ namespace RabaService
                 var scanFileAgeOlder = Convert.ToInt32(oRow["ScanFileAgeOlder"]);
                 var dependent = hasDependentColumn ? Convert.ToString(oRow["Dependent"]) : string.Empty;
                 var conditionalRun = hasConditionalRunColumn ? Convert.ToString(oRow["ConditionalRun"]) : string.Empty;
-                var conditonalDelete = hasConditionalDeleteColumn ? Convert.ToBoolean(oRow["ConditionalDelete"]) : false;
+                var conditionalDelete = hasConditionalDeleteColumn ? Convert.ToBoolean(oRow["ConditionalDelete"]) : false;
 
                 this.ProcessTaskHandler(
                     Convert.ToString(oRow["Action"]),
@@ -894,7 +894,7 @@ namespace RabaService
                     includeSubFolders,
                     dependent,
                     conditionalRun,
-                    conditonalDelete);
+                    conditionalDelete);
             }
             bReturn = true;
 
@@ -918,7 +918,7 @@ namespace RabaService
                                  bool ActionCompleteRename,
                                  bool ActionCompleteTimeStamp,
                                  bool ActionCompleteDelete,
-                                 bool ConditonalDelete)
+                                 bool ConditionalDelete)
         {
             var bReturn = false;
 
@@ -955,7 +955,7 @@ namespace RabaService
                     break;
 
                 case "DELETE":
-                    this.ProcessTaskDelete(szFileName, ScanLocation, TargetLocation, ConditonalDelete);
+                    this.ProcessTaskDelete(szFileName, ScanLocation, TargetLocation, ConditionalDelete);
                     bReturn = true;
                     break;
 
@@ -1426,7 +1426,7 @@ namespace RabaService
                 case EventLogEntryType.Warning:
                     log.Warn(logMessage);
                     break;
-            }                       
+            }
         }
     }
 }
