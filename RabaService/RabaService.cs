@@ -693,7 +693,7 @@ namespace RabaService
             try
             {
                 string szPathMapJob;
-                var szSettingExtension = "RabaService";
+                var szSettingExtension = "RABA";
                 if (this.mbLog)
                 {
                     this.WriteToLog("Get Settings Files, Reading Path Info.", "Application", "RabaService", EventLogEntryType.Information);
@@ -733,7 +733,7 @@ namespace RabaService
                 }
 
                 foreach (var sFileName in settingFiles)
-                {
+                {                    
                     arrReturn.Add(sFileName);
                 }
             }
@@ -774,7 +774,7 @@ namespace RabaService
             var bReturn = false;
 
             try
-            {
+            {                
                 this.WriteToLog("InitializeVariables Read Timer Interval", "Application", "RabaService", EventLogEntryType.Information);
 
                 if (Convert.ToInt32(ConfigurationManager.AppSettings["TimerInterval"]) != 0)
