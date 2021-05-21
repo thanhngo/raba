@@ -34,4 +34,4 @@ Release Note version 1.2.2 - May 08, 2021
 Release Note version 5.0.1 - May 21, 2021
 - Add Conditional Delete action
 - Add About page
-- Write log to file
+- Write log to file. Log file store by date folowwing format log-MMddyyyy.txt
