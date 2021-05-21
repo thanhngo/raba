@@ -694,7 +694,7 @@ namespace RabaMetroStyle.Views
             this.ddlAction.Items.Add(new ListItem("UNZIP", "4"));
             this.ddlAction.Items.Add(new ListItem("BATCH", "5"));
             this.ddlAction.Items.Add(new ListItem("SQLSCRIPT", "6"));
-            this.ddlAction.Items.Add(new ListItem("RUN", "7"));
+            //this.ddlAction.Items.Add(new ListItem("RUN", "7"));
             this.ddlAction.SelectedIndex = 0;
         }
 

@@ -113,10 +113,10 @@
                 <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed"></TextBox>
                 <Label Grid.Row="2" Grid.Column="1">Action</Label>
                 <ComboBox Grid.Row="2" Grid.Column="2" Name="ddlAction" SelectionChanged="DdlAction_SelectionChanged"></ComboBox>
-                <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkConditionalRun"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun">Conditional Run</Label>
-                <CheckBox Grid.Row="2" Grid.Column="4" Margin="0,0,0,0" Name="chkDependent"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent">Dependent</Label>
+                <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkConditionalRun" Visibility="Collapsed"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun" Visibility="Collapsed">Conditional Run</Label>
+                <CheckBox Grid.Row="2" Grid.Column="4" Margin="0,0,0,0" Name="chkDependent" Visibility="Collapsed"></CheckBox>
+                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent" Visibility="Collapsed">Dependent</Label>
                 <CheckBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="chkConditonalDelete" Checked="chkConditonalDelete_Checked" Unchecked="chkConditonalDelete_UnChecked"></CheckBox>
                 <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete">Conditional Delete</Label>                
                 <Label Grid.Row="4" Grid.Column="1" Name="lblAfterActionDelete">After Action Delete</Label>
