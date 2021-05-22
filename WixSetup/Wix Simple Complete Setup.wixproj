@@ -36,8 +36,6 @@
     <Content Include="XSLT\XslFile.xslt" />
     <Content Include="XSLT\XslProjectOutput.xslt" />
     <Content Include="XSLT\XslRegisterForCOM.xslt" />
-    <Content Include="XSLT\_RabaMetroStyle.xml" />
-    <Content Include="XSLT\_RabaService.xml" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">

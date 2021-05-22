@@ -785,7 +785,7 @@ namespace RabaService
 
                 this.WriteToLog("InitializeVariables Read Timer Interval Completed", "Application", "RabaService", EventLogEntryType.Information);
 
-                this.mbLog = true;// Convert.ToBoolean(ConfigurationManager.AppSettings["TraceLog"]);
+                this.mbLog = Convert.ToBoolean(ConfigurationManager.AppSettings["TraceLog"]);
 
                 if (this.mbLog)
                 {

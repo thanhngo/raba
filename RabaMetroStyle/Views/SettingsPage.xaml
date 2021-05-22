@@ -162,7 +162,8 @@
                     <DataGrid.InputBindings>
                         <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
                     </DataGrid.InputBindings>
-                    <DataGrid.Columns>                        
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Binding="{Binding Action}" Header="Action" />
                         <DataGridTextColumn Binding="{Binding ScanLocation}" Header="Scan Location" />
                         <DataGridTextColumn Binding="{Binding IncludeSubFolders}" Header="Include Sub Folder" />
                         <DataGridTextColumn Binding="{Binding ScanFileExtension}" Header="File Extension" />
@@ -175,8 +176,7 @@
                         <DataGridTextColumn Binding="{Binding ScanFileAgeOlder}" Header="File Age Older (Days)" />
                         <DataGridTextColumn Binding="{Binding OnlyCountWeekDays}" Header="Only Count Weekdays" />
                         <DataGridTextColumn Binding="{Binding ScanFileSizeGreaterThan}" Header="Size Greater Than" />
-                        <DataGridTextColumn Binding="{Binding ScanFileSizeLessThan}" Header="Size Less Than" />
-                        <DataGridTextColumn Binding="{Binding Action}" Header="Action" />
+                        <DataGridTextColumn Binding="{Binding ScanFileSizeLessThan}" Header="Size Less Than" />                        
                         <DataGridTextColumn Binding="{Binding Dependent}" Header="Dependent" />
                         <DataGridTextColumn Binding="{Binding ActionCompleteRename}" Header="On Completion Rename" />
                         <DataGridTextColumn Binding="{Binding ActionCompleteTimeStamp}" Header="On Completion Time Stamp" />

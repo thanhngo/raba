@@ -35,7 +35,7 @@
             <ComponentRef Id="ApplicationShortcut" />
             <!--Desktop shortcut-->
             <ComponentGroupRef Id="ComponentGroupDesktopShortcut" />
-            <ComponentGroupRef Id="RabaMetroStyle.Binaries" />
+            <!--<ComponentGroupRef Id="RabaMetroStyle.Binaries" />-->
             <ComponentRef Id="comp_7C00FD8B_D5D8_44FA_82DA_31A6DD463E38" />
             <ComponentRef Id="comp_D75F44AA_9C1E_4E0C_9A2C_52F4225E6E97" />
             <ComponentRef Id="comp_3780F247_83A4_406A_A0BC_9D22C7EBAFD4" />
@@ -72,13 +72,14 @@
             <ComponentRef Id="comp_3056FCC5_B5A0_4253_B943_E74869FDAB9F" />
             <ComponentRef Id="comp_3E308B1A_C1DF_425E_822A_06EF29C1EC39" />
             <ComponentRef Id="comp_36BF4718_9057_4926_8457_F7BDE967215D" />
-            <ComponentGroupRef Id="RabaService.Binaries" />
+            <ComponentRef Id="comp_36BF4718_9057_4926_8457_F7BDE967216D" />
+            <!--<ComponentGroupRef Id="RabaService.Binaries" />-->
             <ComponentRef Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" />
             <ComponentRef Id="comp_E85A8565_E419_4D6F_93D0_36E77AEDDFEF" />
             <ComponentRef Id="comp_06AAE26F_0189_4D11_B260_7EE3A362D54A" />
-            <ComponentRef Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" />
-            <ComponentRef Id="comp_88E55624_FCDE_4D1F_B885_2662C854FAD2" />
-            <ComponentRef Id="comp_669BD73F_AAE2_4BCA_B238_F0472AF21EC4" />
+            <!--<ComponentRef Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" />-->
+            <!--<ComponentRef Id="comp_88E55624_FCDE_4D1F_B885_2662C854FAD2" />-->
+            <!--<ComponentRef Id="comp_669BD73F_AAE2_4BCA_B238_F0472AF21EC4" />-->
         </Feature>
         <!-- Add CheckBox UI to your installer for running application on exit-->
         <UI>
@@ -133,7 +134,7 @@
     <!--Fragment with details of installation directory-->
     <Fragment>
         <Directory Id="TARGETDIR" Name="SourceDir">
-            <Component Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" Guid="3D1CA6F4-4A7C-4ACD-B573-432C7BB5BF86" Permanent="no" SharedDllRefCount="no" Transitive="no">
+            <!--<Component Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" Guid="3D1CA6F4-4A7C-4ACD-B573-432C7BB5BF86" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_F82FFF27_9F19_41BE_AEE8_19AD8723113C" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
             </Component>
             <Component Id="comp_88E55624_FCDE_4D1F_B885_2662C854FAD2" Guid="8E40FD9E-EBFA-4563-ADF9-6E048B5AE74A" Permanent="no" SharedDllRefCount="no" Transitive="no">
@@ -141,10 +142,10 @@
             </Component>
             <Component Id="comp_669BD73F_AAE2_4BCA_B238_F0472AF21EC4" Guid="A4CD5CDE-F34F-4249-A9C7-0553FA0BEB60" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_82D2CA13_9B91_4216_9245_77DCF0A2144D" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Text.Encoding.CodePages.dll" Source="..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll" KeyPath="yes" />
-            </Component>
+            </Component>-->
             <Directory Id="ProgramFilesFolder">
-                <!-- Create a folder inside program files with Company Name-->
-                <Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                <!--Create a folder inside program files with Company Name-->
+                <!--<Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
                     <File Id="_66328E0E_84C0_4ACA_85F3_7783E842AD4B" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
                 </Component>
                 <Component Id="comp_E85A8565_E419_4D6F_93D0_36E77AEDDFEF" Guid="916FAEC6-4E3D-4F78-B616-324DEE6598AE" Permanent="no" SharedDllRefCount="no" Transitive="no">
@@ -152,9 +153,9 @@
                 </Component>
                 <Component Id="comp_06AAE26F_0189_4D11_B260_7EE3A362D54A" Guid="DF1E1340-BA6B-4D36-929E-96226382A84B" Permanent="no" SharedDllRefCount="no" Transitive="no">
                     <File Id="_4EE132A5_B136_4D69_8E55_46AB39C8D67F" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Text.Encoding.CodePages.dll" Source="..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll" KeyPath="yes" />
-                </Component>
+                </Component>-->
                 <Directory Id="ROOTDIRECTORY" Name="$(var.Manufacturer)">
-                    <!-- Create a folder inside Company Name folder with Product Name-->
+                     <!--Create a folder inside Company Name folder with Product Name-->
                     <Directory Id="INSTALLFOLDER" Name="$(var.Name)">
                         <Directory Id="DesktopFolder" Name="DesktopFolder" />
                     </Directory>
@@ -164,8 +165,8 @@
             <Directory Id="ProgramMenuFolder">
                 <Directory Id="ApplicationProgramsFolder" Name="$(var.Name)" />
             </Directory>
-            <Directory Id="RabaMetroStyle.Binaries" />
-            <Directory Id="RabaService.Binaries" />
+            <!--<Directory Id="RabaMetroStyle.Binaries" />
+            <Directory Id="RabaService.Binaries" />-->
         </Directory>
     </Fragment>
     <!--Main Feature Fragment with Sample application executable-->
@@ -306,6 +307,15 @@
             </Component>
             <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967218D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA79" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_C4040E57_E559_446E_97B5_9236894F4C34" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Configuration.dll" Source="..\\RabaService\\\bin\\\Release\\System.Configuration.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                 <File Id="_66328E0E_84C0_4ACA_85F3_7783E842AD4B" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="comp_E85A8565_E419_4D6F_93D0_36E77AEDDFEF" Guid="916FAEC6-4E3D-4F78-B616-324DEE6598AE" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                 <File Id="_BE3ABBED_5C86_4F39_B9F3_02FF05DF4B30" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Memory.dll" Source="..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="comp_06AAE26F_0189_4D11_B260_7EE3A362D54A" Guid="DF1E1340-BA6B-4D36-929E-96226382A84B" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                 <File Id="_4EE132A5_B136_4D69_8E55_46AB39C8D67F" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Text.Encoding.CodePages.dll" Source="..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>
