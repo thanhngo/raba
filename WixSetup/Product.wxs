@@ -6,7 +6,7 @@
 <!-- The manufacturer, for setup package publisher and folder info -->
 <?define Manufacturer = "Raba" ?>
 <!-- The version number of this setup package-->
-<?define Version = "5.0.1" ?>
+<?define Version = "5.0.0.1" ?>
 <!-- UpgradeCode must be unique and not changed once the first version of the program is installed. -->
 <?define UpgradeCode = "{25DA3824-3F14-4040-826B-F8D1783E1288}" ?>
 <!-- The name of the Cabinet -->
@@ -133,7 +133,7 @@
     <!--Fragment with details of installation directory-->
     <Fragment>
         <Directory Id="TARGETDIR" Name="SourceDir">
-          <Component Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" Guid="3D1CA6F4-4A7C-4ACD-B573-432C7BB5BF86" Permanent="no" SharedDllRefCount="no" Transitive="no">
+            <Component Id="comp_F43E7433_10BC_4431_8CDC_D41E65A66CED" Guid="3D1CA6F4-4A7C-4ACD-B573-432C7BB5BF86" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_F82FFF27_9F19_41BE_AEE8_19AD8723113C" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
             </Component>
             <Component Id="comp_88E55624_FCDE_4D1F_B885_2662C854FAD2" Guid="8E40FD9E-EBFA-4563-ADF9-6E048B5AE74A" Permanent="no" SharedDllRefCount="no" Transitive="no">
@@ -144,7 +144,7 @@
             </Component>
             <Directory Id="ProgramFilesFolder">
                 <!-- Create a folder inside program files with Company Name-->
-              <Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                <Component Id="comp_A8523B69_D94A_49E2_AEE1_C4F0CD498A54" Guid="D49FF7D8-4C02-4E8D-8C9E-E30DAAD55E58" Permanent="no" SharedDllRefCount="no" Transitive="no">
                     <File Id="_66328E0E_84C0_4ACA_85F3_7783E842AD4B" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Buffers.dll" Source="..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll" KeyPath="yes" />
                 </Component>
                 <Component Id="comp_E85A8565_E419_4D6F_93D0_36E77AEDDFEF" Guid="916FAEC6-4E3D-4F78-B616-324DEE6598AE" Permanent="no" SharedDllRefCount="no" Transitive="no">
@@ -303,6 +303,9 @@
             </Component>
             <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967217D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA99" Permanent="no" SharedDllRefCount="no" Transitive="no">
                 <File Id="_C4040E57_E559_446E_97B5_9236894F4C33" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="log4net.dll" Source="..\\RabaService\\\bin\\\Release\\log4net.dll" KeyPath="yes" />
+            </Component>
+            <Component Id="comp_36BF4718_9057_4926_8457_F7BDE967218D" Guid="F11CB5F6-CA3E-4DCC-99B8-23A028B3FA79" Permanent="no" SharedDllRefCount="no" Transitive="no">
+                <File Id="_C4040E57_E559_446E_97B5_9236894F4C34" DiskId="1" Hidden="no" ReadOnly="no" TrueType="no" System="no" Vital="yes" Name="System.Configuration.dll" Source="..\\RabaService\\\bin\\\Release\\System.Configuration.dll" KeyPath="yes" />
             </Component>
         </ComponentGroup>
     </Fragment>

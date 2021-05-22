@@ -20,7 +20,7 @@ namespace RabaService
     {
         private bool bInProcess;
         private bool bLoaded = false;
-        private bool mbLog;
+        private bool mbLog = true;
         private bool mbRestoreInProgress = false;
         private bool mbSettingsExist = false;
         private bool mbTransferFileInProgress;
@@ -533,6 +533,7 @@ namespace RabaService
 
                     // Now We need to check out the 
                     // Extension 
+                    ScanFileExtension = ScanFileExtension.Replace("*.",string.Empty);
                     if (FileName.ToUpper().EndsWith(ScanFileExtension.ToUpper()))
                     {
                         //MGM 
@@ -784,7 +785,7 @@ namespace RabaService
 
                 this.WriteToLog("InitializeVariables Read Timer Interval Completed", "Application", "RabaService", EventLogEntryType.Information);
 
-                this.mbLog = Convert.ToBoolean(ConfigurationManager.AppSettings["TraceLog"]);
+                this.mbLog = true;// Convert.ToBoolean(ConfigurationManager.AppSettings["TraceLog"]);
 
                 if (this.mbLog)
                 {
@@ -1367,7 +1368,8 @@ namespace RabaService
                     this.WriteToLog("Timer hit, About to enter process, a marker has been assinged. Creating A New Process ", "Application", "RabaService", EventLogEntryType.Information);
                 }
 
-                this.bInProcess = this.ProcessRaba();
+                this.ProcessRaba();
+                this.bInProcess = false;
             }
             else
             {
