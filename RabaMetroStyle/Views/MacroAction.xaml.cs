@@ -92,8 +92,8 @@ namespace RabaMetroStyle.Views
             this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays == "True";
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
-            this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan;
-            this.txtSizeTo.Text = actionDetail.ScanFileSizeLessThan;
+            this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan == "0" ? string.Empty : actionDetail.ScanFileSizeGreaterThan;
+            this.txtSizeTo.Text = actionDetail.ScanFileSizeLessThan == "0"? string.Empty : actionDetail.ScanFileSizeLessThan;
             this.txtScanLocation.Text = actionDetail.ScanLocation;
             this.txtTargetLocation.Text = actionDetail.TargetLocation;
             this.txtTaskOrder.Text = actionDetail.TaskOrder;

@@ -926,7 +926,7 @@ namespace RabaService
             switch (Task.ToUpper())
             {
                 case "COPY":
-                    // Log the Start of the Activity 
+                    // Log the Start of the Activity                     
                     this.ProcessTaskCopy(szFileName, ScanLocation, TargetLocation, MaintainSubFolders, true);
                     if (ActionCompleteRename)
                     {
@@ -966,21 +966,24 @@ namespace RabaService
                     break;
 
                 case "BATCH":
-                    this.ProcessRunBatchFile(Command, "[FILENAME]", szFileName);
+                    if(!Path.GetExtension(szFileName).Equals(".BATCH"))
+                    {
+                        this.ProcessRunBatchFile(Command, "[FILENAME]", szFileName);
 
-                    if (ActionCompleteTimeStamp)
-                    {
-                        this.RenameFile(szFileName, szFileName + DateTime.Now.Year.ToString("0000") + "."
-                                                    + DateTime.Now.Month.ToString("00") + "."
-                                                    + DateTime.Now.Day.ToString("00") + "."
-                                                    + DateTime.Now.Hour.ToString("00") + "."
-                                                    + DateTime.Now.Minute.ToString("00") + "."
-                                                    + DateTime.Now.Second.ToString("00") + ".BATCH");
-                    }
-                    else
-                    {
-                        this.RenameFile(szFileName, szFileName + ".BATCH");
-                    }
+                        if (ActionCompleteTimeStamp)
+                        {
+                            this.RenameFile(szFileName, szFileName + DateTime.Now.Year.ToString("0000") + "."
+                                                        + DateTime.Now.Month.ToString("00") + "."
+                                                        + DateTime.Now.Day.ToString("00") + "."
+                                                        + DateTime.Now.Hour.ToString("00") + "."
+                                                        + DateTime.Now.Minute.ToString("00") + "."
+                                                        + DateTime.Now.Second.ToString("00") + ".BATCH");
+                        }
+                        else
+                        {
+                            this.RenameFile(szFileName, szFileName + ".BATCH");
+                        }
+                    }                    
 
                     bReturn = true;
                     break;
