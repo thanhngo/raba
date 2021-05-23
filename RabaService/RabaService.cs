@@ -406,7 +406,7 @@ namespace RabaService
             try
             {
                 var fz = new FastZip();
-                fz.ExtractZip(DestinationFolder, ZipFileName, null);
+                fz.ExtractZip(ZipFileName, DestinationFolder, null);
 
                 bReturn = true;
             }
