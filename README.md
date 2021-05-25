@@ -31,7 +31,7 @@ Release Note version 1.2.2 - May 08, 2021
 - Add Appname, Version and Copyright to About page
 - Fix issue: Raba crashed when adding the same Run Action into a macro
 
-Release Note version 5.0.1 - May 21, 2021
+Release Note version 5.0.0.1 - May 21, 2021
 - Add Conditional Delete action
 - Add About page
 - Write log to file. Log file store by date folowwing format log-MMddyyyy.txt
