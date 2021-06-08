@@ -93,7 +93,7 @@ namespace RabaMetroStyle.Views
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
             this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan == "0" ? string.Empty : actionDetail.ScanFileSizeGreaterThan;
-            this.txtSizeTo.Text = actionDetail.ScanFileSizeLessThan == "0"? string.Empty : actionDetail.ScanFileSizeLessThan;
+            this.txtSizeTo.Text = actionDetail.ScanFileSizeLessThan == "0" ? string.Empty : actionDetail.ScanFileSizeLessThan;
             this.txtScanLocation.Text = actionDetail.ScanLocation;
             this.txtTargetLocation.Text = actionDetail.TargetLocation;
             this.txtTaskOrder.Text = actionDetail.TaskOrder;
@@ -221,18 +221,18 @@ namespace RabaMetroStyle.Views
 
                 if (this.chkDependent.IsChecked == true)
                 {
-                    this.SavedActionDetails.Dependent = "D";                    
+                    this.SavedActionDetails.Dependent = "D";
                 }
                 else
                 {
-                    this.SavedActionDetails.Dependent = "C";                    
+                    this.SavedActionDetails.Dependent = "C";
                 }
                 if (this.chkConditonalDelete.IsChecked == true)
-                {                    
+                {
                     this.SavedActionDetails.ConditionalDelete = "true";
                 }
                 else
-                {                    
+                {
                     this.SavedActionDetails.ConditionalDelete = "false";
                 }
 

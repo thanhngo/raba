@@ -1,7 +1,6 @@
 ﻿#region
 
 using ICSharpCode.SharpZipLib.Zip;
-using log4net.Config;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -33,7 +32,7 @@ namespace RabaService
         private Timer mtimer;
         private DataSet oDs = new DataSet();
         private string szCurrentFile = string.Empty;
-        private static readonly log4net.ILog log = log4net.LogManager.GetLogger (System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private ActionResult PreviousRun;
 
         public RabaService()
@@ -533,7 +532,7 @@ namespace RabaService
 
                     // Now We need to check out the 
                     // Extension 
-                    ScanFileExtension = ScanFileExtension.Replace("*.",string.Empty);
+                    ScanFileExtension = ScanFileExtension.Replace("*.", string.Empty);
                     if (FileName.ToUpper().EndsWith(ScanFileExtension.ToUpper()))
                     {
                         //MGM 
@@ -734,7 +733,7 @@ namespace RabaService
                 }
 
                 foreach (var sFileName in settingFiles)
-                {                    
+                {
                     arrReturn.Add(sFileName);
                 }
             }
@@ -775,7 +774,7 @@ namespace RabaService
             var bReturn = false;
 
             try
-            {                
+            {
                 this.WriteToLog("InitializeVariables Read Timer Interval", "Application", "RabaService", EventLogEntryType.Information);
 
                 if (Convert.ToInt32(ConfigurationManager.AppSettings["TimerInterval"]) != 0)
@@ -966,7 +965,7 @@ namespace RabaService
                     break;
 
                 case "BATCH":
-                    if(!Path.GetExtension(szFileName).Equals(".BATCH"))
+                    if (!Path.GetExtension(szFileName).Equals(".BATCH"))
                     {
                         this.ProcessRunBatchFile(Command, "[FILENAME]", szFileName);
 
@@ -983,7 +982,7 @@ namespace RabaService
                         {
                             this.RenameFile(szFileName, szFileName + ".BATCH");
                         }
-                    }                    
+                    }
 
                     bReturn = true;
                     break;
@@ -1157,13 +1156,13 @@ namespace RabaService
 
             var fileInScanLocation = new List<string>();
 
-            if(ConditionalRun.Equals("R"))
+            if (ConditionalRun.Equals("R"))
             {
-                if(PreviousRun != null)
+                if (PreviousRun != null)
                 {
-                    if(Dependent.Equals("D"))
-                    { 
-                        if(PreviousRun.FileMeetConditions.Count == 0)
+                    if (Dependent.Equals("D"))
+                    {
+                        if (PreviousRun.FileMeetConditions.Count == 0)
                         {
                             PreviousRun.IsSussess = false;
                             return false;
@@ -1221,7 +1220,7 @@ namespace RabaService
                 var sfiles = IncludeSubfolders ? Directory.GetFiles(ScanLocation, "*.*", SearchOption.AllDirectories) : Directory.GetFiles(ScanLocation);
                 fileInScanLocation = new List<string>(sfiles);
                 useCurrentTaskCondition = true;
-            }            
+            }
 
             if (this.mbLog)
             {
@@ -1251,7 +1250,7 @@ namespace RabaService
                 PreviousRun.RestoreDatabaseFileGroups = RestoreDatabaseFileGroups;
                 PreviousRun.FileMeetConditions = new List<string>();
             }
-                
+
             foreach (var sFileName in fileInScanLocation)
             {
                 if (this.mbLog)
@@ -1260,7 +1259,7 @@ namespace RabaService
                                     "Application", "RabaService", EventLogEntryType.Information);
                 }
 
-                if(!ConditionalRun.Equals("R") || useCurrentTaskCondition)
+                if (!ConditionalRun.Equals("R") || useCurrentTaskCondition)
                 {
                     if (!this.FileMeetsConditions(sFileName,
                                               ScanFileExtension,
@@ -1285,7 +1284,7 @@ namespace RabaService
                                     "Application", "RabaService", EventLogEntryType.Information);
                 }
 
-                if(Task.Equals("RUN"))
+                if (Task.Equals("RUN"))
                 {
                     PreviousRun.FileMeetConditions.Add(sFileName);
                     continue;

@@ -193,7 +193,7 @@
                             <TextBlock Text="New Action" Margin="5,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SettingsDataGrid" BorderThickness="3" BorderBrush="AliceBlue"
+                    <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SettingsDataGrid" BorderThickness="2" BorderBrush="LightGray"
                               Margin="2"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"

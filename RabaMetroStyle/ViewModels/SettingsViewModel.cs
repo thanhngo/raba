@@ -108,7 +108,7 @@ namespace RabaMetroStyle.ViewModels
 
         public bool IsSelectMacroAction => this.selectedItem != null;
 
-        public bool IsSelectMacroFile => !string.IsNullOrEmpty(this.selectedMacroFile);        
+        public bool IsSelectMacroFile => !string.IsNullOrEmpty(this.selectedMacroFile);
 
         public string MachineName { get; private set; }
         public string QuickSaveVisibility
@@ -182,8 +182,8 @@ namespace RabaMetroStyle.ViewModels
             set
             {
                 this.selectedItem = value;
-                if(selectedItem != null)
-                {                    
+                if (selectedItem != null)
+                {
                     this.PopulateSelectedData();
                 }
 
@@ -196,19 +196,19 @@ namespace RabaMetroStyle.ViewModels
         }
 
         public string IsNotSlectedAction { get; set; }
-        public string IsSelectedAction  
+        public string IsSelectedAction
         {
             get => this.quickEditActionSectionVisibility;
-            set 
+            set
             {
-                this.quickEditActionSectionVisibility = value; 
+                this.quickEditActionSectionVisibility = value;
             }
         }
 
         private void PopulateSelectedData()
         {
             this.ScanLocation = selectedItem.ScanLocation;
-            this.Action = GetActionIndex(selectedItem.Action) ;
+            this.Action = GetActionIndex(selectedItem.Action);
             this.IncludeSubFolders = selectedItem.IncludeSubFolders == "true";
             this.ScanFileExtension = selectedItem.ScanFileExtension;
             this.ScanFilePrefix = selectedItem.ScanFilePrefix;
@@ -220,7 +220,7 @@ namespace RabaMetroStyle.ViewModels
             this.ScanFileSizeGreaterThan = selectedItem.ScanFileSizeGreaterThan;
             this.ScanFileSizeLessThan = selectedItem.ScanFileSizeLessThan;
             this.ConditionalDelete = selectedItem.ConditionalDelete == "true";
-            this.TargetLocation = selectedItem.TargetLocation;            
+            this.TargetLocation = selectedItem.TargetLocation;
             this.OnPropertyChanged($"ScanLocation");
             this.OnPropertyChanged($"Action");
             this.OnPropertyChanged($"IncludeSubFolders");
@@ -240,7 +240,7 @@ namespace RabaMetroStyle.ViewModels
         private int GetActionIndex(string Action)
         {
             var actionIndex = 0;
-            switch(Action)
+            switch (Action)
             {
                 case "COPY":
                     actionIndex = 0;
@@ -556,7 +556,7 @@ namespace RabaMetroStyle.ViewModels
                 row["UserID"] = addMacroActionForm.SavedActionDetails.UserID;
                 row["Dependent"] = addMacroActionForm.SavedActionDetails.Dependent;
                 row["ConditionalRun"] = addMacroActionForm.SavedActionDetails.ConditionalRun;
-                row["ConditionalDelete"] = addMacroActionForm.SavedActionDetails.ConditionalDelete;                
+                row["ConditionalDelete"] = addMacroActionForm.SavedActionDetails.ConditionalDelete;
 
                 tempSettingTable.Tables["tblTaskInfo"].Rows.Add(row);
 
@@ -982,10 +982,10 @@ namespace RabaMetroStyle.ViewModels
             cloneSelectItem.RunSQLScriptFilePath = this.RunSQLScriptFilePath;
             cloneSelectItem.ScanFileSizeGreaterThan = this.ScanFileSizeGreaterThan;
             cloneSelectItem.ScanFileSizeLessThan = this.ScanFileSizeLessThan;
-            cloneSelectItem.ConditionalDelete = this.ConditionalDelete  == true ? "true" : "false";
+            cloneSelectItem.ConditionalDelete = this.ConditionalDelete == true ? "true" : "false";
             cloneSelectItem.TargetLocation = this.TargetLocation;
 
-            this.currentSettings[selectedIndex] = cloneSelectItem;           
+            this.currentSettings[selectedIndex] = cloneSelectItem;
 
             using (var dataSet = this.TransformSettingsToDataSet(this.currentSettings))
             {

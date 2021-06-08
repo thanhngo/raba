@@ -12,10 +12,10 @@
         ShowMinButton="False"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="MacroAction" Height="Auto" Width="831.833"
+        Title="Action Detail" Height="734.5" Width="831.833"
         SizeToContent="WidthAndHeight">    
 
-    <Grid Margin="30" Height="653">
+    <Grid Margin="30,31,30,34">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -53,7 +53,7 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1">Scan Location</Label>
+                <Label Grid.Row="1" Grid.Column="1" Foreground="blue">Scan Location</Label>
                 <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Name="txtScanLocation" ></TextBox>
                 <Button Grid.Row="1" Grid.Column="5" Name ="btnScanFolder"  BorderThickness="0" BorderBrush="Transparent" Width="25" Click="BtnScanFolder_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}">
                     <iconPacks:PackIconFontAwesome Width="25"
@@ -62,29 +62,29 @@
                                        VerticalAlignment="Top"                                         
                                        Kind="FolderSolid" Foreground="#FFD8CF03" />
                 </Button>
-                <Label Grid.Row="2" Grid.Column="1">Inlude Sub Folders</Label>
+                <Label Grid.Row="2" Grid.Column="1" Foreground="blue">Inlude Sub Folders</Label>
                 <CheckBox Grid.Row="2" Grid.Column="2" Name="chkIncludeSubFolders"></CheckBox>
-                <Label Grid.Row="3" Grid.Column="1">Scan Prefix</Label>
+                <Label Grid.Row="3" Grid.Column="1" Foreground="blue">Scan Prefix</Label>
                 <TextBox Grid.Row="3" Grid.Column="2" Margin="0,5,0,5" Name="txtScanPrefix"></TextBox>
-                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0">Scan Extension</Label>
+                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" Foreground="blue">Scan Extension</Label>
                 <TextBox Grid.Row="3" Grid.Column="4" Name="txtScanExtension" Margin="0,5,0,5"></TextBox>
-                <Label Grid.Row="4" Grid.Column="1">Date Between</Label>
+                <Label Grid.Row="4" Grid.Column="1" Foreground="blue">Date Between</Label>
                 <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom" Margin="0,5,0,5"></Control:DateTimePicker>
-                <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0">And</Label>
+                <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0" Foreground="blue">And</Label>
                 <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo" Margin="0,5,0,5"></Control:DateTimePicker>
-                <Label Grid.Row="5" Grid.Column="1">Relative Age Younger Than</Label>
+                <Label Grid.Row="5" Grid.Column="1" Foreground="blue">Relative Age Younger Than</Label>
                 <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan" Click="chkRelativeAge_Checked"></CheckBox>
                 <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeYouger"></Control:NumericUpDown>
-                <Label Grid.Row="5" Grid.Column="2" Margin="110,0,10,0">Days Old</Label>
-                <Label Grid.Row="5" Grid.Column="3" Margin="30,0,0,0">Relative Age Older Than</Label>
+                <Label Grid.Row="5" Grid.Column="2" Margin="110,0,10,0" Foreground="blue">Days Old</Label>
+                <Label Grid.Row="5" Grid.Column="3" Margin="30,0,0,0" Foreground="blue">Relative Age Older Than</Label>
                 <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan" Click="chkRelativeAge_Checked"></CheckBox>
                 <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeOlder"></Control:NumericUpDown>
-                <Label Grid.Row="5" Grid.Column="4" Margin="110,0,10,0">Days Old</Label>
-                <Label Grid.Row="6" Grid.Column="1">Only Count Weekdays</Label>
+                <Label Grid.Row="5" Grid.Column="4" Margin="110,0,10,0" Foreground="blue">Days Old</Label>
+                <Label Grid.Row="6" Grid.Column="1" Foreground="blue">Only Count Weekdays</Label>
                 <CheckBox Grid.Row="6" Grid.Column="2" Name="chkOnlyCountWeekdays"></CheckBox>
-                <Label Grid.Row="7" Grid.Column="1">Size (KB)</Label>
+                <Label Grid.Row="7" Grid.Column="1" Foreground="blue">Size (KB)</Label>
                 <TextBox Grid.Row="7" Grid.Column="2" Name="txtSizeFrom" Margin="0,5,0,5"></TextBox>
-                <Label Grid.Row="7" Grid.Column="3" Margin="30,0,0,0">And</Label>
+                <Label Grid.Row="7" Grid.Column="3" Margin="30,0,0,0" Foreground="blue">And</Label>
                 <TextBox Grid.Row="7" Grid.Column="4" Name="txtSizeTo" Margin="0,5,0,5"></TextBox>
             </Grid>
         </GroupBox>
@@ -109,23 +109,23 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed">Task Order</Label>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed" Foreground="blue">Task Order</Label>
                 <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed"></TextBox>
-                <Label Grid.Row="2" Grid.Column="1">Action</Label>
+                <Label Grid.Row="2" Grid.Column="1" Foreground="blue">Action</Label>
                 <ComboBox Grid.Row="2" Grid.Column="2" Name="ddlAction" SelectionChanged="DdlAction_SelectionChanged"></ComboBox>
                 <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkConditionalRun" Visibility="Collapsed"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun" Visibility="Collapsed">Conditional Run</Label>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun" Visibility="Collapsed" Foreground="blue">Conditional Run</Label>
                 <CheckBox Grid.Row="2" Grid.Column="4" Margin="0,0,0,0" Name="chkDependent" Visibility="Collapsed"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent" Visibility="Collapsed">Dependent</Label>
+                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent" Visibility="Collapsed" Foreground="blue">Dependent</Label>
                 <CheckBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="chkConditonalDelete" Checked="chkConditonalDelete_Checked" Unchecked="chkConditonalDelete_UnChecked"></CheckBox>
-                <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete">Conditional Delete</Label>                
-                <Label Grid.Row="4" Grid.Column="1" Name="lblAfterActionDelete">After Action Delete</Label>
+                <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete" Foreground="blue">Conditional Delete</Label>
+                <Label Grid.Row="4" Grid.Column="1" Name="lblAfterActionDelete" Foreground="blue">After Action Delete</Label>
                 <CheckBox Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left" Width="22" Name="chkAfterActionDelete"></CheckBox>
-                <Label Grid.Row="4" Grid.Column="2" Margin="60,0,0,0" Name="lblAfterActionRename">After Action Rename</Label>
+                <Label Grid.Row="4" Grid.Column="2" Margin="60,0,0,0" Name="lblAfterActionRename" Foreground="blue">After Action Rename</Label>
                 <CheckBox Grid.Row="4" Grid.Column="3" Margin="10,0,0,0" Name="chkAfterActionRename"></CheckBox>
-                <Label Grid.Row="4" Grid.Column="3" Margin="50,0,0,0" Name="lblAfterActionTimeStamp">After Action Time Stamp</Label>
+                <Label Grid.Row="4" Grid.Column="3" Margin="50,0,0,0" Name="lblAfterActionTimeStamp" Foreground="blue">After Action Time Stamp</Label>
                 <CheckBox Grid.Row="4" Grid.Column="4" Name="chkAfterActionTimeStamp"></CheckBox>
-                <Label Grid.Row="5" Grid.Column="1" Name="lblTargetLocation">Target Location</Label>
+                <Label Grid.Row="5" Grid.Column="1" Name="lblTargetLocation" Foreground="blue">Target Location</Label>
                 <TextBox Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="3" Name="txtTargetLocation"></TextBox>
                 <Button Grid.Row="5" Grid.Column="5" Name="btnTargetLocation" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                     <iconPacks:PackIconFontAwesome Width="25"
@@ -134,8 +134,9 @@
                                        VerticalAlignment="Top"                                         
                                        Kind="FolderSolid" Foreground="#FFD8CF03" />
                 </Button>
-                <CheckBox Grid.Row="6" Grid.Column="2" Name="chkMaintainSubFolderStructure" Margin="0,5,0,5">Maintain Sub Folder Structure</CheckBox>
-                <Label Grid.Row="6" Grid.Column="1" Name="lblBatchFile">BatchFile</Label>
+                <CheckBox Grid.Row="6" Grid.Column="2" Name="chkMaintainSubFolderStructure" Margin="0,5,0,5"></CheckBox>
+                <Label Grid.Row="6" Grid.Column="2" Margin="17,0,0,0" Name="lblMainmainSub" Foreground="blue">Maintain Sub Folder Structure</Label>
+                <Label Grid.Row="6" Grid.Column="1" Name="lblBatchFile" Foreground="blue">BatchFile</Label>
                 <TextBox Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3" Name="txtBatchFile"></TextBox>
                 <Button Grid.Row="7" Grid.Column="5" Name="btnBatchFile" Click="BtnBatchFile_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                     <iconPacks:PackIconFontAwesome Width="25"
@@ -164,17 +165,17 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity">Integrated Security</Label>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity" Foreground="blue">Integrated Security</Label>
                 <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"/>
-                <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed">User ID</Label>
+                <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed" Foreground="blue">User ID</Label>
                 <TextBox Grid.Row="2" Grid.Column="2" Name="txtUserID" Visibility="Collapsed"></TextBox>
-                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed">Password</Label>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed" Foreground="blue">Password</Label>
                 <TextBox Grid.Row="2" Grid.Column="4" Name="txtPassword" Visibility="Collapsed"></TextBox>
-                <Label Grid.Row="3" Grid.Column="1" Name="lblRestoreDatabase">Database</Label>
+                <Label Grid.Row="3" Grid.Column="1" Name="lblRestoreDatabase" Foreground="blue">Database</Label>
                 <TextBox Grid.Row="3" Grid.Column="2" Name="txtRestoreDatabase"></TextBox>
-                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" Name="lblRestoreServer">Server</Label>
+                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" Name="lblRestoreServer" Foreground="blue">Server</Label>
                 <TextBox Grid.Row="3" Grid.Column="4" Name="txtRestoreServer"></TextBox>
-                <Label Grid.Row="4" Grid.Column="1" Name="lblRestoreFileTemplate">Restore File</Label>
+                <Label Grid.Row="4" Grid.Column="1" Name="lblRestoreFileTemplate" Foreground="blue">Restore File</Label>
                 <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Name="txtRestoreFileTemplate" Margin="0,5,0,5"></TextBox>
                 <Button Grid.Row="4" Grid.Column="5" Name="btnRestoreFile" Click="BtnRestoreFile_Click"  Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                     <iconPacks:PackIconFontAwesome Width="25"
@@ -183,8 +184,8 @@
                                        VerticalAlignment="Top"                                         
                                        Kind="FolderSolid" Foreground="#FFD8CF03" />
                 </Button>
-                <Button Grid.Row="5" Grid.Column="2" Visibility="Collapsed">New</Button>
-                <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed">Use Existing</Button>
+                <Button Grid.Row="5" Grid.Column="2" Visibility="Collapsed" Foreground="blue">New</Button>
+                <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed" Foreground="blue">Use Existing</Button>
             </Grid>
         </GroupBox>        
         <Button Grid.Row="4" Grid.Column="0" Margin="292,10,411,-10" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnCancel_Click">

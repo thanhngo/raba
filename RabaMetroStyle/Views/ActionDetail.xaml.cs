@@ -1,7 +1,5 @@
-﻿using MahApps.Metro.Controls;
-using Ookii.Dialogs.Wpf;
+﻿using Ookii.Dialogs.Wpf;
 using RabaMetroStyle.Models;
-using RabaMetroStyle.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,11 +16,11 @@ namespace RabaMetroStyle.Views
     {
         public bool SavedAction;
         public Setting SavedActionDetails;
-        public List<string> Errors;        
+        public List<string> Errors;
         public ActionDetail()
         {
             InitializeComponent();
-            this.PopulateDropDownListItem();            
+            this.PopulateDropDownListItem();
             this.ActionDetailGrid.Visibility = Visibility.Visible;
             this.NoActionSelected.Visibility = Visibility.Hidden;
         }
@@ -74,7 +72,7 @@ namespace RabaMetroStyle.Views
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
-                    
+
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
                     this.lblIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -98,7 +96,7 @@ namespace RabaMetroStyle.Views
 
                 case "DELETE":
                     this.chkConditonalDelete.Visibility = Visibility.Visible;
-                    this.lblConditonalDelete.Visibility = Visibility.Visible;                    
+                    this.lblConditonalDelete.Visibility = Visibility.Visible;
 
                     if (this.chkConditonalDelete.IsChecked == true)
                     {
@@ -113,7 +111,7 @@ namespace RabaMetroStyle.Views
                         this.txtTargetLocation.Visibility = Visibility.Collapsed;
                         this.btnTargetLocation.Visibility = Visibility.Collapsed;
                         this.lblTargetLocation.Visibility = Visibility.Collapsed;
-                    }                    
+                    }
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -134,12 +132,12 @@ namespace RabaMetroStyle.Views
 
                     break;
 
-                case "MOVE":                    
+                case "MOVE":
                     this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
-                    
+
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
                     this.lblIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -165,7 +163,7 @@ namespace RabaMetroStyle.Views
                     this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
-                    this.lblTargetLocation.Visibility = Visibility.Visible;                    
+                    this.lblTargetLocation.Visibility = Visibility.Visible;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
