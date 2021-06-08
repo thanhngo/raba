@@ -171,6 +171,9 @@
     <Compile Include="ViewModels\ServiceViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\ActionDetail.xaml.cs">
+      <DependentUpon>ActionDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\JobFileName.xaml.cs">
       <DependentUpon>JobFileName.xaml</DependentUpon>
     </Compile>
@@ -198,6 +201,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ActionDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,6 +279,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="officedatabase_103574.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controls\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

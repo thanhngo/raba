@@ -4,40 +4,40 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels"
+      xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels"      
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+      xmlns:views="clr-namespace:RabaMetroStyle.Views"
+      xmlns:local="using:RabaMetroStyle.Styles"
       Title="Settings"
-      d:DesignHeight="300"
-      d:DesignWidth="300"
       Style="{DynamicResource PageStyle}"
-      mc:Ignorable="d">
+      Background="White"
+      mc:Ignorable="d" Height="753.984" Width="1323.667">
 
     <Page.DataContext>
         <viewModels:SettingsViewModel/>
     </Page.DataContext>
 
-    <Grid>
-
-        <iconPacks:PackIconFontAwesome Width="48"
+    <Grid Margin="0,20,0,0">
+        <!--<iconPacks:PackIconFontAwesome Width="48"
                                        Height="48"
                                        Margin="10"
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"
                                        Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                                       Kind="CogSolid" />
-        <Grid Margin="10, 70, 10, 10">
+                                       Kind="CogSolid" />-->
+        <Grid Margin="2,0,0,0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="1">
+            <Button Grid.Column="0" Height="24" VerticalAlignment="top" Command="{Binding ToggerMenuCommand}">
+                <iconPacks:Material Kind="Menu"                                                            
+                                    Width="12"
+                                    Height="12"/>
+            </Button>
+            <Grid Grid.Column="1" Background="WhiteSmoke" Visibility="{Binding ShowHideManageRabaFile, Mode=OneWay}">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -46,104 +46,154 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1">Machine Name:</Label>
-                <Label Grid.Row="1" Grid.Column="2" Content="{Binding MachineName}"></Label>
-                <Label Grid.Row="2">Executable Path:</Label>
-                <Label Grid.Row="2" Grid.Column="2" Content="{Binding ExecutablePath}"></Label>
-                <Label Grid.Row="3" Grid.Column="0">Settings Folder:</Label>
-                <Label Grid.Row="3" Grid.Column="2" Content="{Binding SettingsFolderService}"></Label>
-            </Grid>
-            <Grid Grid.Row="2" Margin="0,10,0,0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="300" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto" />                    
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1">Macros</Label>
-                <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,0" Width="100" Command="{Binding AddMacroCommand}">Add</Button>
-                <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="205,0,0,0" Width="100" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">Disable</Button>
-                <Label Grid.Row="1" Grid.Column="5">Disabled Macros</Label>
-                <Button Grid.Row="1" Grid.Column="6" HorizontalAlignment="Left" Margin="50,0,0,0" Width="100" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">Enable</Button>
-                <Button Grid.Row="1" Grid.Column="6" HorizontalAlignment="Left" Margin="155,0,0,0" Width="100" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">Purge</Button>
-                <ListView Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3" Height="100" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}">
-                    <ListView.ContextMenu>
-                        <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
-                            <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
-                            <MenuItem Header="Disable" Name="EnabledListDisable" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-                </ListView>
-                <Button Grid.Row="3" Grid.Column="4" Margin="0,10,0,0" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}" Padding="0">
-                    <iconPacks:PackIconBootstrapIcons Width="25"
-                                       Height="25"                                                      
-                                       Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                                       Kind="ArrowRight" />
-                </Button>
-                <Button Grid.Row="4" Grid.Column="4" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}" Padding="0">
-                    <iconPacks:PackIconBootstrapIcons Width="25"
-                                       Height="25"                                                      
-                                       Foreground="{DynamicResource MahApps.Brushes.AccentBase}"
-                                       Kind="ArrowLeft" />
-                </Button>
-                <Button Grid.Row="5" Grid.Column="4" Visibility="Hidden">Up</Button>
-                <Button Grid.Row="6" Grid.Column="4" Visibility="Hidden">Down</Button>
-                <ListView Grid.Row="3" Grid.RowSpan="4" Grid.Column="5" Grid.ColumnSpan="2" Height="100" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}">
-                    <ListView.ContextMenu>
-                        <ContextMenu Name="DisabledList" StaysOpen="true" Background="WhiteSmoke">
-                            <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
-                            <MenuItem Header="Remove" Name="DisabledListRemove" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-                </ListView>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="1">Machine Name:</Label>
+                    <Label Grid.Row="1" Grid.Column="2" Content="{Binding MachineName}"></Label>
+                    <Label Grid.Row="2">Executable Path:</Label>
+                    <Label Grid.Row="2" Grid.Column="2" Content="{Binding ExecutablePath}"></Label>
+                    <Label Grid.Row="3" Grid.Column="0">Settings Folder:</Label>
+                    <Label Grid.Row="3" Grid.Column="2" Content="{Binding SettingsFolderService}"></Label>
+                </Grid>
+                <Grid Grid.Row="2" Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1">Macros</Label>
+                    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,10" Command="{Binding AddMacroCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterialDesign Kind="Add"
+                                    Margin="4 4 2 4"
+                                    Width="18"
+                                    Height="18"                                    
+                                    VerticalAlignment="Center" />
+                            <TextBlock Text="Add Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="205,0,0,10" Width="114" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterial Kind="CheckboxBlank"
+                                    Margin="4 4 2 4"
+                                    Width="18"
+                                    Height="18"                                    
+                                    VerticalAlignment="Center" />
+                            <TextBlock Text="Disable Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <ListView Grid.Row="3" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="3" Height="150" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}">
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
+                                <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
+                                <MenuItem Header="Disable" Name="EnabledListDisable" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                    <Button Grid.Row="8" Grid.Column="1" Width="25" Margin="0,0,0,0" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
+                        <iconPacks:MaterialDesign Width="25"
+                                       Height="25"                                                                                             
+                                       Kind="ArrowDownward" />
+                    </Button>
+                    <Button Grid.Row="8" Grid.Column="1" Width="25" Margin="60,0,0,0" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
+                        <iconPacks:MaterialDesign Width="25"
+                                       Height="25"                                                                                             
+                                       Kind="ArrowUpward" />
+                    </Button>
+                    <Label Grid.Row="9" Grid.Column="1">Disabled Macros</Label>
+                    <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,10" Width="100" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterialDesign Kind="Check"
+                                    Margin="4 4 2 4"
+                                    Width="18"
+                                    Height="18"                                    
+                                    VerticalAlignment="Center" />
+                            <TextBlock Text="Enable Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="205,0,0,10" Width="100" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterialLight Kind="Delete"
+                                    Margin="4 4 2 4"
+                                    Width="18"
+                                    Height="18"                                    
+                                    VerticalAlignment="Center" />
+                            <TextBlock Text="Purge" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <ListView Grid.Row="10" Grid.RowSpan="4" Grid.Column="1" Grid.ColumnSpan="2" Height="150" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}">
+                        <ListView.ContextMenu>
+                            <ContextMenu Name="DisabledList" StaysOpen="true" Background="WhiteSmoke">
+                                <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
+                                <MenuItem Header="Remove" Name="DisabledListRemove" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                    </ListView>
+                </Grid>
             </Grid>            
-            <Grid Grid.Row="3">
-                <Grid.Resources>
-                    <!--  for ne metro style  -->
-                    <Style TargetType="{x:Type DataGridColumnHeadersPresenter}">
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="DataGridColumnHeadersPresenter">
-                                    <Grid>
-                                        <Border Background="Transparent"
+            <StackPanel Margin="10,0,0,-12" Grid.Column="2" Height="654" VerticalAlignment="Top">
+                <Grid Height="320" VerticalAlignment="Top">
+                    <Grid.Resources>
+                        <!--  for ne metro style  -->
+                        <Style TargetType="{x:Type DataGridColumnHeadersPresenter}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="DataGridColumnHeadersPresenter">
+                                        <Grid>
+                                            <Border Background="Transparent"
                                                 BorderBrush="{DynamicResource MahApps:Brushes.Gray5}"
                                                 BorderThickness="0 0 0 3"
                                                 IsHitTestVisible="False" />
-                                        <ItemsPresenter />
-                                    </Grid>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Grid.Resources>
-                
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />                    
-                </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1">Actions</Label>
-                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="50,0,0,0" Width="100" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}">Add</Button>
-                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="155,0,0,0" Width="100" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">Edit</Button>
-                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Left" Margin="260,0,0,0" Width="100" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">Delete</Button>
-                <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SettingsDataGrid"
+                                            <ItemsPresenter />
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Grid.Resources>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Row="1" Grid.Column="1" Margin="50,0,0,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding AddActionCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterialDesign Kind="Add"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                            <TextBlock Text="New Action" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                    <DataGrid Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" x:Name="SettingsDataGrid" BorderThickness="3" BorderBrush="AliceBlue"
                               Margin="2"
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
@@ -159,52 +209,148 @@
                               SelectionUnit="FullRow"
                               SelectedIndex="0"
                               TextOptions.TextFormattingMode="Display">
-                    <DataGrid.InputBindings>
-                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
-                    </DataGrid.InputBindings>
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Binding="{Binding Action}" Header="Action" />
-                        <DataGridTextColumn Binding="{Binding ScanLocation}" Header="Scan Location" />
-                        <DataGridTextColumn Binding="{Binding IncludeSubFolders}" Header="Include Sub Folder" />
-                        <DataGridTextColumn Binding="{Binding ScanFileExtension}" Header="File Extension" />
-                        <DataGridTextColumn Binding="{Binding ScanFilePrefix}" Header="Prefix" />
-                        <DataGridTextColumn Binding="{Binding ScanFileDateGreaterThan}" Header="Date Greater Than" />
-                        <DataGridTextColumn Binding="{Binding ScanFileDateLessThan}" Header="Date Less Than" />
-                        <DataGridTextColumn Binding="{Binding ScanFileUseRelativeAgeYounger}" Header="Use Relative Age Younger" />
-                        <DataGridTextColumn Binding="{Binding ScanFileUseRelativeAgeOlder}" Header="Use Relative Age Older" />
-                        <DataGridTextColumn Binding="{Binding ScanFileAgeYounger}" Header="File Age Younger (Days)" />
-                        <DataGridTextColumn Binding="{Binding ScanFileAgeOlder}" Header="File Age Older (Days)" />
-                        <DataGridTextColumn Binding="{Binding OnlyCountWeekDays}" Header="Only Count Weekdays" />
-                        <DataGridTextColumn Binding="{Binding ScanFileSizeGreaterThan}" Header="Size Greater Than" />
-                        <DataGridTextColumn Binding="{Binding ScanFileSizeLessThan}" Header="Size Less Than" />                        
-                        <DataGridTextColumn Binding="{Binding Dependent}" Header="Dependent" />
-                        <DataGridTextColumn Binding="{Binding ActionCompleteRename}" Header="On Completion Rename" />
-                        <DataGridTextColumn Binding="{Binding ActionCompleteTimeStamp}" Header="On Completion Time Stamp" />
-                        <DataGridTextColumn Binding="{Binding ActionCompleteDelete}" Header="On Completion Time Delete" />
-                        <DataGridTextColumn Binding="{Binding TargetLocation}" Header="Target Location" />
-                        <DataGridTextColumn Binding="{Binding MaintainSubFolders}" Header="Maintain Sub Folder" />
-                        <DataGridTextColumn Binding="{Binding Command}" Header="Command" />
-                        <DataGridTextColumn Binding="{Binding IntegratedSecurity}" Header="Integrated Security" />
-                        <DataGridTextColumn Binding="{Binding UserID}" Header="UserId" />
-                        <DataGridTextColumn Binding="{Binding Password}" Header="Password" />
-                        <DataGridTextColumn Binding="{Binding DatabaseName}" Header="Database" />
-                        <DataGridTextColumn Binding="{Binding DatabaseServer}" Header="Server" />
-                        <DataGridTextColumn Binding="{Binding TaskOrder}" Header="Task Order" />
-                        <DataGridTextColumn Binding="{Binding RunSQLScript}" Header="Run SQL Script" />
-                        <DataGridTextColumn Binding="{Binding RunSQLScriptFilePath}" Header="Script Path" />
-                        <DataGridTextColumn Binding="{Binding RestoreDatabaseFileGroups}" Header="Restore File Group" />
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Grid.ContextMenu>
-                    <ContextMenu Name="MacroActionGrid" StaysOpen="true" Background="WhiteSmoke">
-                        <MenuItem Header="Add" Name="MacroActionGridAdd" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
-                        <MenuItem Header="Edit" Name="MacroActionGridEdit" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
-                        <MenuItem Header="Copy And Paste" Name="MacroActionGridCopy" Command="{Binding CopyActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
-                        <MenuItem Header="Delete" Name="MacroActionGridDelete" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
-                    </ContextMenu>                    
-                </Grid.ContextMenu>
-                    
-            </Grid>
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
+                        </DataGrid.InputBindings>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Action}" Header="Action" />
+                            <DataGridTextColumn Binding="{Binding ScanLocation}" Header="Scan Location" />
+                            <DataGridTextColumn Binding="{Binding IncludeSubFolders}" Header="Include Sub Folder" />
+                            <DataGridTextColumn Binding="{Binding ScanFileExtension}" Header="File Extension" />
+                            <DataGridTextColumn Binding="{Binding ScanFilePrefix}" Header="Prefix" />
+                            <DataGridTextColumn Binding="{Binding ScanFileDateGreaterThan}" Header="Date Greater Than" />
+                            <DataGridTextColumn Binding="{Binding ScanFileDateLessThan}" Header="Date Less Than" />
+                            <DataGridTextColumn Binding="{Binding ScanFileUseRelativeAgeYounger}" Header="Use Relative Age Younger" />
+                            <DataGridTextColumn Binding="{Binding ScanFileUseRelativeAgeOlder}" Header="Use Relative Age Older" />
+                            <DataGridTextColumn Binding="{Binding ScanFileAgeYounger}" Header="File Age Younger (Days)" />
+                            <DataGridTextColumn Binding="{Binding ScanFileAgeOlder}" Header="File Age Older (Days)" />
+                            <DataGridTextColumn Binding="{Binding OnlyCountWeekDays}" Header="Only Count Weekdays" />
+                            <DataGridTextColumn Binding="{Binding ScanFileSizeGreaterThan}" Header="Size Greater Than" />
+                            <DataGridTextColumn Binding="{Binding ScanFileSizeLessThan}" Header="Size Less Than" />
+                            <DataGridTextColumn Binding="{Binding Dependent}" Header="Dependent" />
+                            <DataGridTextColumn Binding="{Binding ActionCompleteRename}" Header="On Completion Rename" />
+                            <DataGridTextColumn Binding="{Binding ActionCompleteTimeStamp}" Header="On Completion Time Stamp" />
+                            <DataGridTextColumn Binding="{Binding ActionCompleteDelete}" Header="On Completion Time Delete" />
+                            <DataGridTextColumn Binding="{Binding TargetLocation}" Header="Target Location" />
+                            <DataGridTextColumn Binding="{Binding MaintainSubFolders}" Header="Maintain Sub Folder" />
+                            <DataGridTextColumn Binding="{Binding Command}" Header="Command" />
+                            <DataGridTextColumn Binding="{Binding IntegratedSecurity}" Header="Integrated Security" />
+                            <DataGridTextColumn Binding="{Binding UserID}" Header="UserId" />
+                            <DataGridTextColumn Binding="{Binding Password}" Header="Password" />
+                            <DataGridTextColumn Binding="{Binding DatabaseName}" Header="Database" />
+                            <DataGridTextColumn Binding="{Binding DatabaseServer}" Header="Server" />
+                            <DataGridTextColumn Binding="{Binding TaskOrder}" Header="Task Order" />
+                            <DataGridTextColumn Binding="{Binding RunSQLScript}" Header="Run SQL Script" />
+                            <DataGridTextColumn Binding="{Binding RunSQLScriptFilePath}" Header="Script Path" />
+                            <DataGridTextColumn Binding="{Binding RestoreDatabaseFileGroups}" Header="Restore File Group" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid.ContextMenu>
+                        <ContextMenu Name="MacroActionGrid" StaysOpen="true" Background="WhiteSmoke">
+                            <MenuItem Header="Add" Name="MacroActionGridAdd" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
+                            <MenuItem Header="Edit" Name="MacroActionGridEdit" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
+                            <MenuItem Header="Copy And Paste" Name="MacroActionGridCopy" Command="{Binding CopyActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
+                            <MenuItem Header="Delete" Name="MacroActionGridDelete" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}"/>
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+                </Grid>
+                <Grid Background="WhiteSmoke" Margin="0,10,0,0" Height="320">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="3"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Column="0" Margin="10" Visibility="{Binding ShowHideCurrentFilePanel}" Width="300">
+                            <Grid.Resources>
+                                <Style x:Key="TitleTextBlockStyle" BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="TextBlock">
+                                    <Setter Property="FontWeight" Value="Medium"/>
+                                    <Setter Property="FontSize" Value="18"/>
+                                </Style>
+                                <Style x:Key="ContentTextBlockStyle" BasedOn="{StaticResource MahApps.Styles.TextBlock}" TargetType="TextBlock">
+                                    <Setter Property="FontWeight" Value="Light"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                </Style>
+                            </Grid.Resources>
+                            <StackPanel Margin="0,20,0,0">
+                                <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Current Raba Fie"  />
+                            </StackPanel>
+                            <StackPanel Margin="0,50,0,0">
+                                <TextBlock  Margin="3,0,0,0" Style="{StaticResource ContentTextBlockStyle}" Text="{Binding SelectedMacroFile, UpdateSourceTrigger=PropertyChanged}" />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Column="1" Height="Auto" Visibility="{Binding ShowHideCurrentFilePanel}">
+                            <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Width="1"/>
+                        </Grid>
+                        <Grid Grid.Column="2" Background="WhiteSmoke" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border BorderThickness="3" BorderBrush="AliceBlue"/>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="10,5,743,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding QuickEditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" Visibility="{Binding IsNotQuickEdit}">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterialDesign Kind="Edit"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                                    <TextBlock Text="Edit" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="10,5,743,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding CancelActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" Visibility="{Binding QuickSaveVisibility}">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterialDesign Kind="Cancel"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                                    <TextBlock Text="Cancel" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="126,5,627,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" Visibility="{Binding IsNotQuickEdit}">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterialDesign Kind="Delete"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                                    <TextBlock Text="Delete" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="126,5,627,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding QuickSaveActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" Visibility="{Binding QuickSaveVisibility}">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterialLight Kind="ContentSave"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                                    <TextBlock Text="Save" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </Button>
+                            <Button Grid.Row="0" Grid.Column="0" Margin="743,5,10,0" Width="40" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">
+                                <iconPacks:PackIconMaterialDesign Kind="OpenInNew"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                            </Button>
+                            <TextBlock Margin="5" Grid.Row="2" Grid.Column="0" Visibility="{Binding IsNotSlectedAction}">There is no selected Action</TextBlock>
+                            <views:ActionDetail Margin="5" Grid.Row="3" Grid.Column="0" Visibility="{Binding IsSelectedAction}"></views:ActionDetail>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </StackPanel>
         </Grid>
     </Grid>
 </Page>

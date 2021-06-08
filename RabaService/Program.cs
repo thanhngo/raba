@@ -24,8 +24,8 @@ namespace RabaService
                                 };
             ServiceBase.Run(servicesToRun);
 
-            RabaService main = new RabaService();
-            main.ProcessRaba();
+            //RabaService main = new RabaService();
+            //main.ProcessRaba();
         }
     }
 }
