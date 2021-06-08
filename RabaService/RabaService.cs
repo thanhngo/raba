@@ -922,11 +922,11 @@ namespace RabaService
                                  bool ConditionalDelete)
         {
             var bReturn = false;
-
+            this.WriteToLog("In Process Task: " + Task, "Application", "RabaService", EventLogEntryType.Information);
             switch (Task.ToUpper())
             {
                 case "COPY":
-                    // Log the Start of the Activity                     
+                    // Log the Start of the Activity                    
                     this.ProcessTaskCopy(szFileName, ScanLocation, TargetLocation, MaintainSubFolders, true);
                     if (ActionCompleteRename)
                     {

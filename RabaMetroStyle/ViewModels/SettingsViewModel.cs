@@ -11,6 +11,7 @@ using System.IO;
 using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 #endregion
@@ -26,6 +27,25 @@ namespace RabaMetroStyle.ViewModels
         private string selectedDisabledMacroFile;
         private Setting selectedItem;
         private string selectedMacroFile;
+        private string quickSaveVisibility = "Hidden";
+        private string quickEditActionSectionVisibility = "Hidden";
+        private string showHideRabaFile = "Visible";
+
+        private int action { get; set; }
+        private string command { get; set; }
+        private string databaseName { get; set; }
+        private string databaseServer { get; set; }
+        private bool includeSubFolders { get; set; }
+        private string integratedSecurity { get; set; }
+        private string runSQLScript { get; set; }
+        private string runSQLScriptFilePath { get; set; }
+        private string scanFileExtension { get; set; }
+        private string scanFilePrefix { get; set; }
+        private string scanFileSizeGreaterThan { get; set; }
+        private string scanFileSizeLessThan { get; set; }
+        private string scanLocation { get; set; }
+        private string targetLocation { get; set; }
+        private bool conditionalDelete { get; set; }
 
         public SettingsViewModel()
         {
@@ -44,9 +64,13 @@ namespace RabaMetroStyle.ViewModels
             this.AddActionDelegateCommand = new DelegateCommand(this.AddMacroAction);
             this.DeleteActionDelegateCommand = new DelegateCommand(this.DeleteMacroAction);
             this.EditActionDelegateCommand = new DelegateCommand(this.EditMacroAction);
+            this.QuickEditActionDelegateCommand = new DelegateCommand(this.QuickEditMacroAction);
             this.PurgeMacroDelegateCommand = new DelegateCommand(this.PurgeMacroAction);
             this.CopyActionDelegateCommand = new DelegateCommand(this.CopyMacroAction);
             this.DoubleClickDelegateCommand = new DelegateCommand(this.EditMacroAction);
+            this.QuickSaveMacroDelegateCommand = new DelegateCommand(this.QuickSaveAction);
+            this.CancelActionDelegateCommand = new DelegateCommand(this.CancelAction);
+            this.ToggerMenuDelegateCommand = new DelegateCommand(this.ToggerMenu);
         }
 
         public ICommand AddActionCommand => this.AddActionDelegateCommand;
@@ -71,8 +95,12 @@ namespace RabaMetroStyle.ViewModels
         public ICommand DisableMacroCommand => this.DisableMacroDelegateCommand;
 
         public ICommand EditActionCommand => this.EditActionDelegateCommand;
+        public ICommand QuickEditActionCommand => this.QuickEditActionDelegateCommand;
 
         public ICommand EnableMacroCommand => this.EnableMacroDelegateCommand;
+        public ICommand QuickSaveActionCommand => this.QuickSaveMacroDelegateCommand;
+        public ICommand CancelActionCommand => this.CancelActionDelegateCommand;
+        public ICommand ToggerMenuCommand => this.ToggerMenuDelegateCommand;
 
         public string ExecutablePath { get; set; }
 
@@ -80,9 +108,38 @@ namespace RabaMetroStyle.ViewModels
 
         public bool IsSelectMacroAction => this.selectedItem != null;
 
-        public bool IsSelectMacroFile => !string.IsNullOrEmpty(this.selectedMacroFile);
+        public bool IsSelectMacroFile => !string.IsNullOrEmpty(this.selectedMacroFile);        
 
         public string MachineName { get; private set; }
+        public string QuickSaveVisibility
+        {
+            get => this.quickSaveVisibility;
+            set
+            {
+                this.quickSaveVisibility = value;
+                this.OnPropertyChanged();
+            }
+        }
+        public string QuickEditVisibility
+        {
+            get => this.quickSaveVisibility.Equals("Hidden") ? "Visible" : "Hidden";
+        }
+
+        public string ShowHideManageRabaFile
+        {
+            get => this.showHideRabaFile;
+            set
+            {
+                showHideRabaFile = value;
+                this.OnPropertyChanged();
+                this.OnPropertyChanged("ShowHideCurrentFilePanel");
+            }
+        }
+
+        public string ShowHideCurrentFilePanel
+        {
+            get => showHideRabaFile.Equals("Collapsed") ? "Visible" : "Collapsed";
+        }
 
         public ObservableCollection<string> MacroFilesActive
         {
@@ -125,8 +182,119 @@ namespace RabaMetroStyle.ViewModels
             set
             {
                 this.selectedItem = value;
+                if(selectedItem != null)
+                {                    
+                    this.PopulateSelectedData();
+                }
+
+                this.IsSelectedAction = selectedItem == null ? "Hidden" : "Visible";
+                this.IsNotSlectedAction = selectedItem == null ? "Visible" : "Hidden";
+                this.OnPropertyChanged($"IsSelectedAction");
+                this.OnPropertyChanged($"IsNotSlectedAction");
                 this.OnPropertyChanged($"IsSelectMacroAction");
             }
+        }
+
+        public string IsNotSlectedAction { get; set; }
+        public string IsSelectedAction  
+        {
+            get => this.quickEditActionSectionVisibility;
+            set 
+            {
+                this.quickEditActionSectionVisibility = value; 
+            }
+        }
+
+        private void PopulateSelectedData()
+        {
+            this.ScanLocation = selectedItem.ScanLocation;
+            this.Action = GetActionIndex(selectedItem.Action) ;
+            this.IncludeSubFolders = selectedItem.IncludeSubFolders == "true";
+            this.ScanFileExtension = selectedItem.ScanFileExtension;
+            this.ScanFilePrefix = selectedItem.ScanFilePrefix;
+            this.DatabaseName = selectedItem.DatabaseName;
+            this.DatabaseServer = selectedItem.DatabaseServer;
+            this.IntegratedSecurity = selectedItem.IntegratedSecurity;
+            this.RunSQLScript = selectedItem.RunSQLScript;
+            this.RunSQLScriptFilePath = selectedItem.RunSQLScriptFilePath;
+            this.ScanFileSizeGreaterThan = selectedItem.ScanFileSizeGreaterThan;
+            this.ScanFileSizeLessThan = selectedItem.ScanFileSizeLessThan;
+            this.ConditionalDelete = selectedItem.ConditionalDelete == "true";
+            this.TargetLocation = selectedItem.TargetLocation;            
+            this.OnPropertyChanged($"ScanLocation");
+            this.OnPropertyChanged($"Action");
+            this.OnPropertyChanged($"IncludeSubFolders");
+            this.OnPropertyChanged($"ScanFileExtension");
+            this.OnPropertyChanged($"ScanFilePrefix");
+            this.OnPropertyChanged($"DatabaseName");
+            this.OnPropertyChanged($"DatabaseServer");
+            this.OnPropertyChanged($"IntegratedSecurity");
+            this.OnPropertyChanged($"RunSQLScript");
+            this.OnPropertyChanged($"RunSQLScriptFilePath");
+            this.OnPropertyChanged($"ScanFileSizeGreaterThan");
+            this.OnPropertyChanged($"ScanFileSizeLessThan");
+            this.OnPropertyChanged($"ConditionalDelete");
+            this.OnPropertyChanged($"TargetLocation");
+        }
+
+        private int GetActionIndex(string Action)
+        {
+            var actionIndex = 0;
+            switch(Action)
+            {
+                case "COPY":
+                    actionIndex = 0;
+                    break;
+                case "DELETE":
+                    actionIndex = 1;
+                    break;
+                case "MOVE":
+                    actionIndex = 2;
+                    break;
+                case "ZIP":
+                    actionIndex = 3;
+                    break;
+                case "UNZIP":
+                    actionIndex = 4;
+                    break;
+                case "BATCH":
+                    actionIndex = 5;
+                    break;
+                case "SQLSCRIPT":
+                    actionIndex = 6;
+                    break;
+            }
+            return actionIndex;
+        }
+
+        private string GetAction(int ActionIndex)
+        {
+            string action = "COPY";
+            switch (ActionIndex)
+            {
+                case 0:
+                    action = "COPY";
+                    break;
+                case 1:
+                    action = "DELETE";
+                    break;
+                case 2:
+                    action = "MOVE";
+                    break;
+                case 3:
+                    action = "ZIP";
+                    break;
+                case 4:
+                    action = "UNZIP";
+                    break;
+                case 5:
+                    action = "BATCH";
+                    break;
+                case 6:
+                    action = "SQLSCRIPT";
+                    break;
+            }
+            return action;
         }
 
         public string SelectedMacroFile
@@ -138,6 +306,7 @@ namespace RabaMetroStyle.ViewModels
                 this.selectedMacroFile = value;
                 this.OnPropertyChanged($"IsSelectMacroFile");
                 this.OnPropertyChanged($"IsSelectDisabledMacroFile");
+                this.OnPropertyChanged();
                 if (!string.IsNullOrEmpty(this.selectedMacroFile))
                 {
                     this.HandleSelectedMacroFile();
@@ -145,8 +314,143 @@ namespace RabaMetroStyle.ViewModels
             }
         }
 
-        public string SettingsFolderService { get; set; }
+        public int Action
+        {
+            get => this.action;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                action = value;
+            }
+        }
+        public string Command
+        {
+            get => this.command;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                command = value;
+            }
+        }
+        public string DatabaseName
+        {
+            get => this.databaseName;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                databaseName = value;
+            }
+        }
+        public string DatabaseServer
+        {
+            get => this.databaseServer;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                databaseServer = value;
+            }
+        }
+        public bool IncludeSubFolders
+        {
+            get => this.includeSubFolders;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                includeSubFolders = value;
+            }
+        }
+        public string IntegratedSecurity
+        {
+            get => this.integratedSecurity;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                integratedSecurity = value;
+            }
+        }
+        public string RunSQLScript
+        {
+            get => this.runSQLScript;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                runSQLScript = value;
+            }
+        }
+        public string RunSQLScriptFilePath
+        {
+            get => this.runSQLScriptFilePath;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                scanFileExtension = value;
+            }
+        }
+        public string ScanFileExtension
+        {
+            get => this.scanFileExtension;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                scanFileExtension = value;
+            }
+        }
+        public string ScanFilePrefix
+        {
+            get => this.scanFilePrefix;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                scanFilePrefix = value;
+            }
+        }
+        public string ScanFileSizeGreaterThan
+        {
+            get => this.scanFileSizeGreaterThan;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                scanFileSizeGreaterThan = value;
+            }
+        }
+        public string ScanFileSizeLessThan
+        {
+            get => this.scanFileSizeLessThan;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                scanFileSizeLessThan = value;
+            }
+        }
+        public string ScanLocation
+        {
+            get => this.scanLocation;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                scanLocation = value;
+            }
+        }
+        public string TargetLocation
+        {
+            get => this.targetLocation;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                targetLocation = value;
+            }
+        }
+        public bool ConditionalDelete
+        {
+            get => this.conditionalDelete;
+            set
+            {
+                QuickSaveVisibility = "Visible";
+                conditionalDelete = value;
+            }
+        }
 
+        public string SettingsFolderService { get; set; }
         private DelegateCommand AddActionDelegateCommand { get; }
 
         private DelegateCommand AddMacroDelegateCommand { get; }
@@ -158,8 +462,12 @@ namespace RabaMetroStyle.ViewModels
         private DelegateCommand DisableMacroDelegateCommand { get; }
 
         private DelegateCommand EditActionDelegateCommand { get; }
+        private DelegateCommand QuickEditActionDelegateCommand { get; }
 
         private DelegateCommand EnableMacroDelegateCommand { get; }
+        private DelegateCommand QuickSaveMacroDelegateCommand { get; }
+        private DelegateCommand CancelActionDelegateCommand { get; }
+        private DelegateCommand ToggerMenuDelegateCommand { get; }
 
         private DelegateCommand PurgeMacroDelegateCommand { get; }
         private DelegateCommand DoubleClickDelegateCommand { get; }
@@ -325,6 +633,13 @@ namespace RabaMetroStyle.ViewModels
                 return;
             }
 
+            var messageBoxResult = MessageBox.Show("Are you sure to delete this item", "Confirmation", MessageBoxButton.YesNo);
+
+            if (messageBoxResult == MessageBoxResult.No)
+            {
+                return;
+            }
+
             this.currentSettings.Remove(this.selectedItem);
             this.selectedItem = null;
 
@@ -419,6 +734,17 @@ namespace RabaMetroStyle.ViewModels
                 var pathFile = this.SettingsFolderService + "\\" + this.selectedMacroFile;
                 SaveSettings(pathFile, dataSet);
             }
+        }
+
+        private void QuickEditMacroAction()
+        {
+            if (this.selectedItem == null)
+            {
+                MessageBox.Show("Please select macro action", "Edit Macro Action", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            this.QuickSaveVisibility = "Visible";
         }
 
         private void EnableSelectedMacro()
@@ -637,6 +963,49 @@ namespace RabaMetroStyle.ViewModels
             }
 
             return tempSettingTable;
+        }
+
+        private void QuickSaveAction()
+        {
+            var selectedIndex = this.currentSettings.IndexOf(this.selectedItem);
+            var cloneSelectItem = selectedItem;
+
+            cloneSelectItem.Action = GetAction(Action);
+            cloneSelectItem.ScanLocation = this.ScanLocation;
+            cloneSelectItem.IncludeSubFolders = this.IncludeSubFolders == true ? "true" : "false";
+            cloneSelectItem.ScanFileExtension = this.ScanFileExtension;
+            cloneSelectItem.ScanFilePrefix = this.ScanFilePrefix;
+            cloneSelectItem.DatabaseName = this.DatabaseName;
+            cloneSelectItem.DatabaseServer = this.DatabaseServer;
+            cloneSelectItem.IntegratedSecurity = this.IntegratedSecurity;
+            cloneSelectItem.RunSQLScript = this.RunSQLScript;
+            cloneSelectItem.RunSQLScriptFilePath = this.RunSQLScriptFilePath;
+            cloneSelectItem.ScanFileSizeGreaterThan = this.ScanFileSizeGreaterThan;
+            cloneSelectItem.ScanFileSizeLessThan = this.ScanFileSizeLessThan;
+            cloneSelectItem.ConditionalDelete = this.ConditionalDelete  == true ? "true" : "false";
+            cloneSelectItem.TargetLocation = this.TargetLocation;
+
+            this.currentSettings[selectedIndex] = cloneSelectItem;           
+
+            using (var dataSet = this.TransformSettingsToDataSet(this.currentSettings))
+            {
+                var pathFile = this.SettingsFolderService + "\\" + this.selectedMacroFile;
+                SaveSettings(pathFile, dataSet);
+            }
+
+            CollectionViewSource.GetDefaultView(currentSettings).Refresh();
+            selectedItem = cloneSelectItem;
+            this.QuickSaveVisibility = "Hidden";
+        }
+
+        private void CancelAction()
+        {
+            this.QuickSaveVisibility = "Hidden";
+        }
+
+        private void ToggerMenu()
+        {
+            ShowHideManageRabaFile = showHideRabaFile.Equals("Collapsed") ? "Visible" : "Collapsed";
         }
     }
 }

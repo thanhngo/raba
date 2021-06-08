@@ -17,6 +17,7 @@ namespace RabaMetroStyle.ViewModels
     {
         private bool disableInterval;
         private bool serviceInstalledOnMachine;
+        private bool isServiceStart;
 
         public ServiceViewModel()
         {
@@ -33,6 +34,16 @@ namespace RabaMetroStyle.ViewModels
                 this.disableInterval = value;
                 this.OnPropertyChanged();
                 this.OnPropertyChanged("DisableStopButton");
+            }
+        }
+
+        public bool IsServiceStart
+        {
+            get => this.isServiceStart;
+            set
+            {
+                this.isServiceStart = value;
+                this.OnPropertyChanged();
             }
         }
 
@@ -113,10 +124,12 @@ namespace RabaMetroStyle.ViewModels
                 switch (this.ServiceStateText.ToUpper())
                 {
                     case "RUNNING":
+                        IsServiceStart = true;
                         this.DisableInterval = false;
                         break;
 
                     case "STOPPED":
+                        IsServiceStart = false;
                         this.DisableInterval = true;
                         break;
                 }
@@ -152,14 +165,15 @@ namespace RabaMetroStyle.ViewModels
                 if (oSc.Status == ServiceControllerStatus.Stopped)
                 {
                     oSc.Start();
+                    this.ServiceStateText = "Running";
+                    this.DisableInterval = false;
                 }
                 else
                 {
-                    MessageBox.Show("There Was an Issue In Starting the Service \n The Service Might Be In The Process Of Changing Status");
+                    oSc.Stop();
+                    this.ServiceStateText = "Stopped";
+                    this.DisableInterval = true;
                 }
-
-                this.ServiceStateText = "Running";
-                this.DisableInterval = false;
             }
             catch (Exception ex)
             {

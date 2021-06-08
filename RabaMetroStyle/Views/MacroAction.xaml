@@ -5,7 +5,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RabaMetroStyle.Views"
+        xmlns:local="clr-namespace:RabaMetroStyle.Views"                
     xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels" xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" d:DataContext="{d:DesignInstance Type=viewModels:ServiceViewModel}"
     WindowStartupLocation="CenterScreen"
         ShowMaxRestoreButton="False"
@@ -15,7 +15,7 @@
         Title="MacroAction" Height="Auto" Width="831.833"
         SizeToContent="WidthAndHeight">    
 
-    <Grid Margin="30">
+    <Grid Margin="30" Height="653">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
@@ -26,7 +26,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        </Grid.RowDefinitions>        
         <GroupBox Grid.Row="1" Header="Search Criteria">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -186,8 +186,26 @@
                 <Button Grid.Row="5" Grid.Column="2" Visibility="Collapsed">New</Button>
                 <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed">Use Existing</Button>
             </Grid>
-        </GroupBox>
-        <Button Grid.Row="4" Margin="312,10,391,-10" Click="btnCancel_Click" RenderTransformOrigin="-1.54,0.778">Cancel</Button>
-        <Button Grid.Row="4" Margin="392,10,311,-10" Click="btnSave_Click">Save</Button>
+        </GroupBox>        
+        <Button Grid.Row="4" Grid.Column="0" Margin="292,10,411,-10" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnCancel_Click">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterialDesign Kind="Cancel"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                <TextBlock Text="Cancel" Margin="5,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="4" Grid.Column="0" Margin="392,10,311,-10" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnSave_Click">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterialLight Kind="ContentSave"
+                                    Margin="4 4 2 4"
+                                    Width="24"
+                                    Height="24"                                    
+                                    VerticalAlignment="Center" />
+                <TextBlock Text="Save" Margin="5,0,0,0" VerticalAlignment="Center" />
+            </StackPanel>
+        </Button>
     </Grid>
 </Control:MetroWindow>
