@@ -26,8 +26,7 @@
             </Style>
         </StackPanel.Resources>
 
-        <StackPanel Margin="0,12,0,0">
-            <TextBlock Margin="0,12" Text="Service" Style="{StaticResource TitleTextBlockStyle}"  />
+        <StackPanel Margin="0,50,0,0">            
             <StackPanel Margin="0,20,0,0">
                 <mah:ToggleSwitch Header="Start service with interval time" IsOn="{Binding IsServiceStart}" Command="{Binding StartServiceCommand}" />
             </StackPanel>

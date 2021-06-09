@@ -41,7 +41,7 @@
                         <RowDefinition Height="auto"/>                        
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1" Foreground="blue">Scan Location</Label>
+                <Label Grid.Row="1" Grid.Column="1" >Scan Location</Label>
                     <TextBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="3" Name="txtScanLocation" Text="{Binding ScanLocation, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Width="560">
                         <TextBox.InputBindings>
                             <MouseBinding Command="{Binding QuickSaveVisibility}" MouseAction="LeftClick" />
@@ -54,15 +54,15 @@
                                        VerticalAlignment="Top"                                         
                                        Kind="FolderSolid" Foreground="#FFD8CF03" />
                     </Button>
-                    <Label Grid.Row="2" Grid.Column="1" Foreground="blue">Inlude Sub Folders</Label>
+                    <Label Grid.Row="2" Grid.Column="1" >Inlude Sub Folders</Label>
                     <CheckBox Grid.Row="2" Grid.Column="2" Name="chkIncludeSubFolders" IsChecked="{Binding IncludeSubFolders}" ></CheckBox>
-                    <Label Grid.Row="3" Grid.Column="1" Foreground="blue">Scan Prefix</Label>
+                    <Label Grid.Row="3" Grid.Column="1" >Scan Prefix</Label>
                     <TextBox Grid.Row="3" Grid.Column="2" Margin="0,5,0,5" Name="txtScanPrefix" Text="{Binding ScanFilePrefix}"></TextBox>
-                    <Label Grid.Row="3" Grid.Column="3" Margin="85,0,10,0" Foreground="blue">Scan Extension</Label>
+                    <Label Grid.Row="3" Grid.Column="3" Margin="85,0,10,0" >Scan Extension</Label>
                     <TextBox Grid.Row="3" Grid.Column="4" Name="txtScanExtension" Margin="0,5,0,5" Text="{Binding ScanFileExtension}"></TextBox>
-                    <Label Grid.Row="4" Grid.Column="1" Foreground="blue">Size (KB)</Label>
+                    <Label Grid.Row="4" Grid.Column="1" >Size (KB)</Label>
                     <TextBox Grid.Row="4" Grid.Column="2" Name="txtSizeFrom" Margin="0,5,0,5" Text="{Binding ScanFileSizeGreaterThan}"></TextBox>
-                    <Label Grid.Row="4" Grid.Column="3" Margin="85,0,20,0" Foreground="blue">And</Label>
+                    <Label Grid.Row="4" Grid.Column="3" Margin="85,0,20,0" >And</Label>
                     <TextBox Grid.Row="4" Grid.Column="4" Name="txtSizeTo" Margin="0,5,0,5" Text="{Binding ScanFileSizeLessThan}"></TextBox>
                 </Grid>
             <Grid Grid.Row="1" Margin="0,10,0,0">
@@ -85,17 +85,17 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed" Foreground="blue">Task Order</Label>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed" >Task Order</Label>
                     <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed"></TextBox>
-                <Label Grid.Row="2" Grid.Column="1" Foreground="blue">Action</Label>
+                <Label Grid.Row="2" Grid.Column="1" >Action</Label>
                     <ComboBox Grid.Row="2" Grid.Column="2" Name="ddlAction" SelectionChanged="DdlAction_SelectionChanged" SelectedIndex="{Binding Action}"></ComboBox>
                     <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkConditionalRun" Visibility="Collapsed" IsChecked="{Binding ConditionalDelete}"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun" Visibility="Collapsed" Foreground="blue">Conditional Run</Label>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Name="lblConditionalRun" Visibility="Collapsed" >Conditional Run</Label>
                     <CheckBox Grid.Row="2" Grid.Column="4" Margin="0,0,0,0" Name="chkDependent" Visibility="Collapsed"></CheckBox>
-                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent" Visibility="Collapsed" Foreground="blue">Dependent</Label>
+                <Label Grid.Row="2" Grid.Column="4" Margin="30,0,0,0" Name="lblDependent" Visibility="Collapsed" >Dependent</Label>
                     <CheckBox Grid.Row="3" Grid.Column="1" Margin="10,0,0,0" Name="chkConditonalDelete" Checked="chkConditonalDelete_Checked" Unchecked="chkConditonalDelete_UnChecked"></CheckBox>
-                <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete" Foreground="blue">Conditional Delete</Label>
-                <Label Grid.Row="4" Grid.Column="1" Name="lblTargetLocation" Margin="0,10,0,0" Foreground="blue">Target Location</Label>
+                <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete" >Conditional Delete</Label>
+                <Label Grid.Row="4" Grid.Column="1" Name="lblTargetLocation" Margin="0,10,0,0" >Target Location</Label>
                 <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,10,0,0" Name="txtTargetLocation" Text="{Binding TargetLocation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button Grid.Row="4" Grid.Column="5" Name="btnTargetLocation" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                         <iconPacks:PackIconFontAwesome Width="25"
@@ -131,17 +131,17 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity" Foreground="blue">Integrated Security</Label>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity" >Integrated Security</Label>
                     <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"/>
-                <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed" Foreground="blue">User ID</Label>
+                <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed" >User ID</Label>
                     <TextBox Grid.Row="2" Grid.Column="2" Name="txtUserID" Visibility="Collapsed"></TextBox>
-                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed" Foreground="blue">Password</Label>
+                <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed" >Password</Label>
                     <TextBox Grid.Row="2" Grid.Column="4" Name="txtPassword" Visibility="Collapsed"></TextBox>
-                <Label Grid.Row="3" Grid.Column="1" Name="lblRestoreDatabase" Foreground="blue">Database</Label>
+                <Label Grid.Row="3" Grid.Column="1" Name="lblRestoreDatabase" >Database</Label>
                     <TextBox Grid.Row="3" Grid.Column="2" Name="txtRestoreDatabase" Text="{Binding DatabaseName}"></TextBox>
-                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" Name="lblRestoreServer" Foreground="blue">Server</Label>
+                <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" Name="lblRestoreServer" >Server</Label>
                     <TextBox Grid.Row="3" Grid.Column="4" Name="txtRestoreServer" Text="{Binding DatabaseServer}"></TextBox>
-                <Label Grid.Row="4" Grid.Column="1" Name="lblRestoreFileTemplate" Foreground="blue">Restore File</Label>
+                <Label Grid.Row="4" Grid.Column="1" Name="lblRestoreFileTemplate" >Restore File</Label>
                 <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Name="txtRestoreFileTemplate" Margin="0,5,0,5" Text="{Binding RestoreDatabaseFileGroups, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                     <Button Grid.Row="4" Grid.Column="5" Name="btnRestoreFile" Click="BtnRestoreFile_Click"  Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                         <iconPacks:PackIconFontAwesome Width="25"
