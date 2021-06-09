@@ -7,11 +7,10 @@
       xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels"      
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:views="clr-namespace:RabaMetroStyle.Views"
-      xmlns:local="using:RabaMetroStyle.Styles"
-      Title="Settings"
+      xmlns:local="using:RabaMetroStyle.Styles"      
       Style="{DynamicResource PageStyle}"
       Background="White"
-      mc:Ignorable="d" Height="753.984" Width="1323.667">
+      mc:Ignorable="d">
 
     <Page.DataContext>
         <viewModels:SettingsViewModel/>
