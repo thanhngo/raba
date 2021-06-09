@@ -60,7 +60,7 @@
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"                                         
-                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                                       Kind="FolderSolid" Foreground="LightGray" />
                 </Button>
                 <Label Grid.Row="2" Grid.Column="1" >Inlude Sub Folders</Label>
                 <CheckBox Grid.Row="2" Grid.Column="2" Name="chkIncludeSubFolders"></CheckBox>
@@ -132,7 +132,7 @@
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"                                         
-                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                                       Kind="FolderSolid" Foreground="LightGray" />
                 </Button>
                 <CheckBox Grid.Row="6" Grid.Column="2" Name="chkMaintainSubFolderStructure" Margin="0,5,0,5"></CheckBox>
                 <Label Grid.Row="6" Grid.Column="2" Margin="17,0,0,0" Name="lblMainmainSub" >Maintain Sub Folder Structure</Label>
@@ -143,7 +143,7 @@
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"                                         
-                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                                       Kind="FolderSolid" Foreground="LightGray" />
                 </Button>
             </Grid>
         </GroupBox>
@@ -182,7 +182,7 @@
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"
                                        VerticalAlignment="Top"                                         
-                                       Kind="FolderSolid" Foreground="#FFD8CF03" />
+                                       Kind="FolderSolid" Foreground="LightGray" />
                 </Button>
                 <Button Grid.Row="5" Grid.Column="2" Visibility="Collapsed" >New</Button>
                 <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed" >Use Existing</Button>
