@@ -97,7 +97,7 @@
                 <Label Grid.Row="3" Grid.Column="1" Margin="30,0,0,0" Name="lblConditonalDelete" >Conditional Delete</Label>
                 <Label Grid.Row="4" Grid.Column="1" Name="lblTargetLocation" Margin="0,10,0,0" >Target Location</Label>
                 <TextBox Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="3" Margin="0,10,0,0" Name="txtTargetLocation" Text="{Binding TargetLocation, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                    <Button Grid.Row="4" Grid.Column="5" Name="btnTargetLocation" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
+                <Button Grid.Row="4" Grid.Column="5" Name="btnTargetLocation" Margin="0,10,0,0" Click="BtnTargetLocation_Click" Control:ControlsHelper.FocusBorderThickness="0" Padding="0" Background="{x:Null}" BorderThickness="0" BorderBrush="Transparent">
                         <iconPacks:PackIconFontAwesome Width="25"
                                        Height="25"                                                          
                                        HorizontalAlignment="Right"

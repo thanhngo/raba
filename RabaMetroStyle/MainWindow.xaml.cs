@@ -59,18 +59,18 @@ namespace RabaMetroStyle
             // update back button
             this.GoBackButton.Visibility = this.navigationServiceEx.CanGoBack ? Visibility.Visible : Visibility.Collapsed;
 
-            this.Title = "Main Window";
+            this.Title = "RABA";
             if (this.HamburgerMenuControl.SelectedItem != null)
             {
                 var menuItem = (MenuItem)this.HamburgerMenuControl.SelectedItem;
-                this.Title = menuItem.Label;
+                this.Title = string.Format("{0} - {1}", this.Title, menuItem.Label);
             }
             else
             {
                 if (this.HamburgerMenuControl.SelectedOptionsItem != null)
                 {
                     var menuItem = (MenuItem)this.HamburgerMenuControl.SelectedOptionsItem;
-                    this.Title = menuItem.Label;
+                    this.Title = string.Format("{0} - {1}", this.Title, menuItem.Label);
                 }
             }
         }

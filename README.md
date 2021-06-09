@@ -36,7 +36,7 @@ Release Note version 5.0.0.1 - May 21, 2021
 - Add About page
 - Write log to file. Log file store by date folowwing format log-MMddyyyy.txt
 
-Release Note version 5.0.0.2 - June 08, 2021
+Release Note version 5.1.0.0 - June 08, 2021
 - Restructure settings screen layout
 - Add Flyout Manage Raba file
 - Add action detail panel
