@@ -132,7 +132,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                 <Label Grid.Row="1" Grid.Column="1" Name="lblIntegratedSecurity" >Integrated Security</Label>
-                    <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="True" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"/>
+                <CheckBox Grid.Row="1" Grid.Column="2" IsChecked="{Binding ConditionalDelete}" Name="chkIntegratedSecurity" HorizontalAlignment="Right" Width="180"/>
                 <Label Grid.Row="2" Grid.Column="1" Visibility="Collapsed" >User ID</Label>
                     <TextBox Grid.Row="2" Grid.Column="2" Name="txtUserID" Visibility="Collapsed"></TextBox>
                 <Label Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" Visibility="Collapsed" >Password</Label>

@@ -9,10 +9,10 @@
                       Width="1366"
                       Height="730"
                       Title="{Binding Content.DataContext.MainTitle}"
-                      TextBlock.TextAlignment="Center"
+                      TextBlock.TextAlignment="Center"                      
                       GlowBrush="{DynamicResource MahApps.Brushes.AccentBase}"
                       WindowStartupLocation="CenterScreen"
-                      WindowTransitionsEnabled="False"
+                      WindowTransitionsEnabled="False"                      
                       mc:Ignorable="d">
 
     <controls:MetroWindow.DataContext>
