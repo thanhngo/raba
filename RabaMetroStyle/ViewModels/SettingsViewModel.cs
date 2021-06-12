@@ -209,7 +209,7 @@ namespace RabaMetroStyle.ViewModels
         {
             this.ScanLocation = selectedItem.ScanLocation;
             this.Action = GetActionIndex(selectedItem.Action);
-            this.IncludeSubFolders = selectedItem.IncludeSubFolders == "true";
+            this.IncludeSubFolders = selectedItem.IncludeSubFolders.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.ScanFileExtension = selectedItem.ScanFileExtension;
             this.ScanFilePrefix = selectedItem.ScanFilePrefix;
             this.DatabaseName = selectedItem.DatabaseName;
@@ -219,7 +219,7 @@ namespace RabaMetroStyle.ViewModels
             this.RunSQLScriptFilePath = selectedItem.RunSQLScriptFilePath;
             this.ScanFileSizeGreaterThan = selectedItem.ScanFileSizeGreaterThan;
             this.ScanFileSizeLessThan = selectedItem.ScanFileSizeLessThan;
-            this.ConditionalDelete = selectedItem.ConditionalDelete == "true";
+            this.ConditionalDelete = selectedItem.ConditionalDelete.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.TargetLocation = selectedItem.TargetLocation;
             this.OnPropertyChanged($"ScanLocation");
             this.OnPropertyChanged($"Action");
@@ -383,7 +383,7 @@ namespace RabaMetroStyle.ViewModels
             set
             {
                 QuickSaveVisibility = "Visible";
-                scanFileExtension = value;
+                runSQLScriptFilePath = value;
             }
         }
         public string ScanFileExtension
@@ -972,7 +972,7 @@ namespace RabaMetroStyle.ViewModels
 
             cloneSelectItem.Action = GetAction(Action);
             cloneSelectItem.ScanLocation = this.ScanLocation;
-            cloneSelectItem.IncludeSubFolders = this.IncludeSubFolders == true ? "true" : "false";
+            cloneSelectItem.IncludeSubFolders = this.IncludeSubFolders == true ? "True" : "False";
             cloneSelectItem.ScanFileExtension = this.ScanFileExtension;
             cloneSelectItem.ScanFilePrefix = this.ScanFilePrefix;
             cloneSelectItem.DatabaseName = this.DatabaseName;
@@ -982,7 +982,7 @@ namespace RabaMetroStyle.ViewModels
             cloneSelectItem.RunSQLScriptFilePath = this.RunSQLScriptFilePath;
             cloneSelectItem.ScanFileSizeGreaterThan = this.ScanFileSizeGreaterThan;
             cloneSelectItem.ScanFileSizeLessThan = this.ScanFileSizeLessThan;
-            cloneSelectItem.ConditionalDelete = this.ConditionalDelete == true ? "true" : "false";
+            cloneSelectItem.ConditionalDelete = this.ConditionalDelete == true ? "True" : "False";
             cloneSelectItem.TargetLocation = this.TargetLocation;
 
             this.currentSettings[selectedIndex] = cloneSelectItem;

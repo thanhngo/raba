@@ -306,6 +306,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Visible;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Visible;
+                    this.lblMainmainSub.Visibility = Visibility.Visible;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -354,6 +355,7 @@ namespace RabaMetroStyle.Views
                     }
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Collapsed;
+                    this.lblMainmainSub.Visibility = Visibility.Collapsed;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -387,6 +389,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Visible;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Visible;
+                    this.lblMainmainSub.Visibility = Visibility.Visible;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -422,6 +425,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Visible;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Visible;
+                    this.lblMainmainSub.Visibility = Visibility.Visible;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -457,6 +461,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Visible;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Collapsed;
+                    this.lblMainmainSub.Visibility = Visibility.Collapsed;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -492,6 +497,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Collapsed;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Collapsed;
+                    this.lblMainmainSub.Visibility = Visibility.Collapsed;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -526,6 +532,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Collapsed;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Collapsed;
+                    this.lblMainmainSub.Visibility = Visibility.Collapsed;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -561,6 +568,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Collapsed;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Collapsed;
+                    this.lblMainmainSub.Visibility = Visibility.Collapsed;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;
@@ -595,6 +603,7 @@ namespace RabaMetroStyle.Views
                     this.lblTargetLocation.Visibility = Visibility.Visible;
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Visible;
+                    this.lblMainmainSub.Visibility = Visibility.Visible;
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Visible;
