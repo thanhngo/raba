@@ -100,14 +100,12 @@ namespace RabaMetroStyle.Views
 
                     if (this.chkConditonalDelete.IsChecked == true)
                     {
-                        this.txtTargetLocation.Text = "";
                         this.txtTargetLocation.Visibility = Visibility.Visible;
                         this.btnTargetLocation.Visibility = Visibility.Visible;
                         this.lblTargetLocation.Visibility = Visibility.Visible;
                     }
                     else
                     {
-                        this.txtTargetLocation.Text = "";
                         this.txtTargetLocation.Visibility = Visibility.Collapsed;
                         this.btnTargetLocation.Visibility = Visibility.Collapsed;
                         this.lblTargetLocation.Visibility = Visibility.Collapsed;

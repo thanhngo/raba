@@ -45,12 +45,12 @@ namespace RabaMetroStyle.Views
                 }
             }
 
-            this.chkAfterActionDelete.IsChecked = actionDetail.ActionCompleteDelete == "True";
-            this.chkAfterActionRename.IsChecked = actionDetail.ActionCompleteRename == "True";
-            this.chkAfterActionTimeStamp.IsChecked = actionDetail.ActionCompleteTimeStamp == "True";
+            this.chkAfterActionDelete.IsChecked = actionDetail.ActionCompleteDelete.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            this.chkAfterActionRename.IsChecked = actionDetail.ActionCompleteRename.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            this.chkAfterActionTimeStamp.IsChecked = actionDetail.ActionCompleteTimeStamp.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.txtRestoreDatabase.Text = actionDetail.DatabaseName;
             this.txtRestoreServer.Text = actionDetail.DatabaseServer;
-            this.chkIntegratedSecurity.IsChecked = actionDetail.IntegratedSecurity == "True";
+            this.chkIntegratedSecurity.IsChecked = actionDetail.IntegratedSecurity.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.txtPassword.Text = actionDetail.Password;
             this.txtRestoreFileTemplate.Text = actionDetail.RestoreDatabaseFileGroups;
             this.txtBatchFile.Text = actionDetail.RunSQLScriptFilePath;
@@ -89,7 +89,7 @@ namespace RabaMetroStyle.Views
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
             }
 
-            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays == "True";
+            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
             this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan == "0" ? string.Empty : actionDetail.ScanFileSizeGreaterThan;
@@ -99,10 +99,10 @@ namespace RabaMetroStyle.Views
             this.txtTaskOrder.Text = actionDetail.TaskOrder;
             this.txtUserID.Text = actionDetail.UserID;
             this.txtRestoreFileTemplate.Text = actionDetail.RestoreDatabaseFileGroups;
-            this.chkIncludeSubFolders.IsChecked = actionDetail.IncludeSubFolders == "True";
-            this.chkMaintainSubFolderStructure.IsChecked = actionDetail.MaintainSubFolders == "True";
+            this.chkIncludeSubFolders.IsChecked = actionDetail.IncludeSubFolders.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+            this.chkMaintainSubFolderStructure.IsChecked = actionDetail.MaintainSubFolders.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.txtBatchFile.Text = actionDetail.Command;
-            this.chkConditonalDelete.IsChecked = !string.IsNullOrEmpty(actionDetail.TargetLocation) && actionDetail.Action.Equals("DELETE");
+            this.chkConditonalDelete.IsChecked = actionDetail.ConditionalDelete.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.chkConditionalRun.IsChecked = !string.IsNullOrEmpty(actionDetail.ConditionalRun) && actionDetail.ConditionalRun.Equals("R");
             this.chkDependent.IsChecked = !string.IsNullOrEmpty(actionDetail.Dependent) && actionDetail.Dependent.Equals("D");
         }
