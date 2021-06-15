@@ -180,7 +180,7 @@
                         <RowDefinition Height="Auto" />                        
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="1" Grid.Column="1" Margin="50,0,0,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding AddActionCommand}">
+                    <Button Grid.Row="0" Grid.Column="1" Margin="20,0,0,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterialDesign Kind="Add"
                                     Margin="4 4 2 4"

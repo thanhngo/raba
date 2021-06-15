@@ -68,7 +68,7 @@ namespace RabaMetroStyle.Views
             switch (this.ddlAction.SelectedValue.ToString().ToUpper())
             {
                 case "COPY":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
@@ -131,7 +131,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "MOVE":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
@@ -158,7 +158,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "ZIP":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
@@ -185,7 +185,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "UNZIP":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
@@ -212,7 +212,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "RESTORE":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Collapsed;
                     this.btnTargetLocation.Visibility = Visibility.Collapsed;
                     this.lblTargetLocation.Visibility = Visibility.Collapsed;
@@ -238,7 +238,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "BATCH":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Collapsed;
                     this.btnTargetLocation.Visibility = Visibility.Collapsed;
                     this.lblTargetLocation.Visibility = Visibility.Collapsed;
@@ -265,7 +265,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "SQLSCRIPT":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Collapsed;
                     this.btnTargetLocation.Visibility = Visibility.Collapsed;
                     this.lblTargetLocation.Visibility = Visibility.Collapsed;
@@ -291,7 +291,7 @@ namespace RabaMetroStyle.Views
                     break;
 
                 case "RUN":
-                    this.txtTargetLocation.Text = "";
+                    //this.txtTargetLocation.Text = "";
                     this.txtTargetLocation.Visibility = Visibility.Visible;
                     this.btnTargetLocation.Visibility = Visibility.Visible;
                     this.lblTargetLocation.Visibility = Visibility.Visible;
@@ -412,10 +412,13 @@ namespace RabaMetroStyle.Views
 
         private void chkConditonalDelete_UnChecked(object sender, RoutedEventArgs e)
         {
-            this.txtTargetLocation.Text = "";
-            this.txtTargetLocation.Visibility = Visibility.Collapsed;
-            this.btnTargetLocation.Visibility = Visibility.Collapsed;
-            this.lblTargetLocation.Visibility = Visibility.Collapsed;
+            if(this.ddlAction.SelectedValue.ToString().ToUpper() == "DELETE")
+            {
+                this.txtTargetLocation.Text = "";
+                this.txtTargetLocation.Visibility = Visibility.Collapsed;
+                this.btnTargetLocation.Visibility = Visibility.Collapsed;
+                this.lblTargetLocation.Visibility = Visibility.Collapsed;
+            }            
         }
     }
 }
