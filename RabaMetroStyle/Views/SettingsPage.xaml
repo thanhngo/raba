@@ -302,7 +302,7 @@
                                     Width="24"
                                     Height="24"                                    
                                     VerticalAlignment="Center" />
-                                    <TextBlock Text="Edit" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                    <TextBlock Text="Quick Edit" Margin="5,0,0,0" VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
                             <Button Grid.Row="0" Grid.Column="0" Margin="10,5,743,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding CancelActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" Visibility="{Binding QuickSaveVisibility}">
@@ -335,12 +335,15 @@
                                     <TextBlock Text="Save" Margin="5,0,0,0" VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
-                            <Button Grid.Row="0" Grid.Column="0" Margin="743,5,10,0" Width="40" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">
-                                <iconPacks:PackIconMaterialDesign Kind="OpenInNew"
+                            <Button Grid.Row="0" Grid.Column="0" Margin="743,5,10,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">
+                                <StackPanel Orientation="Horizontal">
+                                    <iconPacks:PackIconMaterialDesign Kind="OpenInNew"
                                     Margin="4 4 2 4"
                                     Width="24"
                                     Height="24"                                    
                                     VerticalAlignment="Center" />
+                                    <TextBlock Text="Edit Detail" Margin="5,0,0,0" VerticalAlignment="Center" />
+                                </StackPanel>
                             </Button>
                             <TextBlock Margin="5" Grid.Row="2" Grid.Column="0" Visibility="{Binding IsNotSlectedAction}">There is no selected Action</TextBlock>
                             <views:ActionDetail Margin="5" Grid.Row="3" Grid.Column="0" Visibility="{Binding IsSelectedAction}"></views:ActionDetail>
