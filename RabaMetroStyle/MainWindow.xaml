@@ -106,7 +106,8 @@
 
     <controls:HamburgerMenu x:Name="HamburgerMenuControl"
                             DisplayMode="CompactInline"
-                            IsPaneOpen="False"
+                            IsPaneOpen="True"                                              
+                            HamburgerVisibility="Hidden"                            
                             ItemInvoked="HamburgerMenuControl_OnItemInvoked"
                             ItemTemplate="{StaticResource MenuItemTemplate}"
                             ItemsSource="{Binding Menu}"

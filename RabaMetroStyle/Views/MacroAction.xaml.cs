@@ -251,10 +251,19 @@ namespace RabaMetroStyle.Views
 
         private void BtnScanFolder_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new VistaFolderBrowserDialog();
+            //var dialog = new VistaFolderBrowserDialog();
+            //if (dialog.ShowDialog(this).GetValueOrDefault())
+            //{
+            //    this.txtScanLocation.Text = dialog.SelectedPath;
+            //}
+
+            var dialog = new VistaOpenFileDialog();
+            //dialog.Filter = this.lblBatchFile.Content.ToString().Contains("Batch") ? Properties.Resources.MacroAction_BtnBatchFile_BatchFiles : Properties.Resources.MacroAction_BtnRestoreFile_SQLScript;
+
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
-                this.txtScanLocation.Text = dialog.SelectedPath;
+                string folderPath = Path.GetDirectoryName(dialog.FileName);
+                this.txtBatchFile.Text = folderPath;
             }
         }
 
@@ -267,15 +276,19 @@ namespace RabaMetroStyle.Views
             }
         }
 
-        private void chkRelativeAge_Checked(object sender, EventArgs e)
+        private void chkRelativeAgeYougerThan_Checked(object sender, EventArgs e)
         {
-            if ((this.chkRelativeAgeYougerThan.IsChecked == true) || (this.chkRelativeAgeOlderThan.IsChecked == true))
+            if (this.chkRelativeAgeYougerThan.IsChecked == true)
             {
                 this.dtDateFrom.IsEnabled = false;
                 this.dtDateTo.IsEnabled = false;
+                this.dtDateFrom.SelectedDateTime = null;
+                this.dtDateTo.SelectedDateTime = null;
+
 
                 this.nmrDaysOldAgeYouger.IsEnabled = true;
-                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                this.nmrDaysOldAgeOlder.IsEnabled = false;
+                this.chkRelativeAgeOlderThan.IsEnabled = false;
                 this.chkOnlyCountWeekdays.IsEnabled = true;
             }
             else
@@ -283,9 +296,36 @@ namespace RabaMetroStyle.Views
                 this.dtDateFrom.IsEnabled = true;
                 this.dtDateTo.IsEnabled = true;
 
+                this.nmrDaysOldAgeYouger.Value = null;
                 this.nmrDaysOldAgeYouger.IsEnabled = false;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
                 this.chkOnlyCountWeekdays.IsEnabled = false;
+                this.chkRelativeAgeOlderThan.IsEnabled = true;
+            }
+        }
+
+        private void chkRelativeAgeOlderThan_Checked(object sender, EventArgs e)
+        {
+            if (this.chkRelativeAgeOlderThan.IsChecked == true)
+            {
+                this.dtDateFrom.IsEnabled = false;
+                this.dtDateTo.IsEnabled = false;
+                this.dtDateFrom.SelectedDateTime = null;
+                this.dtDateTo.SelectedDateTime = null;
+
+                this.nmrDaysOldAgeOlder.IsEnabled = true;                
+                this.chkRelativeAgeYougerThan.IsEnabled = false;
+                this.chkOnlyCountWeekdays.IsEnabled = true;
+            }
+            else
+            {
+                this.dtDateFrom.IsEnabled = true;
+                this.dtDateTo.IsEnabled = true;
+
+                this.nmrDaysOldAgeOlder.Value = null;
+                this.nmrDaysOldAgeOlder.IsEnabled = false;                
+                this.chkOnlyCountWeekdays.IsEnabled = false;
+                this.chkRelativeAgeYougerThan.IsEnabled = true;
             }
         }
 
@@ -462,6 +502,7 @@ namespace RabaMetroStyle.Views
                     this.chkMaintainSubFolderStructure.IsChecked = false;
                     this.chkMaintainSubFolderStructure.Visibility = Visibility.Collapsed;
                     this.lblMainmainSub.Visibility = Visibility.Collapsed;
+                    this.txtScanExtension.Text = ".zip";
 
                     // Database Restore Section 
                     this.chkIntegratedSecurity.Visibility = Visibility.Collapsed;

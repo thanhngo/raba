@@ -121,7 +121,7 @@
                                        Kind="ArrowUpward" />
                     </Button>
                     <Label Grid.Row="9" Grid.Column="1">Disabled Macros</Label>
-                    <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,10" Width="100" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
+                    <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="100,0,0,10" Width="119" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterialDesign Kind="Check"
                                     Margin="4 4 2 4"
@@ -131,7 +131,7 @@
                             <TextBlock Text="Enable Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="205,0,0,10" Width="100" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
+                    <Button Grid.Row="9" Grid.Column="1" HorizontalAlignment="Left" Margin="219,0,0,10" Width="100" Command="{Binding PurgeMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}">
                         <StackPanel Orientation="Horizontal">
                             <iconPacks:PackIconMaterialLight Kind="Delete"
                                     Margin="4 4 2 4"
@@ -177,7 +177,7 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />                        
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Button Grid.Row="0" Grid.Column="1" Margin="20,0,0,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding AddActionCommand}" IsEnabled="{Binding IsSelectMacroFile}">
@@ -335,7 +335,7 @@
                                     <TextBlock Text="Save" Margin="5,0,0,0" VerticalAlignment="Center" />
                                 </StackPanel>
                             </Button>
-                            <Button Grid.Row="0" Grid.Column="0" Margin="743,5,10,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}">
+                            <Button Grid.Row="0" Grid.Column="0" Margin="0,5,270,0" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" Height="36" VerticalAlignment="Top">
                                 <StackPanel Orientation="Horizontal">
                                     <iconPacks:PackIconMaterialDesign Kind="OpenInNew"
                                     Margin="4 4 2 4"

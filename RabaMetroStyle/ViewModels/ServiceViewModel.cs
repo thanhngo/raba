@@ -16,7 +16,7 @@ namespace RabaMetroStyle.ViewModels
     public class ServiceViewModel : BindableBase
     {
         private bool disableInterval;
-        private bool serviceInstalledOnMachine;
+        //private bool serviceInstalledOnMachine;
         private bool isServiceStart;
 
         public ServiceViewModel()
@@ -134,7 +134,7 @@ namespace RabaMetroStyle.ViewModels
                         break;
                 }
 
-                this.serviceInstalledOnMachine = true;
+                //this.serviceInstalledOnMachine = true;
                 bReturn = true;
             }
             catch (NullReferenceException exNull)

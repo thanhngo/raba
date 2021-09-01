@@ -12,13 +12,13 @@
         ShowMinButton="False"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="Action Detail" Height="734.5" Width="831.833"
-        SizeToContent="WidthAndHeight">    
+        Title="Action Detail" Height="746" Width="818"
+        SizeToContent="WidthAndHeight">
 
-    <Grid Margin="30,31,30,34">
+    <Grid Margin="30,32,0,35">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="827"/>
+            <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -26,17 +26,16 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>        
-        <GroupBox Grid.Row="1" Header="Search Criteria">
-            <Grid>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="1" Header="Search Criteria" Margin="0,0,55,0">
+            <Grid >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto" MinWidth="156"/>
-                    <ColumnDefinition Width="auto" MinWidth="180"/>
-                    <ColumnDefinition Width="auto" MinWidth="200"/>
+                    <ColumnDefinition Width="0"/>
+                    <ColumnDefinition Width="156" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="35"/>
-                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -65,38 +64,38 @@
                 <Label Grid.Row="2" Grid.Column="1" >Inlude Sub Folders</Label>
                 <CheckBox Grid.Row="2" Grid.Column="2" Name="chkIncludeSubFolders"></CheckBox>
                 <Label Grid.Row="3" Grid.Column="1" >Scan Prefix</Label>
-                <TextBox Grid.Row="3" Grid.Column="2" Margin="0,5,0,5" Name="txtScanPrefix"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="2" Width="180" Margin="0,5,0,5" Name="txtScanPrefix"></TextBox>
                 <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" >Scan Extension</Label>
-                <TextBox Grid.Row="3" Grid.Column="4" Name="txtScanExtension" Margin="0,5,0,5"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="4" Width="180" Name="txtScanExtension" Margin="0,5,0,5"></TextBox>
                 <Label Grid.Row="4" Grid.Column="1" >Date Between</Label>
                 <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom" Margin="0,5,0,5"></Control:DateTimePicker>
                 <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0" >And</Label>
                 <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo" Margin="0,5,0,5"></Control:DateTimePicker>
                 <Label Grid.Row="5" Grid.Column="1" >Relative Age Younger Than</Label>
-                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan" Click="chkRelativeAge_Checked"></CheckBox>
-                <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeYouger"></Control:NumericUpDown>
-                <Label Grid.Row="5" Grid.Column="2" Margin="110,0,10,0" >Days Old</Label>
+                <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan" Click="chkRelativeAgeYougerThan_Checked"></CheckBox>
+                <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,60,5" Width="80" Name="nmrDaysOldAgeYouger" Minimum="0" NumericInputMode="Numbers" ParsingNumberStyle="Integer"/>
+                <Label Grid.Row="5" Grid.Column="2" Margin="120,0,0,0" >Days Old</Label>
                 <Label Grid.Row="5" Grid.Column="3" Margin="30,0,0,0" >Relative Age Older Than</Label>
-                <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan" Click="chkRelativeAge_Checked"></CheckBox>
-                <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Margin="32,5,86,5" Width="50" Name="nmrDaysOldAgeOlder"></Control:NumericUpDown>
-                <Label Grid.Row="5" Grid.Column="4" Margin="110,0,10,0" >Days Old</Label>
+                <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan" Click="chkRelativeAgeOlderThan_Checked"></CheckBox>
+                <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Width="80" Margin="32,5,60,5" Name="nmrDaysOldAgeOlder" Minimum="0" NumericInputMode="Numbers" ParsingNumberStyle="Integer"/>
+                <Label Grid.Row="5" Grid.Column="4" Margin="120,0,0,0" >Days Old</Label>
                 <Label Grid.Row="6" Grid.Column="1" >Only Count Weekdays</Label>
                 <CheckBox Grid.Row="6" Grid.Column="2" Name="chkOnlyCountWeekdays"></CheckBox>
                 <Label Grid.Row="7" Grid.Column="1" >Size (KB)</Label>
-                <TextBox Grid.Row="7" Grid.Column="2" Name="txtSizeFrom" Margin="0,5,0,5"></TextBox>
+                <TextBox Grid.Row="7" Grid.Column="2" Width="180" Name="txtSizeFrom" Margin="0,5,0,5"></TextBox>
                 <Label Grid.Row="7" Grid.Column="3" Margin="30,0,0,0" >And</Label>
-                <TextBox Grid.Row="7" Grid.Column="4" Name="txtSizeTo" Margin="0,5,0,5"></TextBox>
+                <TextBox Grid.Row="7" Grid.Column="4" Width="180" Name="txtSizeTo" Margin="0,5,0,5"></TextBox>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="2" Header="Action Detail" Margin="0,10,0,0">
+        <GroupBox Grid.Row="2" Header="Action Detail" Margin="0,10,55,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto" MinWidth="156"/>
-                    <ColumnDefinition Width="auto" MinWidth="180"/>
-                    <ColumnDefinition Width="auto" MinWidth="200"/>
+                    <ColumnDefinition Width="0"/>
+                    <ColumnDefinition Width="156" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="180"/>
-                    <ColumnDefinition Width="35"/>                    
+                    <ColumnDefinition Width="35"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -109,8 +108,8 @@
                     <RowDefinition Height="auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed" >Task Order</Label>
-                <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed"></TextBox>
+                <Label Grid.Row="1" Grid.Column="1" Name="lblTaskOrder" Visibility="Collapsed" Margin="0,0,0,26" Grid.RowSpan="2" >Task Order</Label>
+                <TextBox Grid.Row="1" Grid.Column="2" Name="txtTaskOrder" Visibility="Collapsed" Grid.RowSpan="2"></TextBox>
                 <Label Grid.Row="2" Grid.Column="1" >Action</Label>
                 <ComboBox Grid.Row="2" Grid.Column="2" Name="ddlAction" SelectionChanged="DdlAction_SelectionChanged"></ComboBox>
                 <CheckBox Grid.Row="2" Grid.Column="3" Margin="10,0,0,0" Name="chkConditionalRun" Visibility="Collapsed"></CheckBox>
@@ -147,15 +146,15 @@
                 </Button>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="3" Header="Security and Database Infomation" Name="grbSecurityAndDatabase" Margin="0,10,0,0">
+        <GroupBox Grid.Row="3" Header="Security and Database Infomation" Name="grbSecurityAndDatabase" Margin="0,10,55,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto" MinWidth="156"/>
-                    <ColumnDefinition Width="auto" MinWidth="180"/>
-                    <ColumnDefinition Width="auto" MinWidth="200"/>
+                    <ColumnDefinition Width="0"/>
+                    <ColumnDefinition Width="156" />
+                    <ColumnDefinition Width="180" />
+                    <ColumnDefinition Width="200" />
                     <ColumnDefinition Width="180"/>
-                    <ColumnDefinition Width="35"/>                    
+                    <ColumnDefinition Width="35"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -187,8 +186,8 @@
                 <Button Grid.Row="5" Grid.Column="2" Visibility="Collapsed" >New</Button>
                 <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed" >Use Existing</Button>
             </Grid>
-        </GroupBox>        
-        <Button Grid.Row="4" Grid.Column="0" Margin="292,10,411,-10" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnCancel_Click">
+        </GroupBox>
+        <Button Grid.Row="4" Grid.Column="0" Margin="338,10,456,-10" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnCancel_Click">
             <StackPanel Orientation="Horizontal">
                 <iconPacks:PackIconMaterialDesign Kind="Cancel"
                                     Margin="4 4 2 4"
@@ -198,7 +197,7 @@
                 <TextBlock Text="Cancel" Margin="5,0,0,0" VerticalAlignment="Center" />
             </StackPanel>
         </Button>
-        <Button Grid.Row="4" Grid.Column="0" Margin="392,10,311,-10" Width="100" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnSave_Click">
+        <Button Grid.Row="4" Grid.Column="0" Margin="438,10,356,-10" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnSave_Click">
             <StackPanel Orientation="Horizontal">
                 <iconPacks:PackIconMaterialLight Kind="ContentSave"
                                     Margin="4 4 2 4"

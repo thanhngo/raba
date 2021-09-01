@@ -41,14 +41,15 @@ namespace RabaMetroStyle.Views
             var dialog = new VistaOpenFileDialog();
             dialog.Filter = Properties.Resources.MacroAction_BtnRestoreFile_SQLScript;
             if (dialog.ShowDialog().GetValueOrDefault())
-            {
-                this.txtRestoreFileTemplate.Text = dialog.FileName;
+            {                
+                this.txtRestoreFileTemplate.Text = dialog.FileName;                
             }
         }
 
         private void BtnScanFolder_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new VistaFolderBrowserDialog();
+            var dialog = new VistaFolderBrowserDialog();            
+            
             if (dialog.ShowDialog().GetValueOrDefault())
             {
                 this.txtScanLocation.Text = dialog.SelectedPath;
@@ -200,6 +201,7 @@ namespace RabaMetroStyle.Views
                     this.lblRestoreFileTemplate.Visibility = Visibility.Collapsed;
                     this.txtRestoreFileTemplate.Visibility = Visibility.Collapsed;
                     this.btnRestoreFile.Visibility = Visibility.Collapsed;
+                    this.txtScanExtension.Text = ".zip";
 
                     this.chkConditonalDelete.Visibility = Visibility.Collapsed;
                     this.lblConditonalDelete.Visibility = Visibility.Collapsed;
