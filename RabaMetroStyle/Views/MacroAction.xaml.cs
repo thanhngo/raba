@@ -9,6 +9,7 @@ using System.IO;
 using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 #endregion
 
@@ -67,28 +68,57 @@ namespace RabaMetroStyle.Views
 
             if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeYounger) && (actionDetail.ScanFileAgeYounger != "-1"))
             {
-                this.nmrDaysOldAgeOlder.IsEnabled = true;
                 this.nmrDaysOldAgeYouger.Value = double.Parse(actionDetail.ScanFileAgeYounger);
 
                 this.chkRelativeAgeYougerThan.IsChecked = true;
-            }
-            else
-            {
-                this.nmrDaysOldAgeYouger.IsEnabled = false;
-            }
 
-            if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder) && (actionDetail.ScanFileAgeOlder != "-1"))
-            {
-                this.nmrDaysOldAgeOlder.IsEnabled = true;
-                this.nmrDaysOldAgeOlder.Value = double.Parse(actionDetail.ScanFileAgeOlder);
+                this.dtDateFrom.IsEnabled = false;
+                this.dtDateTo.IsEnabled = false;
+                this.dtDateFrom.SelectedDateTime = null;
+                this.dtDateTo.SelectedDateTime = null;
 
-                this.chkRelativeAgeOlderThan.IsChecked = true;
-            }
-            else
-            {
+
+                this.nmrDaysOldAgeYouger.IsEnabled = true;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
+                this.chkRelativeAgeOlderThan.IsEnabled = false;
+                //this.chkOnlyCountWeekdays.IsEnabled = true;
             }
+            else
+            {
+                this.nmrDaysOldAgeYouger.Value = null;
+                this.nmrDaysOldAgeYouger.IsEnabled = false;
+                this.nmrDaysOldAgeOlder.IsEnabled = false;
+                //this.chkOnlyCountWeekdays.IsEnabled = false;
+                this.chkRelativeAgeOlderThan.IsEnabled = true;
 
+                if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder) && (actionDetail.ScanFileAgeOlder != "-1"))
+                {
+                    this.nmrDaysOldAgeOlder.IsEnabled = true;
+                    this.nmrDaysOldAgeOlder.Value = double.Parse(actionDetail.ScanFileAgeOlder);
+
+                    this.chkRelativeAgeOlderThan.IsChecked = true;
+
+                    this.dtDateFrom.IsEnabled = false;
+                    this.dtDateTo.IsEnabled = false;
+                    this.dtDateFrom.SelectedDateTime = null;
+                    this.dtDateTo.SelectedDateTime = null;
+
+                    this.nmrDaysOldAgeOlder.IsEnabled = true;
+                    this.chkRelativeAgeYougerThan.IsEnabled = false;
+                    //this.chkOnlyCountWeekdays.IsEnabled = true;
+                }
+                else
+                {
+                    this.dtDateFrom.IsEnabled = true;
+                    this.dtDateTo.IsEnabled = true;
+
+                    this.nmrDaysOldAgeOlder.Value = null;
+                    this.nmrDaysOldAgeOlder.IsEnabled = false;
+                    //this.chkOnlyCountWeekdays.IsEnabled = false;
+                    this.chkRelativeAgeYougerThan.IsEnabled = true;
+                }                
+            }            
+            
             this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
@@ -148,8 +178,8 @@ namespace RabaMetroStyle.Views
                 this.SavedActionDetails.RestoreDatabaseFileGroups = this.txtRestoreFileTemplate.Text;
                 this.SavedActionDetails.RunSQLScript = "False";
                 this.SavedActionDetails.RunSQLScriptFilePath = this.txtBatchFile.Text;
-                this.SavedActionDetails.ScanFileDateGreaterThan = this.dtDateFrom.SelectedDateTime == null ? "1/1/1970" : this.dtDateFrom.SelectedDateTime.Value.ToString();
-                this.SavedActionDetails.ScanFileDateLessThan = this.dtDateTo.SelectedDateTime == null ? "1/1/2070" : this.dtDateTo.SelectedDateTime.Value.ToString();
+                this.SavedActionDetails.ScanFileDateGreaterThan = this.dtDateFrom.SelectedDateTime == null ? string.Empty : this.dtDateFrom.SelectedDateTime.Value.ToString();
+                this.SavedActionDetails.ScanFileDateLessThan = this.dtDateTo.SelectedDateTime == null ? string.Empty : this.dtDateTo.SelectedDateTime.Value.ToString();
 
                 if (this.chkRelativeAgeYougerThan.IsChecked == true)
                 {
@@ -159,7 +189,7 @@ namespace RabaMetroStyle.Views
                 else
                 {
                     this.SavedActionDetails.ScanFileUseRelativeAgeYounger = "False";
-                    this.SavedActionDetails.ScanFileAgeYounger = "-1";
+                    this.SavedActionDetails.ScanFileAgeYounger = string.Empty;
                 }
 
                 if (this.chkRelativeAgeOlderThan.IsChecked == true)
@@ -170,7 +200,7 @@ namespace RabaMetroStyle.Views
                 else
                 {
                     this.SavedActionDetails.ScanFileUseRelativeAgeOlder = "False";
-                    this.SavedActionDetails.ScanFileAgeOlder = "-1";
+                    this.SavedActionDetails.ScanFileAgeOlder = string.Empty;
                 }
 
                 var isChecked = this.chkOnlyCountWeekdays.IsChecked;
@@ -251,19 +281,10 @@ namespace RabaMetroStyle.Views
 
         private void BtnScanFolder_Click(object sender, RoutedEventArgs e)
         {
-            //var dialog = new VistaFolderBrowserDialog();
-            //if (dialog.ShowDialog(this).GetValueOrDefault())
-            //{
-            //    this.txtScanLocation.Text = dialog.SelectedPath;
-            //}
-
-            var dialog = new VistaOpenFileDialog();
-            //dialog.Filter = this.lblBatchFile.Content.ToString().Contains("Batch") ? Properties.Resources.MacroAction_BtnBatchFile_BatchFiles : Properties.Resources.MacroAction_BtnRestoreFile_SQLScript;
-
+            var dialog = new VistaFolderBrowserDialog();
             if (dialog.ShowDialog(this).GetValueOrDefault())
             {
-                string folderPath = Path.GetDirectoryName(dialog.FileName);
-                this.txtBatchFile.Text = folderPath;
+                this.txtScanLocation.Text = dialog.SelectedPath;
             }
         }
 
@@ -766,6 +787,28 @@ namespace RabaMetroStyle.Views
             this.txtTargetLocation.Visibility = Visibility.Collapsed;
             this.btnTargetLocation.Visibility = Visibility.Collapsed;
             this.lblTargetLocation.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnKeyDownHandler(object sender, KeyEventArgs e)
+        {
+            if ((e.Key >= Key.D0 && e.Key <= Key.D9) || (e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9))
+            {
+                return;
+            }
+            e.Handled = true;
+        }
+
+        private void dpick_SelectedDateChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.dtDateFrom.SelectedDateTime != null && this.dtDateTo.SelectedDateTime != null)
+            {
+                this.chkOnlyCountWeekdays.IsEnabled = true;
+            }
+            else
+            {
+                this.chkOnlyCountWeekdays.IsEnabled = false;
+                this.chkOnlyCountWeekdays.IsChecked = false;
+            }
         }
     }
 }

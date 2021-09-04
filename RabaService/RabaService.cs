@@ -849,9 +849,9 @@ namespace RabaService
                     this.WriteToLog("In Process Settings File, Currently Reading Settings File :" + settingsFile +
                                     "\r \n Currently Processing Row Number : " + Convert.ToString(currentRow), "Application", "RabaService", EventLogEntryType.Information);
                 }
-
-                var dateLesThan = DateTime.Parse(oRow["ScanFileDateLessThan"].ToString());
-                var dateGreaterThan = DateTime.Parse(oRow["ScanFileDateGreaterThan"].ToString());
+                
+                var dateLesThan = oRow["ScanFileDateLessThan"] == null ? DateTime.Parse("1/1/2070") : DateTime.Parse(oRow["ScanFileDateLessThan"].ToString());
+                var dateGreaterThan = oRow["ScanFileDateGreaterThan"] == null ? DateTime.Parse("1/1/1970") : DateTime.Parse(oRow["ScanFileDateGreaterThan"].ToString());
                 var scanFileSizeLessThan = Convert.ToInt64(oRow["ScanFileSizeLessThan"]);
                 var scanFileSizeGreaterThan = Convert.ToInt64(oRow["ScanFileSizeGreaterThan"]);
                 var includeSubFolders = Convert.ToBoolean(oRow["IncludeSubFolders"]);

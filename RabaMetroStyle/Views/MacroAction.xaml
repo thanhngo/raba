@@ -68,16 +68,16 @@
                 <Label Grid.Row="3" Grid.Column="3" Margin="30,0,0,0" >Scan Extension</Label>
                 <TextBox Grid.Row="3" Grid.Column="4" Width="180" Name="txtScanExtension" Margin="0,5,0,5"></TextBox>
                 <Label Grid.Row="4" Grid.Column="1" >Date Between</Label>
-                <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom" Margin="0,5,0,5"></Control:DateTimePicker>
+                <Control:DateTimePicker Grid.Row="4" Grid.Column="2" Name="dtDateFrom" Margin="0,5,0,5" SelectedDateTimeChanged="dpick_SelectedDateChanged"></Control:DateTimePicker>
                 <Label Grid.Row="4" Grid.Column="3" Margin="30,0,0,0" >And</Label>
-                <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo" Margin="0,5,0,5"></Control:DateTimePicker>
+                <Control:DateTimePicker Grid.Row="4" Grid.Column="4" Name="dtDateTo" Margin="0,5,0,5" SelectedDateTimeChanged="dpick_SelectedDateChanged"></Control:DateTimePicker>
                 <Label Grid.Row="5" Grid.Column="1" >Relative Age Younger Than</Label>
                 <CheckBox Grid.Row="5" Grid.Column="2" Name="chkRelativeAgeYougerThan" Click="chkRelativeAgeYougerThan_Checked"></CheckBox>
-                <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,60,5" Width="80" Name="nmrDaysOldAgeYouger" Minimum="0" NumericInputMode="Numbers" ParsingNumberStyle="Integer"/>
+                <Control:NumericUpDown Grid.Row="5" Grid.Column="2" Margin="32,5,60,5" Width="80" Name="nmrDaysOldAgeYouger" Minimum="0" NumericInputMode="Numbers" ParsingNumberStyle="None" KeyDown="OnKeyDownHandler"/>
                 <Label Grid.Row="5" Grid.Column="2" Margin="120,0,0,0" >Days Old</Label>
                 <Label Grid.Row="5" Grid.Column="3" Margin="30,0,0,0" >Relative Age Older Than</Label>
                 <CheckBox Grid.Row="5" Grid.Column="4" Name="chkRelativeAgeOlderThan" Click="chkRelativeAgeOlderThan_Checked"></CheckBox>
-                <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Width="80" Margin="32,5,60,5" Name="nmrDaysOldAgeOlder" Minimum="0" NumericInputMode="Numbers" ParsingNumberStyle="Integer"/>
+                <Control:NumericUpDown Grid.Row="5" Grid.Column="4" Width="80" Margin="32,5,60,5" Name="nmrDaysOldAgeOlder" Minimum="0" NumericInputMode="Numbers" ParsingNumberStyle="None" KeyDown="OnKeyDownHandler"/>
                 <Label Grid.Row="5" Grid.Column="4" Margin="120,0,0,0" >Days Old</Label>
                 <Label Grid.Row="6" Grid.Column="1" >Only Count Weekdays</Label>
                 <CheckBox Grid.Row="6" Grid.Column="2" Name="chkOnlyCountWeekdays"></CheckBox>

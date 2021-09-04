@@ -41,5 +41,9 @@ Release Note version 5.1.0.0 - June 08, 2021
 - Add Flyout Manage Raba file
 - Add action detail panel
 
-
+Release Note version 5.1.0.1 - September 04, 2021
+GUI update for 
+- Homepage
+- Service
+- Settings (except Customize Choosing Folders and Files in locations)
 
