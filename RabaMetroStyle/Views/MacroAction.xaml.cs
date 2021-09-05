@@ -66,6 +66,18 @@ namespace RabaMetroStyle.Views
                 this.dtDateTo.SelectedDateTime = DateTime.Parse(actionDetail.ScanFileDateLessThan);
             }
 
+            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays.Equals("true", StringComparison.InvariantCultureIgnoreCase);
+
+            if (!string.IsNullOrEmpty(actionDetail.ScanFileDateGreaterThan) && !string.IsNullOrEmpty(actionDetail.ScanFileDateLessThan))
+            {
+                this.chkOnlyCountWeekdays.IsEnabled = true;
+            }
+            else
+            {
+                this.chkOnlyCountWeekdays.IsEnabled = false;
+                this.chkOnlyCountWeekdays.IsChecked = false;
+            }            
+
             if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeYounger) && (actionDetail.ScanFileAgeYounger != "-1"))
             {
                 this.nmrDaysOldAgeYouger.Value = double.Parse(actionDetail.ScanFileAgeYounger);
@@ -119,7 +131,6 @@ namespace RabaMetroStyle.Views
                 }                
             }            
             
-            this.chkOnlyCountWeekdays.IsChecked = actionDetail.OnlyCountWeekDays.Equals("true", StringComparison.InvariantCultureIgnoreCase);
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
             this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan == "0" ? string.Empty : actionDetail.ScanFileSizeGreaterThan;
