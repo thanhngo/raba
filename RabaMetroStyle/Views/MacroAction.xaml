@@ -12,13 +12,12 @@
         ShowMinButton="False"
         ResizeMode="NoResize"
         mc:Ignorable="d"
-        Title="Action Detail" Height="746" Width="818"
+        Title="Action Detail" Height="680" Width="780" MinWidth="780" MaxWidth="800" MaxHeight="680"
         SizeToContent="WidthAndHeight">
 
-    <Grid Margin="30,32,0,35">
+    <Grid Margin="10,10,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="827"/>
-            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="760"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
@@ -27,7 +26,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <GroupBox Grid.Row="1" Header="Search Criteria" Margin="0,0,55,0">
+        <GroupBox Grid.Row="1" Header="Search Criteria" >
             <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0"/>
@@ -87,7 +86,7 @@
                 <TextBox Grid.Row="7" Grid.Column="4" Width="180" Name="txtSizeTo" Margin="0,5,0,5"></TextBox>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="2" Header="Action Detail" Margin="0,10,55,0">
+        <GroupBox Grid.Row="2" Header="Action Detail" Margin="0,10,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0"/>
@@ -146,7 +145,7 @@
                 </Button>
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="3" Header="Security and Database Infomation" Name="grbSecurityAndDatabase" Margin="0,10,55,0">
+        <GroupBox Grid.Row="3" Header="Security and Database Infomation" Name="grbSecurityAndDatabase" Margin="0,10,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0"/>
@@ -187,17 +186,17 @@
                 <Button Grid.Row="5" Grid.Column="3" Visibility="Collapsed" >Use Existing</Button>
             </Grid>
         </GroupBox>
-        <Button Grid.Row="4" Grid.Column="0" Margin="338,10,456,-10" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnCancel_Click">
+        <Button Grid.Row="4" Grid.Column="0" Margin="316,0,365,0" Width="80" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnCancel_Click">
             <StackPanel Orientation="Horizontal">
                 <iconPacks:PackIconMaterialDesign Kind="Cancel"
                                     Margin="4 4 2 4"
                                     Width="24"
                                     Height="24"                                    
                                     VerticalAlignment="Center" />
-                <TextBlock Text="Cancel" Margin="5,0,0,0" VerticalAlignment="Center" />
+                <TextBlock Text="Cancel" Margin="5,0,0,0" VerticalAlignment="Center" Foreground="Black" />
             </StackPanel>
         </Button>
-        <Button Grid.Row="4" Grid.Column="0" Margin="438,10,356,-10" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnSave_Click">
+        <Button Grid.Row="4" Grid.Column="0" Margin="390,0,290,0" Width="70" Style="{StaticResource MahApps.Styles.Button.Split}" Click="btnSave_Click">
             <StackPanel Orientation="Horizontal">
                 <iconPacks:PackIconMaterialLight Kind="ContentSave"
                                     Margin="4 4 2 4"

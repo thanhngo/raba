@@ -31,7 +31,7 @@ namespace RabaMetroStyle.ViewModels
                 Icon = new PackIconFontAwesome { Kind = PackIconFontAwesomeKind.CogSolid },
                 Label = "Settings",
                 NavigationType = typeof(SettingsPage),
-                NavigationDestination = new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute)
+                NavigationDestination = new Uri("Views/SettingsPage.xaml", UriKind.RelativeOrAbsolute)                
             });
             this.OptionsMenu.Add(new MenuItem
             {
