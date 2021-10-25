@@ -2,6 +2,7 @@
 
 using MahApps.Metro.Controls;
 using Ookii.Dialogs.Wpf;
+using RabaMetroStyle.CustomControl;
 using RabaMetroStyle.Models;
 using System;
 using System.Collections.Generic;
@@ -292,20 +293,27 @@ namespace RabaMetroStyle.Views
 
         private void BtnScanFolder_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new VistaFolderBrowserDialog();
-            if (dialog.ShowDialog(this).GetValueOrDefault())
-            {
-                this.txtScanLocation.Text = dialog.SelectedPath;
-            }
+            //var dialog = new VistaFolderBrowserDialog();
+            //if (dialog.ShowDialog(this).GetValueOrDefault())
+            //{
+            //    this.txtScanLocation.Text = dialog.SelectedPath;
+            //}
+
+            var dialog = new FileFolderDialog();
+            var result = dialog.ShowDialog();
+            this.txtScanLocation.Text = dialog.SelectedPath;
         }
 
         private void BtnTargetLocation_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new VistaFolderBrowserDialog();
-            if (dialog.ShowDialog(this).GetValueOrDefault())
+            var dialog = new FileFolderDialog();
+            if(this.ddlAction.SelectedValue.ToString().ToUpper() == "UNZIP")
             {
-                this.txtTargetLocation.Text = dialog.SelectedPath;
+                dialog.Dialog.Filter = "zip File (*.zip)|*.zip";
             }
+
+            var result = dialog.ShowDialog();
+            this.txtTargetLocation.Text = dialog.SelectedPath;
         }
 
         private void chkRelativeAgeYougerThan_Checked(object sender, EventArgs e)

@@ -125,12 +125,12 @@ namespace RabaMetroStyle.ViewModels
                 {
                     case "RUNNING":
                         IsServiceStart = true;
-                        this.DisableInterval = false;
+                        this.DisableInterval = true;
                         break;
 
                     case "STOPPED":
                         IsServiceStart = false;
-                        this.DisableInterval = true;
+                        this.DisableInterval = false;
                         break;
                 }
 
@@ -166,13 +166,13 @@ namespace RabaMetroStyle.ViewModels
                 {
                     oSc.Start();
                     this.ServiceStateText = "Running";
-                    this.DisableInterval = false;
+                    this.DisableInterval = true;
                 }
                 else
                 {
                     oSc.Stop();
                     this.ServiceStateText = "Stopped";
-                    this.DisableInterval = true;
+                    this.DisableInterval = false;
                 }
             }
             catch (Exception ex)
@@ -197,7 +197,7 @@ namespace RabaMetroStyle.ViewModels
 
             oSC.Stop();
             this.ServiceStateText = "Stopped";
-            this.DisableInterval = true;
+            this.DisableInterval = false;
         }
 
         private string scanLocation;

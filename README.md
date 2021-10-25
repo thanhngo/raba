@@ -47,3 +47,10 @@ GUI update for
 - Service
 - Settings (except Customize Choosing Folders and Files in locations)
 
+Release Note version 5.1.0.2 - October 25, 2021
+GUI update for 
+- Homepage (Settings name)
+- Service (On/Off Slider)
+- Update macro action folder display. Display all sub folders and files.
+
+

@@ -6,7 +6,7 @@
 <!-- The manufacturer, for setup package publisher and folder info -->
 <?define Manufacturer = "Raba" ?>
 <!-- The version number of this setup package-->
-<?define Version = "5.1.0.1" ?>
+<?define Version = "5.1.0.2" ?>
 <!-- UpgradeCode must be unique and not changed once the first version of the program is installed. -->
 <?define UpgradeCode = "{25DA3824-3F14-4040-826B-F8D1783E1288}" ?>
 <!-- The name of the Cabinet -->
