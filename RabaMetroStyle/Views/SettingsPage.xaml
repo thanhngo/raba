@@ -173,14 +173,14 @@
                             <TextBlock Text="New Action" Margin="5,0,0,0" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
-                    <Button Grid.Row="0" Grid.Column="0" Margin="211,0,391,0" Style="{StaticResource MahApps.Styles.Button.Chromeless}" Command="{Binding QuickEditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" BorderThickness="1">
-                        <StackPanel Orientation="Horizontal">
+                    <Button Grid.Row="0" Grid.Column="0" Margin="211,0,391,0" Style="{StaticResource MahApps.Styles.Button.Chromeless}" Command="{Binding EditActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal" Width="78">
                             <iconPacks:PackIconMaterialDesign Kind="Edit"
                                     Margin="4 4 2 4"
                                     Width="18"
                                     Height="18"                                    
                                     VerticalAlignment="Center" />
-                            <TextBlock Text="Quick Edit" Margin="5,0,0,0" VerticalAlignment="Center" />
+                            <TextBlock Text="Edit" Margin="5,0,0,0" VerticalAlignment="Center" Width="65" />
                         </StackPanel>
                     </Button>
                     <Button Grid.Row="0" Grid.Column="0" Margin="318,0,287,0" Style="{StaticResource MahApps.Styles.Button.Chromeless}" Command="{Binding DeleteActionCommand}" IsEnabled="{Binding IsSelectMacroAction}" BorderThickness="1">
