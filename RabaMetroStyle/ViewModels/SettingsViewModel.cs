@@ -904,7 +904,7 @@ namespace RabaMetroStyle.ViewModels
 
         private DataSet TransformSettingsToDataSet(ObservableCollection<Setting> macroActions)
         {
-            var tempSettingTable = new DataSet();
+            var tempSettingTable = new DataSet("Tasks");
 
             tempSettingTable.Tables.Add(this.DsFunctionCreateDataTableTasks());
 
