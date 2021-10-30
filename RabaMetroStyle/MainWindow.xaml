@@ -112,6 +112,7 @@
                             ItemTemplate="{StaticResource MenuItemTemplate}"
                             ItemsSource="{Binding Menu}"
                             OptionsItemTemplate="{StaticResource MenuItemTemplate}"
-                            OptionsItemsSource="{Binding OptionsMenu}" />
+                            OptionsItemsSource="{Binding OptionsMenu}"
+                            MaximumOpenPaneLength="120"/>
 
 </controls:MetroWindow>

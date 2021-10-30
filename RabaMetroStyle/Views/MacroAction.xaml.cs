@@ -11,7 +11,7 @@ using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-
+using System.Text.RegularExpressions;
 #endregion
 
 namespace RabaMetroStyle.Views
@@ -23,7 +23,7 @@ namespace RabaMetroStyle.Views
     {
         public bool SavedAction;
         public Setting SavedActionDetails;
-        public List<string> Errors;
+        public List<string> Errors;        
 
         public MacroAction()
         {
@@ -828,6 +828,12 @@ namespace RabaMetroStyle.Views
                 this.chkOnlyCountWeekdays.IsEnabled = false;
                 this.chkOnlyCountWeekdays.IsChecked = false;
             }
+        }
+
+        private void VerifyTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

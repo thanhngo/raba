@@ -11,11 +11,19 @@ namespace RabaMetroStyle.Views
         public bool JobFileNameSaved = false;
         public string MacroFileName = string.Empty;
         private bool? jobFileNameLogged = false;
-        private bool? jobFileSerial = false;
+        private bool? jobFileSerial = false;        
 
         public JobFileName()
         {
             this.InitializeComponent();
+        }
+
+        public JobFileName(string MacroFile)
+        {
+            this.InitializeComponent();
+            this.MacroFileName = MacroFile;
+            this.chkLogActions.Visibility = System.Windows.Visibility.Hidden;
+            this.chkRunSerials.Visibility = System.Windows.Visibility.Hidden;
         }
 
         private void CmdCancel_Click(object sender, EventArgs e)
@@ -27,7 +35,7 @@ namespace RabaMetroStyle.Views
         private void CmdSave_Click(object sender, EventArgs e)
         {
             if (this.txtFileName.Text.Trim().Length <= 0)
-            {
+            {                
                 return;
             }
 

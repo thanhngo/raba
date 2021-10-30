@@ -8,7 +8,6 @@
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:views="clr-namespace:RabaMetroStyle.Views"
       xmlns:local="using:RabaMetroStyle.Styles"      
-      Style="{DynamicResource PageStyle}"
       Background="White"
       mc:Ignorable="d" MinWidth="1024">
 
@@ -71,8 +70,7 @@
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="150" />                    
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Macros</Label>                
                 <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"  Margin="100,0,0,10" Style="{StaticResource MahApps.Styles.Button.Chromeless}" Command="{Binding AddMacroCommand}" BorderThickness="1" Width="100">
@@ -95,7 +93,17 @@
                         <TextBlock Text="Disable Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <ListView Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}">
+                <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="300,0,0,10" Width="114" BorderThickness="1" Style="{StaticResource MahApps.Styles.Button.Chromeless}"  Command="{Binding RenameMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Kind="RenameBox"
+                                    Margin="4 4 2 4"
+                                    Width="18"
+                                    Height="18"                                    
+                                    VerticalAlignment="Center" />
+                        <TextBlock Text="Rename" Margin="5,0,0,0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+                <ListView Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.ContextMenu>
                         <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
                             <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
@@ -136,7 +144,7 @@
                         <TextBlock Text="Purge" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <ListView Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}" Grid.ColumnSpan="2">
+                <ListView Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.ContextMenu>
                         <ContextMenu Name="DisabledList" StaysOpen="true" Background="WhiteSmoke">
                             <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
@@ -194,7 +202,7 @@
                         </StackPanel>
                     </Button>
                 </Grid>
-                <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,10">
+                <Grid Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,0,0">
                     <Grid.Resources>
                         <!--  for ne metro style  -->
                         <Style TargetType="{x:Type DataGridColumnHeadersPresenter}">
@@ -225,7 +233,7 @@
                               AutoGenerateColumns="False"
                               CanUserAddRows="False"
                               CanUserReorderColumns="False"
-                              CanUserResizeColumns="False"
+                              CanUserResizeColumns="True"
                               CanUserResizeRows="False"
                               EnableColumnVirtualization="True"
                               EnableRowVirtualization="True"
@@ -234,17 +242,17 @@
                               SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
                               RenderOptions.ClearTypeHint="Enabled"
                               SelectionUnit="FullRow"
-                              SelectedIndex="0"
+                              SelectedIndex="0"                              
                               TextOptions.TextFormattingMode="Display">
                         <DataGrid.InputBindings>
                             <MouseBinding Gesture="LeftDoubleClick" Command="{Binding DoubleClickCommand}" />
                         </DataGrid.InputBindings>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding Action}" Header="Action" />
+                            <DataGridTextColumn Binding="{Binding Action}" Header="Action"/>
                             <DataGridTextColumn Binding="{Binding ScanLocation}" Header="Scan Location" />
                             <DataGridTextColumn Binding="{Binding IncludeSubFolders}" Header="Include Sub Folder" />
                             <DataGridTextColumn Binding="{Binding ScanFileExtension}" Header="File Extension" />
-                            <DataGridTextColumn Binding="{Binding ScanFilePrefix}" Header="Prefix" />
+                            <DataGridTextColumn Binding="{Binding ScanFilePrefix, NotifyOnTargetUpdated =True}" Header="Prefix"/>
                             <DataGridTextColumn Binding="{Binding ScanFileDateGreaterThan}" Header="Date Greater Than" />
                             <DataGridTextColumn Binding="{Binding ScanFileDateLessThan}" Header="Date Less Than" />
                             <DataGridTextColumn Binding="{Binding ScanFileUseRelativeAgeYounger}" Header="Use Relative Age Younger" />

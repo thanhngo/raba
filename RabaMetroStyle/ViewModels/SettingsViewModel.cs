@@ -11,6 +11,7 @@ using System.IO;
 using System.Security.Principal;
 using System.ServiceProcess;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -60,6 +61,7 @@ namespace RabaMetroStyle.ViewModels
 
             this.AddMacroDelegateCommand = new DelegateCommand(this.AddMacroFile);
             this.DisableMacroDelegateCommand = new DelegateCommand(this.DisableSelectedMacro);
+            this.RenameMacroDelegateCommand = new DelegateCommand(this.RenameMacroFile);
             this.EnableMacroDelegateCommand = new DelegateCommand(this.EnableSelectedMacro);
             this.AddActionDelegateCommand = new DelegateCommand(this.AddMacroAction);
             this.DeleteActionDelegateCommand = new DelegateCommand(this.DeleteMacroAction);
@@ -85,7 +87,7 @@ namespace RabaMetroStyle.ViewModels
             get => this.currentSettings;
             set
             {
-                this.currentSettings = value;
+                this.currentSettings = value;                
                 this.OnPropertyChanged();
             }
         }
@@ -93,6 +95,8 @@ namespace RabaMetroStyle.ViewModels
         public ICommand DeleteActionCommand => this.DeleteActionDelegateCommand;
 
         public ICommand DisableMacroCommand => this.DisableMacroDelegateCommand;
+
+        public ICommand RenameMacroCommand => this.RenameMacroDelegateCommand;
 
         public ICommand EditActionCommand => this.EditActionDelegateCommand;
         public ICommand QuickEditActionCommand => this.QuickEditActionDelegateCommand;
@@ -165,11 +169,11 @@ namespace RabaMetroStyle.ViewModels
 
         public string SelectedDisabledMacroFile
         {
-            get => this.selectedDisabledMacroFile;
+            get => this.selectedDisabledMacroFile ;
             set
             {
                 //this.selectedMacroFile = string.Empty;
-                this.selectedDisabledMacroFile = value;
+                this.selectedDisabledMacroFile = value == null ? value : value + ".RABA.DISABLED";
                 this.OnPropertyChanged($"IsSelectMacroFile");
                 this.OnPropertyChanged($"IsSelectDisabledMacroFile");
                 this.OnPropertyChanged($"CanPurgeFile");
@@ -303,7 +307,7 @@ namespace RabaMetroStyle.ViewModels
             set
             {
                 //this.selectedDisabledMacroFile = string.Empty;
-                this.selectedMacroFile = value;
+                this.selectedMacroFile = value == null ? value : value + ".RABA";
                 this.OnPropertyChanged($"IsSelectMacroFile");
                 this.OnPropertyChanged($"IsSelectDisabledMacroFile");
                 this.OnPropertyChanged();
@@ -460,6 +464,7 @@ namespace RabaMetroStyle.ViewModels
         private DelegateCommand DeleteActionDelegateCommand { get; }
 
         private DelegateCommand DisableMacroDelegateCommand { get; }
+        private DelegateCommand RenameMacroDelegateCommand { get; }
 
         private DelegateCommand EditActionDelegateCommand { get; }
         private DelegateCommand QuickEditActionDelegateCommand { get; }
@@ -481,7 +486,7 @@ namespace RabaMetroStyle.ViewModels
             {
                 if (sFileName.EndsWith(szSettingExtension))
                 {
-                    macroFiles.Add(Path.GetFileName(sFileName));
+                    macroFiles.Add(Path.GetFileNameWithoutExtension(sFileName).Replace(".RABA", string.Empty));
                 }
             }
         }
@@ -580,12 +585,18 @@ namespace RabaMetroStyle.ViewModels
 
             var szSettingsFileNew = this.SettingsFolderService + "\\" + addMacroForm.MacroFileName + ".RABA";
 
+            if(szSettingsFileNew.Length > 255)
+            {
+                MessageBox.Show("File name is too long. Should be less than 255 chracters");
+                return;
+            }            
+
             var dataSet = new DataSet("Tasks");
             var dataTable = new DataTable("tblTaskInfo");
             dataSet.Tables.Add(dataTable);
             dataSet.WriteXml(szSettingsFileNew);
 
-            this.activeMacroFiles.Add(addMacroForm.MacroFileName + ".RABA");
+            this.activeMacroFiles.Add(addMacroForm.MacroFileName);
         }
 
         private ObservableCollection<Setting> ConvertDataTableToObservableCollection(DataSet settingTable)
@@ -658,9 +669,47 @@ namespace RabaMetroStyle.ViewModels
 
             var szFileName = this.SettingsFolderService + "\\" + this.SelectedMacroFile;
             File.Move(szFileName, szFileName + ".DISABLED");
-            this.inactiveMacroFiles.Add(this.SelectedMacroFile + ".DISABLED");
-            this.activeMacroFiles.Remove(this.SelectedMacroFile);
+            this.inactiveMacroFiles.Add(this.SelectedMacroFile.Replace(".RABA", string.Empty));
+            this.activeMacroFiles.Remove(this.SelectedMacroFile.Replace(".RABA", string.Empty));
             this.CurrentSettingsTable = null;
+        }
+
+        private void RenameMacroFile()
+        {
+            var addMacroForm = new JobFileName(this.selectedMacroFile);
+            addMacroForm.ShowDialog();
+
+            if (!addMacroForm.JobFileNameSaved)
+            {
+                return;
+            }           
+
+            // if the file name is changed 
+            if (!String.Equals(this.selectedMacroFile, addMacroForm.MacroFileName, StringComparison.CurrentCultureIgnoreCase))
+            {
+                var oldPath = Path.Combine(this.SettingsFolderService, selectedMacroFile);
+                var newPath = Path.Combine(this.SettingsFolderService, addMacroForm.MacroFileName + ".RABA");
+
+                if (newPath.Length > 255)
+                {
+                    MessageBox.Show("File name is too long. Should be less than 255 chracters");
+                    return;
+                }
+
+                // if renamed file already exists and not just changing case 
+                if (File.Exists(newPath))
+                {
+                    MessageBox.Show(String.Format("File already exists:\n{0}", newPath));
+                    return;
+                }
+                else
+                {
+                    Directory.Move(oldPath, newPath);
+                    this.activeMacroFiles.Remove(SelectedMacroFile);
+                    this.activeMacroFiles.Add(addMacroForm.MacroFileName);
+                    SelectedMacroFile = addMacroForm.MacroFileName;
+                }
+            }
         }
 
         private DataTable DsFunctionCreateDataTableTasks()
@@ -758,8 +807,8 @@ namespace RabaMetroStyle.ViewModels
             var szFileName = string.Empty;
             szFileName = this.SettingsFolderService + "\\" + this.selectedDisabledMacroFile;
             this.SettingsFileEnable(szFileName);
-            this.activeMacroFiles.Add(this.selectedDisabledMacroFile.Substring(0, this.selectedDisabledMacroFile.Length - 9));
-            this.inactiveMacroFiles.Remove(this.selectedDisabledMacroFile);
+            this.activeMacroFiles.Add(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", string.Empty));
+            this.inactiveMacroFiles.Remove(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", string.Empty));
         }
 
         private Setting GetMacroActionDataTableRow(DataRow row)
@@ -780,9 +829,9 @@ namespace RabaMetroStyle.ViewModels
                 ScanFileDateGreaterThan = row["ScanFileDateGreaterThan"] == DBNull.Value ? string.Empty : (string)row["ScanFileDateGreaterThan"],
                 ScanFileDateLessThan = row["ScanFileDateLessThan"] == DBNull.Value ? string.Empty : (string)row["ScanFileDateLessThan"],
                 ScanFileUseRelativeAgeYounger = row["ScanFileUseRelativeAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileUseRelativeAgeYounger"],
-                ScanFileAgeYounger = row["ScanFileAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeYounger"],
+                ScanFileAgeYounger = row["ScanFileAgeYounger"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeYounger"] == "-1" ? string.Empty : (string)row["ScanFileAgeYounger"],
                 ScanFileUseRelativeAgeOlder = row["ScanFileUseRelativeAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileUseRelativeAgeOlder"],
-                ScanFileAgeOlder = row["ScanFileAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeOlder"],
+                ScanFileAgeOlder = row["ScanFileAgeOlder"] == DBNull.Value ? string.Empty : (string)row["ScanFileAgeOlder"] == "-1" ? string.Empty : (string)row["ScanFileAgeOlder"],
                 OnlyCountWeekDays = row["OnlyCountWeekDays"] == DBNull.Value ? "False" : (string)row["OnlyCountWeekDays"],
                 ScanFileExtension = row["ScanFileExtension"] == DBNull.Value ? string.Empty : (string)row["ScanFileExtension"],
                 ScanFilePrefix = row["ScanFilePrefix"] == DBNull.Value ? string.Empty : (string)row["ScanFilePrefix"],
@@ -893,7 +942,7 @@ namespace RabaMetroStyle.ViewModels
                 return;
             }
 
-            this.MacroFilesInActive.Remove(this.selectedDisabledMacroFile);
+            this.MacroFilesInActive.Remove(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", String.Empty));
             File.Delete(filePath);
         }
 
@@ -1006,6 +1055,6 @@ namespace RabaMetroStyle.ViewModels
         private void ToggerMenu()
         {
             ShowHideManageRabaFile = showHideRabaFile.Equals("Collapsed") ? "Visible" : "Collapsed";
-        }
+        }        
     }
 }
