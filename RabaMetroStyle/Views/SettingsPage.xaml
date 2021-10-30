@@ -93,7 +93,7 @@
                         <TextBlock Text="Disable Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="305,0,0,10" Width="114" BorderThickness="1" Style="{StaticResource MahApps.Styles.Button.Chromeless}"  Command="{Binding RenameMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
+                <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="320,0,0,10" Width="110" BorderThickness="1" Style="{StaticResource MahApps.Styles.Button.Chromeless}"  Command="{Binding RenameMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
                     <StackPanel Orientation="Horizontal">
                         <iconPacks:PackIconMaterialDesign Kind="Edit"
                                     Margin="4 4 2 4"
