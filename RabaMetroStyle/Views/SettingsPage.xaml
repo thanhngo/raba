@@ -93,14 +93,14 @@
                         <TextBlock Text="Disable Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="300,0,0,10" Width="114" BorderThickness="1" Style="{StaticResource MahApps.Styles.Button.Chromeless}"  Command="{Binding RenameMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
+                <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" Margin="305,0,0,10" Width="114" BorderThickness="1" Style="{StaticResource MahApps.Styles.Button.Chromeless}"  Command="{Binding RenameMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
                     <StackPanel Orientation="Horizontal">
-                        <iconPacks:PackIconMaterial Kind="RenameBox"
+                        <iconPacks:PackIconMaterialDesign Kind="Edit"
                                     Margin="4 4 2 4"
                                     Width="18"
                                     Height="18"                                    
                                     VerticalAlignment="Center" />
-                        <TextBlock Text="Rename" Margin="5,0,0,0" VerticalAlignment="Center" />
+                        <TextBlock Text="Rename Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
                 <ListView Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
