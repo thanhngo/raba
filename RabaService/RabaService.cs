@@ -849,15 +849,15 @@ namespace RabaService
                     this.WriteToLog("In Process Settings File, Currently Reading Settings File :" + settingsFile +
                                     "\r \n Currently Processing Row Number : " + Convert.ToString(currentRow), "Application", "RabaService", EventLogEntryType.Information);
                 }
-                
-                var dateLesThan = oRow["ScanFileDateLessThan"] == "" ? DateTime.Parse("1/1/2070 12:00:00 AM") : DateTime.Parse(oRow["ScanFileDateLessThan"].ToString());
-                var dateGreaterThan = oRow["ScanFileDateGreaterThan"] == "" ? DateTime.Parse("1/1/1970 12:00:00 AM") : DateTime.Parse(oRow["ScanFileDateGreaterThan"].ToString());
-                var scanFileSizeLessThan = Convert.ToInt64(oRow["ScanFileSizeLessThan"]);
-                var scanFileSizeGreaterThan = Convert.ToInt64(oRow["ScanFileSizeGreaterThan"]);
+
+                var dateLesThan = oRow["ScanFileDateLessThan"] == "" || oRow["ScanFileDateLessThan"] == null ? DateTime.Parse("1/1/2070 12:00:00 AM") : DateTime.Parse(oRow["ScanFileDateLessThan"].ToString());
+                var dateGreaterThan = oRow["ScanFileDateGreaterThan"] == "" || oRow["ScanFileDateGreaterThan"] == null ? DateTime.Parse("1/1/1970 12:00:00 AM") : DateTime.Parse(oRow["ScanFileDateGreaterThan"].ToString());
+                var scanFileSizeLessThan = oRow["ScanFileSizeLessThan"] == "" ? -1 : Convert.ToInt64(oRow["ScanFileSizeLessThan"]);
+                var scanFileSizeGreaterThan = oRow["ScanFileSizeGreaterThan"] == "" ? -1 :  Convert.ToInt64(oRow["ScanFileSizeGreaterThan"]);
                 var includeSubFolders = Convert.ToBoolean(oRow["IncludeSubFolders"]);
                 var scanFileUseRelativeAgeYounger = Convert.ToBoolean(oRow["ScanFileUseRelativeAgeYounger"]);
                 var scanFileUseRelativeAgeOlder = Convert.ToBoolean(oRow["ScanFileUseRelativeAgeOlder"]);
-                var scanFileAgeYounger = oRow["ScanFileDateLessThan"] == "" ? -1 : Convert.ToInt32(oRow["ScanFileAgeYounger"]);
+                var scanFileAgeYounger = oRow["ScanFileAgeYounger"] == "" ? -1 : Convert.ToInt32(oRow["ScanFileAgeYounger"]);
                 var scanFileAgeOlder = oRow["scanFileAgeOlder"] == "" ? -1 : Convert.ToInt32(oRow["ScanFileAgeOlder"]);
                 var dependent = hasDependentColumn ? Convert.ToString(oRow["Dependent"]) : string.Empty;
                 var conditionalRun = hasConditionalRunColumn ? Convert.ToString(oRow["ConditionalRun"]) : string.Empty;
