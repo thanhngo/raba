@@ -47,6 +47,7 @@ namespace RabaMetroStyle.ViewModels
         private string scanLocation { get; set; }
         private string targetLocation { get; set; }
         private bool conditionalDelete { get; set; }
+        private DataGridLength colWidth { get; set; }
 
         public SettingsViewModel()
         {
@@ -105,6 +106,16 @@ namespace RabaMetroStyle.ViewModels
         public ICommand QuickSaveActionCommand => this.QuickSaveMacroDelegateCommand;
         public ICommand CancelActionCommand => this.CancelActionDelegateCommand;
         public ICommand ToggerMenuCommand => this.ToggerMenuDelegateCommand;
+
+        public DataGridLength ColWidth
+        {
+            get => this.colWidth;
+            set
+            {
+                this.colWidth = value;
+                this.OnPropertyChanged();
+            }
+        }
 
         public string ExecutablePath { get; set; }
 
@@ -705,7 +716,7 @@ namespace RabaMetroStyle.ViewModels
                 else
                 {
                     Directory.Move(oldPath, newPath);
-                    this.activeMacroFiles.Remove(SelectedMacroFile);
+                    this.activeMacroFiles.Remove(SelectedMacroFile.Replace(".RABA", string.Empty));
                     this.activeMacroFiles.Add(addMacroForm.MacroFileName);
                     SelectedMacroFile = addMacroForm.MacroFileName;
                 }
@@ -777,6 +788,8 @@ namespace RabaMetroStyle.ViewModels
 
             var selectedIndex = this.currentSettings.IndexOf(this.selectedItem);
             this.currentSettings[selectedIndex] = addMacroActionForm.SavedActionDetails;
+
+            this.colWidth = new DataGridLength(5);            
 
             using (var dataSet = this.TransformSettingsToDataSet(this.currentSettings))
             {

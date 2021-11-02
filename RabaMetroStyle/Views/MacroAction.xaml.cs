@@ -93,7 +93,7 @@ namespace RabaMetroStyle.Views
 
                 this.nmrDaysOldAgeYouger.IsEnabled = true;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
-                this.chkRelativeAgeOlderThan.IsEnabled = false;
+                //this.chkRelativeAgeOlderThan.IsEnabled = false;
                 //this.chkOnlyCountWeekdays.IsEnabled = true;
             }
             else
@@ -102,7 +102,7 @@ namespace RabaMetroStyle.Views
                 this.nmrDaysOldAgeYouger.IsEnabled = false;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
                 //this.chkOnlyCountWeekdays.IsEnabled = false;
-                this.chkRelativeAgeOlderThan.IsEnabled = true;
+                //this.chkRelativeAgeOlderThan.IsEnabled = true;
 
                 if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder) && (actionDetail.ScanFileAgeOlder != "-1"))
                 {
@@ -117,7 +117,7 @@ namespace RabaMetroStyle.Views
                     this.dtDateTo.SelectedDateTime = null;
 
                     this.nmrDaysOldAgeOlder.IsEnabled = true;
-                    this.chkRelativeAgeYougerThan.IsEnabled = false;
+                    //this.chkRelativeAgeYougerThan.IsEnabled = false;
                     //this.chkOnlyCountWeekdays.IsEnabled = true;
                 }
                 else
@@ -128,7 +128,7 @@ namespace RabaMetroStyle.Views
                     this.nmrDaysOldAgeOlder.Value = null;
                     this.nmrDaysOldAgeOlder.IsEnabled = false;
                     //this.chkOnlyCountWeekdays.IsEnabled = false;
-                    this.chkRelativeAgeYougerThan.IsEnabled = true;
+                    //this.chkRelativeAgeYougerThan.IsEnabled = true;
                 }                
             }            
             
@@ -328,7 +328,7 @@ namespace RabaMetroStyle.Views
 
                 this.nmrDaysOldAgeYouger.IsEnabled = true;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
-                this.chkRelativeAgeOlderThan.IsEnabled = false;
+                //this.chkRelativeAgeOlderThan.IsEnabled = false;
                 this.chkOnlyCountWeekdays.IsEnabled = true;
             }
             else
@@ -340,7 +340,7 @@ namespace RabaMetroStyle.Views
                 this.nmrDaysOldAgeYouger.IsEnabled = false;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
                 this.chkOnlyCountWeekdays.IsEnabled = false;
-                this.chkRelativeAgeOlderThan.IsEnabled = true;
+                //this.chkRelativeAgeOlderThan.IsEnabled = true;
             }
         }
 
@@ -354,7 +354,7 @@ namespace RabaMetroStyle.Views
                 this.dtDateTo.SelectedDateTime = null;
 
                 this.nmrDaysOldAgeOlder.IsEnabled = true;                
-                this.chkRelativeAgeYougerThan.IsEnabled = false;
+                //this.chkRelativeAgeYougerThan.IsEnabled = false;
                 this.chkOnlyCountWeekdays.IsEnabled = true;
             }
             else
@@ -365,7 +365,7 @@ namespace RabaMetroStyle.Views
                 this.nmrDaysOldAgeOlder.Value = null;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;                
                 this.chkOnlyCountWeekdays.IsEnabled = false;
-                this.chkRelativeAgeYougerThan.IsEnabled = true;
+                //this.chkRelativeAgeYougerThan.IsEnabled = true;
             }
         }
 

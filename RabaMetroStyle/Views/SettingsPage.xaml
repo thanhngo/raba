@@ -13,7 +13,7 @@
 
     <Page.DataContext>
         <viewModels:SettingsViewModel/>
-    </Page.DataContext>
+    </Page.DataContext>   
 
     <Grid Margin="0,20,0,0">
         <!--<iconPacks:PackIconFontAwesome Width="48"
@@ -219,6 +219,10 @@
                                     </ControlTemplate>
                                 </Setter.Value>
                             </Setter>
+                        </Style>
+
+                        <Style TargetType="{x:Type DataGridColumnHeadersPresenter }" x:Key="ChangeColumnStyle">
+                            <Setter Property="Width" Value="100"></Setter>
                         </Style>
                     </Grid.Resources>
                     <Grid.ColumnDefinitions>                                   
