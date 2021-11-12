@@ -9,7 +9,7 @@
       xmlns:views="clr-namespace:RabaMetroStyle.Views"
       xmlns:local="using:RabaMetroStyle.Styles"      
       Background="White"
-      mc:Ignorable="d" MinWidth="1024">
+      mc:Ignorable="d">
 
     <Page.DataContext>
         <viewModels:SettingsViewModel/>
@@ -29,6 +29,7 @@
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -69,8 +70,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="150" />                    
+                    <RowDefinition Height="auto" />                    
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0">Macros</Label>                
                 <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left"  Margin="100,0,0,10" Style="{StaticResource MahApps.Styles.Button.Chromeless}" Command="{Binding AddMacroCommand}" BorderThickness="1" Width="100">
@@ -103,26 +103,6 @@
                         <TextBlock Text="Rename Macro" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
-                <ListView Grid.Row="1" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                    <ListView.ContextMenu>
-                        <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
-                            <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
-                            <MenuItem Header="Disable" Name="EnabledListDisable" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
-                        </ContextMenu>
-                    </ListView.ContextMenu>
-                </ListView>
-                <StackPanel Grid.Column="1" Grid.Row="1">
-                    <Button Grid.Row="1" Grid.Column="1"  Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
-                        <iconPacks:MaterialDesign Width="18"
-                                       Height="18"                                                                                             
-                                       Kind="KeyboardArrowRight" />
-                    </Button>
-                    <Button Grid.Row="1" Grid.Column="1" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}" Margin="0,10,0,50">
-                        <iconPacks:MaterialDesign Width="18"
-                                       Height="18"                                                                                             
-                                       Kind="KeyboardArrowLeft" />
-                    </Button>
-                </StackPanel>                
                 <Label Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2">Disabled Macros</Label>
                 <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" Margin="100,0,0,10" Width="114"  Style="{StaticResource MahApps.Styles.Button.Chromeless}" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}" BorderThickness="1">
                     <StackPanel Orientation="Horizontal">
@@ -143,8 +123,38 @@
                                     VerticalAlignment="Center" />
                         <TextBlock Text="Purge" Margin="5,0,0,0" VerticalAlignment="Center" />
                     </StackPanel>
-                </Button>
-                <ListView Grid.Row="1" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}" Grid.ColumnSpan="2" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                </Button>                
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="2" Background="WhiteSmoke">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150" />                    
+                </Grid.RowDefinitions>
+                <ListView Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListView.ContextMenu>
+                        <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
+                            <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
+                            <MenuItem Header="Disable" Name="EnabledListDisable" Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}"/>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+                </ListView>
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <Button Grid.Row="1" Grid.Column="1"  Command="{Binding DisableMacroCommand}" IsEnabled="{Binding IsSelectMacroFile}">
+                        <iconPacks:MaterialDesign Width="18"
+                                       Height="18"                                                                                             
+                                       Kind="KeyboardArrowRight" />
+                    </Button>
+                    <Button Grid.Row="1" Grid.Column="1" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}" Margin="0,10,0,50">
+                        <iconPacks:MaterialDesign Width="18"
+                                       Height="18"                                                                                             
+                                       Kind="KeyboardArrowLeft" />
+                    </Button>
+                </StackPanel>
+                <ListView Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.ContextMenu>
                         <ContextMenu Name="DisabledList" StaysOpen="true" Background="WhiteSmoke">
                             <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
@@ -153,7 +163,7 @@
                     </ListView.ContextMenu>
                 </ListView>
             </Grid>
-            <Grid  Grid.Column="0" Grid.Row="2" >
+            <Grid  Grid.Column="0" Grid.Row="3" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>

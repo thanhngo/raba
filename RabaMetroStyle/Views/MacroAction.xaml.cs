@@ -90,9 +90,7 @@ namespace RabaMetroStyle.Views
                 this.dtDateFrom.SelectedDateTime = null;
                 this.dtDateTo.SelectedDateTime = null;
 
-
-                this.nmrDaysOldAgeYouger.IsEnabled = true;
-                this.nmrDaysOldAgeOlder.IsEnabled = false;
+                this.nmrDaysOldAgeYouger.IsEnabled = true;                
                 //this.chkRelativeAgeOlderThan.IsEnabled = false;
                 //this.chkOnlyCountWeekdays.IsEnabled = true;
             }
@@ -102,36 +100,37 @@ namespace RabaMetroStyle.Views
                 this.nmrDaysOldAgeYouger.IsEnabled = false;
                 this.nmrDaysOldAgeOlder.IsEnabled = false;
                 //this.chkOnlyCountWeekdays.IsEnabled = false;
-                //this.chkRelativeAgeOlderThan.IsEnabled = true;
+                //this.chkRelativeAgeOlderThan.IsEnabled = true;                               
+            }
 
-                if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder) && (actionDetail.ScanFileAgeOlder != "-1"))
-                {
-                    this.nmrDaysOldAgeOlder.IsEnabled = true;
-                    this.nmrDaysOldAgeOlder.Value = double.Parse(actionDetail.ScanFileAgeOlder);
 
-                    this.chkRelativeAgeOlderThan.IsChecked = true;
+            if (!string.IsNullOrEmpty(actionDetail.ScanFileAgeOlder) && (actionDetail.ScanFileAgeOlder != "-1"))
+            {
+                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                this.nmrDaysOldAgeOlder.Value = double.Parse(actionDetail.ScanFileAgeOlder);
 
-                    this.dtDateFrom.IsEnabled = false;
-                    this.dtDateTo.IsEnabled = false;
-                    this.dtDateFrom.SelectedDateTime = null;
-                    this.dtDateTo.SelectedDateTime = null;
+                this.chkRelativeAgeOlderThan.IsChecked = true;
 
-                    this.nmrDaysOldAgeOlder.IsEnabled = true;
-                    //this.chkRelativeAgeYougerThan.IsEnabled = false;
-                    //this.chkOnlyCountWeekdays.IsEnabled = true;
-                }
-                else
-                {
-                    this.dtDateFrom.IsEnabled = true;
-                    this.dtDateTo.IsEnabled = true;
+                this.dtDateFrom.IsEnabled = false;
+                this.dtDateTo.IsEnabled = false;
+                this.dtDateFrom.SelectedDateTime = null;
+                this.dtDateTo.SelectedDateTime = null;
 
-                    this.nmrDaysOldAgeOlder.Value = null;
-                    this.nmrDaysOldAgeOlder.IsEnabled = false;
-                    //this.chkOnlyCountWeekdays.IsEnabled = false;
-                    //this.chkRelativeAgeYougerThan.IsEnabled = true;
-                }                
-            }            
-            
+                this.nmrDaysOldAgeOlder.IsEnabled = true;
+                //this.chkRelativeAgeYougerThan.IsEnabled = false;
+                //this.chkOnlyCountWeekdays.IsEnabled = true;
+            }
+            else
+            {
+                this.dtDateFrom.IsEnabled = true;
+                this.dtDateTo.IsEnabled = true;
+
+                //this.nmrDaysOldAgeOlder.Value = null;
+                //this.nmrDaysOldAgeOlder.IsEnabled = false;
+                //this.chkOnlyCountWeekdays.IsEnabled = false;
+                //this.chkRelativeAgeYougerThan.IsEnabled = true;
+            }
+
             this.txtScanExtension.Text = actionDetail.ScanFileExtension;
             this.txtScanPrefix.Text = actionDetail.ScanFilePrefix;
             this.txtSizeFrom.Text = actionDetail.ScanFileSizeGreaterThan == "0" ? string.Empty : actionDetail.ScanFileSizeGreaterThan;

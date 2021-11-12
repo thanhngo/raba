@@ -926,7 +926,8 @@ namespace RabaService
             {
                 case "COPY":
                     // Log the Start of the Activity                    
-                    this.ProcessTaskCopy(szFileName, ScanLocation, TargetLocation, MaintainSubFolders, true);
+                    bReturn =  this.ProcessTaskCopy(szFileName, ScanLocation, TargetLocation, MaintainSubFolders, true);
+                    if (!bReturn) break;
                     if (ActionCompleteRename)
                     {
                         if (ActionCompleteTimeStamp)
@@ -951,23 +952,21 @@ namespace RabaService
                         }
                     }
 
-                    bReturn = true;
                     break;
 
                 case "DELETE":
-                    this.ProcessTaskDelete(szFileName, ScanLocation, TargetLocation, ConditionalDelete);
-                    bReturn = true;
+                    bReturn = this.ProcessTaskDelete(szFileName, ScanLocation, TargetLocation, ConditionalDelete);                    
                     break;
 
                 case "MOVE":
-                    this.ProcessTaskMove(szFileName, ScanLocation, TargetLocation, MaintainSubFolders, true);
-                    bReturn = true;
+                    bReturn = this.ProcessTaskMove(szFileName, ScanLocation, TargetLocation, MaintainSubFolders, true);                    
                     break;
 
                 case "BATCH":
                     if (!Path.GetExtension(szFileName).Equals(".BATCH"))
                     {
-                        this.ProcessRunBatchFile(Command, "[FILENAME]", szFileName);
+                        bReturn = this.ProcessRunBatchFile(Command, "[FILENAME]", szFileName);
+                        if (!bReturn) break;
 
                         if (ActionCompleteTimeStamp)
                         {
@@ -984,14 +983,15 @@ namespace RabaService
                         }
                     }
 
-                    bReturn = true;
                     break;
 
                 case "ZIP":
                     var szRootName = Path.GetFileName(szFileName);
                     var szTargetFile = TargetLocation + "\\" + szRootName + ".zip";
 
-                    this.ZipUpFile(szFileName, ScanLocation, szTargetFile, MaintainSubFolders);
+                    bReturn = this.ZipUpFile(szFileName, ScanLocation, szTargetFile, MaintainSubFolders);
+                    if (!bReturn) break;
+
                     if (ActionCompleteRename)
                     {
                         if (ActionCompleteTimeStamp)
@@ -1016,11 +1016,11 @@ namespace RabaService
                         }
                     }
 
-                    bReturn = true;
                     break;
 
                 case "UNZIP":
-                    this.UnZipFile(szFileName, TargetLocation, MaintainSubFolders);
+                    bReturn = this.UnZipFile(szFileName, TargetLocation, MaintainSubFolders);
+                    if (!bReturn) break;
                     if (ActionCompleteRename)
                     {
                         if (ActionCompleteTimeStamp)
@@ -1045,12 +1045,12 @@ namespace RabaService
                         }
                     }
 
-                    bReturn = true;
                     break;
 
                 case "RESTORE":
 
-                    this.ProcessTaskRestoreDatabase(szFileName, DatabaseServer, DatabaseName, IntegratedSecurity, userId, Password, FileGroup);
+                    bReturn = this.ProcessTaskRestoreDatabase(szFileName, DatabaseServer, DatabaseName, IntegratedSecurity, userId, Password, FileGroup);
+                    if (!bReturn) break;
 
                     if (ActionCompleteRename)
                     {
@@ -1076,26 +1076,27 @@ namespace RabaService
                         }
                     }
 
-                    bReturn = true;
                     break;
 
                 case "SQLSCRIPT":
-                    this.ProcessTaskRunSqlScript(Command, DatabaseServer, DatabaseName, true, userId, Password);
-                    if (ActionCompleteTimeStamp)
+                    if (!Path.GetExtension(szFileName).Equals(".SCRIPTRUN"))
                     {
-                        this.RenameFile(szFileName, szFileName + DateTime.Now.Year.ToString("0000") + "."
-                                                    + DateTime.Now.Month.ToString("00") + "."
-                                                    + DateTime.Now.Day.ToString("00") + "."
-                                                    + DateTime.Now.Hour.ToString("00") + "."
-                                                    + DateTime.Now.Minute.ToString("00") + "."
-                                                    + DateTime.Now.Second.ToString("00") + ".SCRIPTRUN");
-                    }
-                    else
-                    {
-                        this.RenameFile(szFileName, szFileName + ".SCRIPTRUN");
-                    }
-
-                    bReturn = true;
+                        bReturn = this.ProcessTaskRunSqlScript(Command, DatabaseServer, DatabaseName, true, userId, Password);
+                        if (!bReturn) break;
+                        if (ActionCompleteTimeStamp)
+                        {
+                            this.RenameFile(szFileName, szFileName + DateTime.Now.Year.ToString("0000") + "."
+                                                        + DateTime.Now.Month.ToString("00") + "."
+                                                        + DateTime.Now.Day.ToString("00") + "."
+                                                        + DateTime.Now.Hour.ToString("00") + "."
+                                                        + DateTime.Now.Minute.ToString("00") + "."
+                                                        + DateTime.Now.Second.ToString("00") + ".SCRIPTRUN");
+                        }
+                        else
+                        {
+                            this.RenameFile(szFileName, szFileName + ".SCRIPTRUN");
+                        }
+                    }                                        
                     break;
             }
 
@@ -1333,6 +1334,7 @@ namespace RabaService
             {
                 File.Move(SourceFile, TargetFileName);
                 this.mbTransferFileInProgress = false;
+                File.Delete(SourceFile);
                 bReturn = true;
             }
 

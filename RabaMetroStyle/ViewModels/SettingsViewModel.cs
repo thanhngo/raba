@@ -22,8 +22,10 @@ namespace RabaMetroStyle.ViewModels
     public class SettingsViewModel : BindableBase
     {
         private ObservableCollection<string> activeMacroFiles;
+        private ObservableCollection<string> selectedActiveMacroFiles;
         private ObservableCollection<Setting> currentSettings;
         private ObservableCollection<string> inactiveMacroFiles;
+        private ObservableCollection<string> selectedInactiveMacroFiles;
 
         private string selectedDisabledMacroFile;
         private Setting selectedItem;
@@ -53,6 +55,7 @@ namespace RabaMetroStyle.ViewModels
         {
             this.activeMacroFiles = new ObservableCollection<string>();
             this.inactiveMacroFiles = new ObservableCollection<string>();
+            this.selectedActiveMacroFiles = new ObservableCollection<string>();
             this.PopulateServiceInfo();
             if (Directory.Exists(this.SettingsFolderService))
             {
@@ -173,6 +176,19 @@ namespace RabaMetroStyle.ViewModels
             {
                 this.inactiveMacroFiles = value;
                 this.OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<string> SelectedActiveMacroFiles
+        {
+            get => this.selectedActiveMacroFiles;
+            set
+            {
+                selectedActiveMacroFiles.Clear();
+                foreach (var file in value)
+                {
+                    selectedActiveMacroFiles.Add(file);
+                }
             }
         }
 

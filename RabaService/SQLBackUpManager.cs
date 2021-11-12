@@ -122,6 +122,7 @@ namespace RabaService
                 var oCmd = new SqlCommand(sSql, oConn) { CommandTimeout = 0 };
                 oCmd.ExecuteNonQuery();
 
+                myStreamReader.Close();
                 bReturn = true;
             }
             catch (Exception ex)

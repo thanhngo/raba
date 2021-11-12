@@ -21,7 +21,7 @@ namespace RabaMetroStyle.Views
         public JobFileName(string MacroFile)
         {
             this.InitializeComponent();
-            this.MacroFileName = MacroFile;
+            this.txtFileName.Text = MacroFile;
             this.chkLogActions.Visibility = System.Windows.Visibility.Hidden;
             this.chkRunSerials.Visibility = System.Windows.Visibility.Hidden;
         }
