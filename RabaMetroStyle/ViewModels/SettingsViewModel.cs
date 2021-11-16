@@ -703,7 +703,7 @@ namespace RabaMetroStyle.ViewModels
 
         private void RenameMacroFile()
         {
-            var addMacroForm = new JobFileName(this.selectedMacroFile);
+            var addMacroForm = new JobFileName(this.selectedMacroFile.Replace(".RABA", string.Empty));
             addMacroForm.ShowDialog();
 
             if (!addMacroForm.JobFileNameSaved)
@@ -731,9 +731,9 @@ namespace RabaMetroStyle.ViewModels
                 }
                 else
                 {
-                    Directory.Move(oldPath, newPath);
                     this.activeMacroFiles.Remove(SelectedMacroFile.Replace(".RABA", string.Empty));
-                    this.activeMacroFiles.Add(addMacroForm.MacroFileName);
+                    this.activeMacroFiles.Add(addMacroForm.MacroFileName.Replace(".RABA", string.Empty));                    
+                    Directory.Move(oldPath, newPath);
                     SelectedMacroFile = addMacroForm.MacroFileName;
                 }
             }
