@@ -5,6 +5,7 @@ using RabaMetroStyle.Models;
 using RabaMetroStyle.Mvvm;
 using RabaMetroStyle.Views;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.IO;
@@ -23,9 +24,9 @@ namespace RabaMetroStyle.ViewModels
     {
         private ObservableCollection<string> activeMacroFiles;
         private ObservableCollection<string> selectedActiveMacroFiles;
+        private ObservableCollection<string> selectedDisabledMacroFiles;
         private ObservableCollection<Setting> currentSettings;
-        private ObservableCollection<string> inactiveMacroFiles;
-        private ObservableCollection<string> selectedInactiveMacroFiles;
+        private ObservableCollection<string> inactiveMacroFiles;                
 
         private string selectedDisabledMacroFile;
         private Setting selectedItem;
@@ -56,6 +57,7 @@ namespace RabaMetroStyle.ViewModels
             this.activeMacroFiles = new ObservableCollection<string>();
             this.inactiveMacroFiles = new ObservableCollection<string>();
             this.selectedActiveMacroFiles = new ObservableCollection<string>();
+            this.selectedDisabledMacroFiles = new ObservableCollection<string>();
             this.PopulateServiceInfo();
             if (Directory.Exists(this.SettingsFolderService))
             {
@@ -77,7 +79,7 @@ namespace RabaMetroStyle.ViewModels
             this.QuickSaveMacroDelegateCommand = new DelegateCommand(this.QuickSaveAction);
             this.CancelActionDelegateCommand = new DelegateCommand(this.CancelAction);
             this.ToggerMenuDelegateCommand = new DelegateCommand(this.ToggerMenu);
-        }
+        }        
 
         public ICommand AddActionCommand => this.AddActionDelegateCommand;
 
@@ -188,6 +190,19 @@ namespace RabaMetroStyle.ViewModels
                 foreach (var file in value)
                 {
                     selectedActiveMacroFiles.Add(file);
+                }
+            }
+        }
+
+        public ObservableCollection<string> SelectedDisabledMacroFiles
+        {
+            get => this.selectedDisabledMacroFiles;
+            set
+            {
+                selectedDisabledMacroFiles.Clear();
+                foreach (var file in value)
+                {
+                    selectedDisabledMacroFiles.Add(file);
                 }
             }
         }
@@ -332,16 +347,22 @@ namespace RabaMetroStyle.ViewModels
         {
             get => this.selectedMacroFile;
             set
-            {
-                //this.selectedDisabledMacroFile = string.Empty;
-                this.selectedMacroFile = value == null ? value : value + ".RABA";
-                this.OnPropertyChanged($"IsSelectMacroFile");
-                this.OnPropertyChanged($"IsSelectDisabledMacroFile");
-                this.OnPropertyChanged();
-                if (!string.IsNullOrEmpty(this.selectedMacroFile))
+            {                
+                if(this.SelectedActiveMacroFiles.Count > 0)
                 {
-                    this.HandleSelectedMacroFile();
+                    this.CurrentSettingsTable = null;                     
                 }
+                else
+                {
+                    this.selectedMacroFile = value == null ? value : value + ".RABA";
+                    this.OnPropertyChanged($"IsSelectMacroFile");
+                    this.OnPropertyChanged($"IsSelectDisabledMacroFile");
+                    this.OnPropertyChanged();
+                    if (!string.IsNullOrEmpty(this.selectedMacroFile))
+                    {
+                        this.HandleSelectedMacroFile();
+                    }
+                }                
             }
         }
 
@@ -688,17 +709,38 @@ namespace RabaMetroStyle.ViewModels
 
         private void DisableSelectedMacro()
         {
-            if (string.IsNullOrEmpty(this.SelectedMacroFile))
+            var count = SelectedActiveMacroFiles.Count;
+            if (count > 1)
             {
-                MessageBox.Show("Please select file", "Disable File", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                var cloneSelectedActiveMacroFiles = new List<String>();
+                foreach (var file in SelectedActiveMacroFiles)
+                {
+                    cloneSelectedActiveMacroFiles.Add(file);
+                }
 
-            var szFileName = this.SettingsFolderService + "\\" + this.SelectedMacroFile;
-            File.Move(szFileName, szFileName + ".DISABLED");
-            this.inactiveMacroFiles.Add(this.SelectedMacroFile.Replace(".RABA", string.Empty));
-            this.activeMacroFiles.Remove(this.SelectedMacroFile.Replace(".RABA", string.Empty));
-            this.CurrentSettingsTable = null;
+                foreach (var selectedMacroFile in cloneSelectedActiveMacroFiles)
+                {
+                    var szFileName = this.SettingsFolderService + "\\" + selectedMacroFile + ".RABA";
+                    File.Move(szFileName, szFileName + ".DISABLED");
+                    this.inactiveMacroFiles.Add(selectedMacroFile);
+                    this.activeMacroFiles.Remove(selectedMacroFile);
+                    this.CurrentSettingsTable = null;
+                }                
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(this.SelectedMacroFile))
+                {
+                    MessageBox.Show("Please select file", "Disable File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var szFileName = this.SettingsFolderService + "\\" + this.SelectedMacroFile;
+                File.Move(szFileName, szFileName + ".DISABLED");
+                this.inactiveMacroFiles.Add(this.SelectedMacroFile.Replace(".RABA", string.Empty));
+                this.activeMacroFiles.Remove(this.SelectedMacroFile.Replace(".RABA", string.Empty));
+                this.CurrentSettingsTable = null;
+            }            
         }
 
         private void RenameMacroFile()
@@ -827,17 +869,38 @@ namespace RabaMetroStyle.ViewModels
 
         private void EnableSelectedMacro()
         {
-            if (string.IsNullOrEmpty(this.selectedDisabledMacroFile))
+            var count = SelectedDisabledMacroFiles.Count;
+            if (count > 1)
             {
-                MessageBox.Show("Please select file", "Enable File", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                var cloneSelectedDisabledMacroFiles = new List<String>();
+                foreach (var file in SelectedDisabledMacroFiles)
+                {
+                    cloneSelectedDisabledMacroFiles.Add(file);
+                }
 
-            var szFileName = string.Empty;
-            szFileName = this.SettingsFolderService + "\\" + this.selectedDisabledMacroFile;
-            this.SettingsFileEnable(szFileName);
-            this.activeMacroFiles.Add(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", string.Empty));
-            this.inactiveMacroFiles.Remove(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", string.Empty));
+                foreach (var selectedMacroFile in cloneSelectedDisabledMacroFiles)
+                {
+                    var szFileName = string.Empty;
+                    szFileName = this.SettingsFolderService + "\\" + selectedMacroFile + ".RABA.DISABLED";
+                    this.SettingsFileEnable(szFileName);
+                    this.activeMacroFiles.Add(selectedMacroFile.Replace(".RABA.DISABLED", string.Empty));
+                    this.inactiveMacroFiles.Remove(selectedMacroFile.Replace(".RABA.DISABLED", string.Empty));
+                }                
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(this.selectedDisabledMacroFile))
+                {
+                    MessageBox.Show("Please select file", "Enable File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                var szFileName = string.Empty;
+                szFileName = this.SettingsFolderService + "\\" + this.selectedDisabledMacroFile;
+                this.SettingsFileEnable(szFileName);
+                this.activeMacroFiles.Add(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", string.Empty));
+                this.inactiveMacroFiles.Remove(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", string.Empty));
+            }            
         }
 
         private Setting GetMacroActionDataTableRow(DataRow row)
@@ -951,28 +1014,57 @@ namespace RabaMetroStyle.ViewModels
 
         private void PurgeMacroAction()
         {
-            var result = MessageBox.Show("Are You Sure You Wish To Permenantly Purge This Macro!", "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var warningMessage = "Are You Sure You Wish To Permenantly Purge This Macro!";
+            if (SelectedDisabledMacroFiles.Count > 1)
+            {
+                warningMessage = "Are You Sure You Wish To Permenantly Purge Selected Macros!";
+            }
+
+            var result = MessageBox.Show(warningMessage, "caption", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result != MessageBoxResult.Yes)
             {
                 return;
             }
 
-            if (string.IsNullOrEmpty(this.selectedDisabledMacroFile))
+            if(SelectedDisabledMacroFiles.Count > 1)
             {
-                MessageBox.Show("Please select file", "Purge File", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
+                var cloneSelectedDisabledMacroFiles = new List<String>();
+                foreach (var file in SelectedDisabledMacroFiles)
+                {
+                    cloneSelectedDisabledMacroFiles.Add(file);
+                }
 
-            var fileToDelete = this.selectedDisabledMacroFile;
-            var filePath = this.SettingsFolderService + "\\" + fileToDelete;
-            if (!File.Exists(filePath))
+                foreach (var selectedMacroFile in cloneSelectedDisabledMacroFiles)
+                {
+                    var filePath = this.SettingsFolderService + "\\" + selectedMacroFile + ".RABA.DISABLED";
+                    if (!File.Exists(filePath))
+                    {
+                        return;
+                    }
+
+                    this.MacroFilesInActive.Remove(selectedMacroFile);
+                    File.Delete(filePath);
+                }
+            }
+            else
             {
-                return;
-            }
+                if (string.IsNullOrEmpty(this.selectedDisabledMacroFile))
+                {
+                    MessageBox.Show("Please select file", "Purge File", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-            this.MacroFilesInActive.Remove(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", String.Empty));
-            File.Delete(filePath);
+                var fileToDelete = this.selectedDisabledMacroFile;
+                var filePath = this.SettingsFolderService + "\\" + fileToDelete;
+                if (!File.Exists(filePath))
+                {
+                    return;
+                }
+
+                this.MacroFilesInActive.Remove(this.selectedDisabledMacroFile.Replace(".RABA.DISABLED", String.Empty));
+                File.Delete(filePath);
+            }            
         }
 
         private void SettingsFileEnable(string settingsFile)
