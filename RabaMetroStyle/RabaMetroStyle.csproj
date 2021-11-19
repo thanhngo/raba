@@ -169,6 +169,7 @@
     <Compile Include="CustomControl\FileFolderDialog.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomControl\SelectedItemsBahavior.cs" />
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Navigation\FrameAnimator.cs" />
     <Compile Include="ViewModels\MenuItem.cs" />

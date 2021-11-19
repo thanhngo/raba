@@ -4,10 +4,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels"      
+      xmlns:viewModels="clr-namespace:RabaMetroStyle.ViewModels"         
       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
       xmlns:views="clr-namespace:RabaMetroStyle.Views"
-      xmlns:local="using:RabaMetroStyle.Styles"      
+      xmlns:local="using:RabaMetroStyle.Styles" xmlns:i1="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:mul="clr-namespace:RabaMetroStyle.CustomControl"
       Background="White"
       mc:Ignorable="d">
 
@@ -134,7 +135,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="150" />                    
                 </Grid.RowDefinitions>
-                <ListView Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectedItem="{Binding SelectedMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView Grid.Row="0" Grid.Column="0" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesActive}" SelectionMode="Extended" mul:SelectedItemsBahavior.SelectedItems="{Binding SelectedActiveMacroFiles}" SelectedItem="{Binding SelectedMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.ContextMenu>
                         <ContextMenu Name="EnabledList" StaysOpen="true" Background="WhiteSmoke">
                             <MenuItem Header="Add" Name="EnabledListAdd" Command="{Binding AddMacroCommand}"/>
@@ -154,7 +155,7 @@
                                        Kind="KeyboardArrowLeft" />
                     </Button>
                 </StackPanel>
-                <ListView Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectedItem="{Binding SelectedDisabledMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                <ListView Grid.Row="0" Grid.Column="2" BorderThickness="1" BorderBrush="LightGray" ItemsSource="{Binding MacroFilesInActive}" SelectionMode="Extended" mul:SelectedItemsBahavior.SelectedItems="{Binding SelectedDisabledMacroFiles}" SelectedItem="{Binding SelectedDisabledMacroFile}" ScrollViewer.VerticalScrollBarVisibility="Auto">
                     <ListView.ContextMenu>
                         <ContextMenu Name="DisabledList" StaysOpen="true" Background="WhiteSmoke">
                             <MenuItem Header="Enable" Name="DisabledListEnable" Command="{Binding EnableMacroCommand}" IsEnabled="{Binding IsSelectDisabledMacroFile}"/>
