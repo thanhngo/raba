@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Input;
 
 namespace RabaMetroStyle.CustomControl
 {
@@ -47,7 +48,7 @@ namespace RabaMetroStyle.CustomControl
             if (d is ListBox listBox)
             {
                 selectedItems = listBox.SelectedItems;
-                listBox.SelectionMode = SelectionMode.Multiple;
+                listBox.SelectionMode = SelectionMode.Extended;
                 listBox.SelectionChanged += OnSelectionChanged;
             }
             if (selectedItems == null) return;
@@ -55,12 +56,13 @@ namespace RabaMetroStyle.CustomControl
             if (e.OldValue is INotifyCollectionChanged collection1)
                 collection1.CollectionChanged -= CollectionChangedEventHandler;
             if (e.NewValue is INotifyCollectionChanged collection2)
-                collection2.CollectionChanged += CollectionChangedEventHandler;
+                collection2.CollectionChanged += CollectionChangedEventHandler;            
         }
 
         private static void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var s = sender as DependencyObject;
+
             if (!GetIsBusy(s))
             {
                 SetIsBusy(s, true);

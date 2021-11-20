@@ -34,6 +34,7 @@ namespace RabaMetroStyle.ViewModels
         private string quickSaveVisibility = "Hidden";
         private string quickEditActionSectionVisibility = "Hidden";
         private string showHideRabaFile = "Visible";
+        private int totalPreviousSelectedActiveFile = 0;
 
         private int action { get; set; }
         private string command { get; set; }
@@ -122,6 +123,15 @@ namespace RabaMetroStyle.ViewModels
             }
         }
 
+        public int TotalPreviousSelectedActiveFile
+        {
+            get => this.totalPreviousSelectedActiveFile;
+            set
+            {
+                this.totalPreviousSelectedActiveFile = value;
+            }
+        }
+
         public string ExecutablePath { get; set; }
 
         public bool IsSelectDisabledMacroFile => !string.IsNullOrEmpty(this.selectedDisabledMacroFile);
@@ -186,11 +196,12 @@ namespace RabaMetroStyle.ViewModels
             get => this.selectedActiveMacroFiles;
             set
             {
-                selectedActiveMacroFiles.Clear();
+                this.selectedActiveMacroFiles.Clear();
                 foreach (var file in value)
                 {
                     selectedActiveMacroFiles.Add(file);
                 }
+
             }
         }
 
@@ -214,8 +225,15 @@ namespace RabaMetroStyle.ViewModels
             get => this.selectedDisabledMacroFile ;
             set
             {
-                //this.selectedMacroFile = string.Empty;
-                this.selectedDisabledMacroFile = value == null ? value : value + ".RABA.DISABLED";
+                this.SelectedMacroFile = null;
+                if(value != null)
+                {
+                    this.selectedActiveMacroFiles.Clear();
+                    this.totalPreviousSelectedActiveFile = 0;
+                    this.OnPropertyChanged($"SelectedMacroFile");
+                }
+                
+                this.selectedDisabledMacroFile = value == null ? value : value + ".RABA.DISABLED";                
                 this.OnPropertyChanged($"IsSelectMacroFile");
                 this.OnPropertyChanged($"IsSelectDisabledMacroFile");
                 this.OnPropertyChanged($"CanPurgeFile");
@@ -347,14 +365,35 @@ namespace RabaMetroStyle.ViewModels
         {
             get => this.selectedMacroFile;
             set
-            {                
-                if(this.SelectedActiveMacroFiles.Count > 0)
+            {
+                var removeSettingFile = false;
+                if(value != null)
                 {
-                    this.CurrentSettingsTable = null;                     
+                    this.selectedDisabledMacroFile = null;
+                    this.OnPropertyChanged($"SelectedDisabledMacroFile");
+                }                
+
+                if (this.SelectedActiveMacroFiles.Count - this.TotalPreviousSelectedActiveFile == 1 && this.SelectedActiveMacroFiles.Count != 2)
+                {
+                    removeSettingFile = true;
+                }
+                else
+                {
+                    if(this.TotalPreviousSelectedActiveFile - this.SelectedActiveMacroFiles.Count == 1 && this.TotalPreviousSelectedActiveFile != 3)
+                    {
+                        removeSettingFile = true;
+                    }
+                }                
+
+                if (removeSettingFile)
+                {
+                    this.CurrentSettingsTable = null;
+                    this.TotalPreviousSelectedActiveFile = this.SelectedActiveMacroFiles.Count;                    
                 }
                 else
                 {
                     this.selectedMacroFile = value == null ? value : value + ".RABA";
+                    this.TotalPreviousSelectedActiveFile = this.SelectedActiveMacroFiles.Count;
                     this.OnPropertyChanged($"IsSelectMacroFile");
                     this.OnPropertyChanged($"IsSelectDisabledMacroFile");
                     this.OnPropertyChanged();
@@ -725,7 +764,10 @@ namespace RabaMetroStyle.ViewModels
                     this.inactiveMacroFiles.Add(selectedMacroFile);
                     this.activeMacroFiles.Remove(selectedMacroFile);
                     this.CurrentSettingsTable = null;
-                }                
+                }
+
+                this.SelectedMacroFile = null;
+                this.totalPreviousSelectedActiveFile = 0;
             }
             else
             {
