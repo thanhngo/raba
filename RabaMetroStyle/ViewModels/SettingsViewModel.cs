@@ -373,17 +373,26 @@ namespace RabaMetroStyle.ViewModels
                     this.OnPropertyChanged($"SelectedDisabledMacroFile");
                 }                
 
-                if (this.SelectedActiveMacroFiles.Count - this.TotalPreviousSelectedActiveFile == 1 && this.SelectedActiveMacroFiles.Count != 2)
+                if(Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
                 {
-                    removeSettingFile = true;
-                }
-                else
-                {
-                    if(this.TotalPreviousSelectedActiveFile - this.SelectedActiveMacroFiles.Count == 1 && this.TotalPreviousSelectedActiveFile != 3)
+                    if (this.SelectedActiveMacroFiles.Count - this.TotalPreviousSelectedActiveFile == 1 && this.SelectedActiveMacroFiles.Count != 2)
                     {
                         removeSettingFile = true;
                     }
-                }                
+                    else
+                    {
+                        if (this.TotalPreviousSelectedActiveFile - this.SelectedActiveMacroFiles.Count == 1 && this.TotalPreviousSelectedActiveFile != 3)
+                        {
+                            removeSettingFile = true;
+                        }
+                    }
+                }
+                else
+                {
+                    this.TotalPreviousSelectedActiveFile = 1;
+                    this.SelectedActiveMacroFiles.Clear();
+                }
+                
 
                 if (removeSettingFile)
                 {
