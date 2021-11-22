@@ -825,7 +825,7 @@ namespace RabaService
 
             if (this.oDs.Tables.Count == 0)
             {
-                this.WriteToLog("File " + settingsFile + " does not in correct format ", "Application", "RabaService", EventLogEntryType.Information);
+                this.WriteToLog("File " + settingsFile + " does not has any Macro Action ", "Application", "RabaService", EventLogEntryType.Information);
                 return false;
             }
 
