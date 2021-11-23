@@ -373,7 +373,7 @@ namespace RabaMetroStyle.ViewModels
                     this.OnPropertyChanged($"SelectedDisabledMacroFile");
                 }                
 
-                if(Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
+                if(Keyboard.Modifiers.HasFlag(ModifierKeys.Control) || Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
                 {
                     if (this.SelectedActiveMacroFiles.Count - this.TotalPreviousSelectedActiveFile == 1 && this.SelectedActiveMacroFiles.Count != 2)
                     {
