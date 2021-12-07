@@ -48,6 +48,7 @@
                                 Focusable="False" />
                 <TextBlock Grid.Column="1"
                            VerticalAlignment="Center"
+                           HorizontalAlignment="Left"
                            FontSize="16"
                            Text="{Binding Label}" />
             </Grid>
