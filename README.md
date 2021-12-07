@@ -53,4 +53,7 @@ GUI update for
 - Service (On/Off Slider)
 - Update macro action folder display. Display all sub folders and files.
 
+Release Note version 5.1.0.3 - December 07, 2021
+- Grid column auto adjust width.
+
 

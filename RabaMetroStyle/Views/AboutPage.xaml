@@ -24,7 +24,7 @@
         <TextBlock Margin="24, 120,0,0"
                    HorizontalAlignment="Center"
                    FontSize="24"
-                   Text="Version 5.1.0.2" />
+                   Text="Version 5.1.0.3" />
         <TextBlock Margin="24, 160,0,0"
                    HorizontalAlignment="Center"
                    FontSize="24"
