@@ -28,6 +28,10 @@
         <TextBlock Margin="24, 160,0,0"
                    HorizontalAlignment="Center"
                    FontSize="24"
-                   Text="Copyright Meeda Inc" />
+                   Text="Copyright Meeda" />
+        <TextBlock Margin="24, 200,0,0"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   Text="Licensed to Rosenthal and Rosenthal" />
     </Grid>
 </Page>
